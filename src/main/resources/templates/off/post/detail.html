@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head -->
+<th:block th:replace="~{includes/off/head}" />
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <th:block th:replace="~{includes/off/sidebar}" />
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topper -->
+                <th:block th:replace="~{includes/off/topper}" />
+
+                <!-- /.container-fluid -->
+
+                <section class="feed">
+
+                    <div class="container-fluid">
+                        <div class="form-group row" id="off_post_detail">
+
+                            <!-- Off Post List -->
+
+                        </div>
+                    </div>
+
+                </section>
+
+            </div>
+            <!-- End of Main Content -->
+
+
+            <!-- Footer -->
+            <th:block th:replace="~{includes/off/footer}" />
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <th:block th:replace="~{includes/off/logout}" />
+
+    <!-- Script-->
+    <th:block th:replace="~{includes/off/script}" />
+
+    <script>
+        let post_id = window.location.pathname.split("/").pop();
+
+        $(document).ready(function(){
+            detail_off_post();
+        });
+
+        function detail_off_post() {
+            $.ajax({
+                url: "/api/offPost/detail",
+                method: "GET",
+                contentType : 'application/json; charset=utf-8',
+                headers:{
+                    "Authorization" : localStorage.getItem("Authorization")
+                },
+                data:{
+                    id: Number(post_id)
+                },
+                success: (data, status, xhr)=> {
+                    $("#off_post_detail").html("");
+                    $("#off_post_detail").append(
+                        "<div class=\"card col-sm-10 mb-4\">"
+                        + "<div class=\"card-body\">"
+                        + "<div class=\"d-flex justify-content-between align-items-center mb-2\">"
+                        + "<span class=\"fw-bold text-primary\">Anom</span>"
+                        + "<small class=\"text-muted\">" + data["createdAt"] + "</small></div>"
+                        + "<div class=\"mb-3 text-dark\">" + data["content"] + "</div><div>"
+                        + "<button class=\"btn btn-outline-secondary btn-sm me-2\">좋아요 <span class=\"ms-1\">4</span></button>"
+                        + "<button class=\"btn btn-outline-secondary btn-sm\">댓글 <span class=\"ms-1\">1</span></button>"
+                        + "</div></div></div>"
+                    );
+                },
+                error: (data, status, xhr) => {
+                    alert(JSON.stringify(data));
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

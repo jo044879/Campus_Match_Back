@@ -2,7 +2,7 @@ package com.pigs.holiday.security;
 
 import lombok.Getter;
 import lombok.Setter;
-import com.pigs.holiday.domain.user.User;
+import com.pigs.holiday.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

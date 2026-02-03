@@ -1,13 +1,16 @@
-package com.pigs.holiday.domain.user;
+package com.pigs.holiday.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
-import com.pigs.holiday.domain.AuditingFields;
 import com.pigs.holiday.dto.admin.AdminUserDto;
-import com.pigs.holiday.dto.user.UserDto;
+import com.pigs.holiday.dto.UserDto;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +23,15 @@ public class User extends AuditingFields {
     String university;
     String phone;
     String email;
+
+    @OneToMany(mappedBy = "user")
+    private List<ClubMember> clubMemberList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "uploader")
+    private List<GalleryImage> galleryImageList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Notification> NotificationList = new ArrayList<>();
 
     protected User(){}
     private User(String username, String password, String name, String university, String phone, String email) {

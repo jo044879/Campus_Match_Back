@@ -1,9 +1,9 @@
-package com.pigs.holiday.service.user;
+package com.pigs.holiday.service;
 
 import lombok.RequiredArgsConstructor;
-import com.pigs.holiday.domain.user.User;
-import com.pigs.holiday.dto.user.UserDto;
-import com.pigs.holiday.repository.user.UserRepository;
+import com.pigs.holiday.domain.User;
+import com.pigs.holiday.dto.UserDto;
+import com.pigs.holiday.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

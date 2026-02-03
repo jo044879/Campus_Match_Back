@@ -3,7 +3,7 @@ package com.pigs.holiday.dto.admin;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import com.pigs.holiday.domain.user.User;
+import com.pigs.holiday.domain.User;
 import com.pigs.holiday.dto.DefaultDto;
 
 import java.time.LocalDateTime;

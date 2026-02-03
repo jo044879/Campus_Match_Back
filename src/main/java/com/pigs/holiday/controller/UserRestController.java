@@ -1,8 +1,8 @@
-package com.pigs.holiday.controller.user;
+package com.pigs.holiday.controller;
 
 import lombok.RequiredArgsConstructor;
-import com.pigs.holiday.dto.user.UserDto;
-import com.pigs.holiday.service.user.UserService;
+import com.pigs.holiday.dto.UserDto;
+import com.pigs.holiday.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

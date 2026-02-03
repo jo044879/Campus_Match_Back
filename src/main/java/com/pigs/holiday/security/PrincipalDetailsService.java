@@ -1,9 +1,9 @@
 package com.pigs.holiday.security;
 
 import lombok.RequiredArgsConstructor;
-import com.pigs.holiday.domain.user.User;
+import com.pigs.holiday.domain.User;
 import com.pigs.holiday.exception.NoMatchingDataException;
-import com.pigs.holiday.repository.user.UserRepository;
+import com.pigs.holiday.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -1,7 +1,7 @@
-package com.pigs.holiday.dto.user;
+package com.pigs.holiday.dto;
 
 import lombok.*;
-import com.pigs.holiday.domain.user.User;
+import com.pigs.holiday.domain.User;
 
 public class UserDto {
 

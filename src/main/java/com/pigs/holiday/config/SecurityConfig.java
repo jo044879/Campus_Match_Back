@@ -2,7 +2,7 @@ package com.pigs.holiday.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import com.pigs.holiday.repository.user.UserRepository;
+import com.pigs.holiday.repository.UserRepository;
 import com.pigs.holiday.security.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

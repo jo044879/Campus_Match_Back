@@ -57,17 +57,20 @@ public class AdminUserService {
             throw new RuntimeException("no data");
         }
 
-        if(updateSevDto.getUsername() != null){
+        if(!updateSevDto.getUsername().isBlank()){
             user.setUsername(updateSevDto.getUsername());
         }
-        if(updateSevDto.getEmail() != null){
-            user.setEmail(updateSevDto.getEmail());
+        if(!updateSevDto.getName().isBlank()){
+            user.setName(updateSevDto.getName());
         }
-        if(updateSevDto.getUniversity() != null){
+        if(!updateSevDto.getUniversity().isBlank()){
             user.setUniversity(updateSevDto.getUniversity());
         }
-        if(updateSevDto.getNickname() != null){
-            user.setNickname(updateSevDto.getNickname());
+        if(!updateSevDto.getPhone().isBlank()){
+            user.setPhone(updateSevDto.getPhone());
+        }
+        if(!updateSevDto.getEmail().isBlank()){
+            user.setEmail(updateSevDto.getEmail());
         }
 
         adminUserRepository.save(user);

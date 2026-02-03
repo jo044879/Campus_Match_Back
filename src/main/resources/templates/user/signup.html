@@ -55,6 +55,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="user_name"
+                                           placeholder="Name">
+                                </div>
+
+                                <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="user_email"
                                         placeholder="Email Address">
                                 </div>
@@ -67,7 +72,7 @@
 
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user"
-                                            id="user_nickname" placeholder="Nickname">
+                                            id="user_phone" placeholder="Phone Number">
                                     </div>
                                 </div>
 
@@ -118,9 +123,10 @@
             let data = {
                 username: $('#user_username').val(),
                 password: $('#user_password').val(),
+                name: $('#user_name').val(),
                 email: $('#user_email').val(),
                 university: $('#user_university').val(),
-                nickname: $('#user_nickname').val()
+                phone: $('#user_phone').val(),
             };
 
             $.ajax({

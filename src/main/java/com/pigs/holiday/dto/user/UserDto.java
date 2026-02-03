@@ -10,11 +10,12 @@ public class UserDto {
     public static class SignupReqDto {
         public String username;
         public String password;
-        public String email;
+        public String name;
         public String university;
-        public String nickname;
+        public String phone;
+        public String email;
 
-        public User toEntity() { return User.of(getUsername(), getPassword(), getEmail(), getUniversity(), getNickname()); }
+        public User toEntity() { return User.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail()); }
     }
 
     // Signup Response Dto

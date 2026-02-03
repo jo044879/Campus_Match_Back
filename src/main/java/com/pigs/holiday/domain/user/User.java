@@ -16,19 +16,21 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class User extends AuditingFields {
     String username;
     String password;
-    String email;
+    String name;
     String university;
-    String nickname;
+    String phone;
+    String email;
 
     protected User(){}
-    private User(String username, String password, String email, String university, String nickname) {
+    private User(String username, String password, String name, String university, String phone, String email) {
         this.username = username;
         this.password = password;
-        this.email = email;
+        this.name = name;
         this.university = university;
-        this.nickname = nickname;
+        this.phone = phone;
+        this.email = email;
     }
-    public static User of(String username, String password, String email, String university, String nickname) { return new User(username, password, email, university, nickname); }
+    public static User of(String username, String password, String name, String university, String phone, String email) { return new User(username, password,  name, university, phone, email); }
 
     public UserDto.SignupResDto toSignupResDto() { return UserDto.SignupResDto.builder().id(getId()).build(); }
     public AdminUserDto.CreateResDto toCreateResDto() { return AdminUserDto.CreateResDto.builder().id(getId()).build(); }

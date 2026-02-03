@@ -14,11 +14,12 @@ public class AdminUserDto {
     // Create Request Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
-        String username;
-        String password;
-        String email;
-        String university;
-        String nickname;
+        public String username;
+        public String password;
+        public String name;
+        public String university;
+        public String phone;
+        public String email;
     }
 
     // Create Service Dto
@@ -26,7 +27,7 @@ public class AdminUserDto {
     public static class CreateSevDto extends CreateReqDto {
         Long reqUserId;
 
-        public User toEntity() { return User.of(getUsername(), getPassword(), getEmail(), getUniversity(), getNickname()); }
+        public User toEntity() { return User.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail()); }
     }
 
     // Create Response Dto
@@ -53,9 +54,10 @@ public class AdminUserDto {
         Long userId;
         String username;
         Boolean deleted;
-        String email;
+        String name;
         String university;
-        String nickname;
+        String phone;
+        String email;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -87,9 +89,10 @@ public class AdminUserDto {
     public static class UpdateReqDto extends DefaultDto.BaseDto {
         Long id;
         String username;
-        String email;
+        String name;
         String university;
-        String nickname;
+        String phone;
+        String email;
     }
 
     // Update Service Dto

@@ -1,5 +1,6 @@
 package com.pigs.holiday.domain;
 
+import com.pigs.holiday.dto.MatchHistoryDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,16 +29,15 @@ public class MatchHistory extends AuditingFields {
     @JoinColumn(name = "away_club_id", nullable = false)
     private Club awayClub;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mvp_player_id", nullable = false)
-    private User mvpPlayer;
-
     @OneToMany(mappedBy = "matchHistory")
     private List<Review> reviewList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "matchHistory")
+    private List<GalleryImage> galleryImageList = new ArrayList<>();
+
 
     protected MatchHistory(){}
-    private MatchHistory(LocalDateTime matchDate, int homeScore, int awayScore, String result, Boolean isOfficial, Club homeClub, Club awayClub, User mvpPlayer) {
+    private MatchHistory(LocalDateTime matchDate, int homeScore, int awayScore, String result, Boolean isOfficial, Club homeClub, Club awayClub) {
         this.matchDate = matchDate;
         this.homeScore = homeScore;
         this.awayScore = awayScore;
@@ -45,9 +45,8 @@ public class MatchHistory extends AuditingFields {
         this.isOfficial = isOfficial;
         this.homeClub = homeClub;
         this.awayClub = awayClub;
-        this.mvpPlayer = mvpPlayer;
     }
-    public static MatchHistory of(LocalDateTime matchDate, int homeScore, int awayScore, String result, Boolean isOfficial, Club homeClub, Club awayClub, User mvpPlayer) { return new MatchHistory(matchDate, homeScore, awayScore, result, isOfficial, homeClub, awayClub, mvpPlayer); }
+    public static MatchHistory of(LocalDateTime matchDate, int homeScore, int awayScore, String result, Boolean isOfficial, Club homeClub, Club awayClub) { return new MatchHistory(matchDate, homeScore, awayScore, result, isOfficial, homeClub, awayClub); }
 
     public MatchHistoryDto.CreateResDto toCreateResDto() { return MatchHistoryDto.CreateResDto.builder().id(getId()).build(); }
 }

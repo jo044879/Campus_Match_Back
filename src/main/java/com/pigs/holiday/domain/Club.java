@@ -1,5 +1,6 @@
 package com.pigs.holiday.domain;
 
+import com.pigs.holiday.dto.ClubDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.OneToMany;

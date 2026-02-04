@@ -2,25 +2,24 @@ package com.pigs.holiday.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pigs.holiday.domain.Club;
+import com.pigs.holiday.domain.GalleryImage;
+import com.pigs.holiday.domain.MatchPost;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
-public class ClubDto {
+public class MatchPostDto {
 
     // Create Request Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
-        String name;
-        String university;
         String sportCategory;
-        String region;
+        LocalDateTime matchDate;
+        String location;
         String description;
-        String logoUrl;
-        int mannerScore;
-        int totalWins;
-        int totalMatches;
+        String status;
+        Club club;
     }
 
     // Create Service Dto
@@ -28,16 +27,13 @@ public class ClubDto {
     public static class CreateSevDto extends CreateReqDto {
         Long reqUserId;
 
-        public Club toEntity() { return Club.of(
-                getName(),
-                getUniversity(),
+        public MatchPost toEntity() { return MatchPost.of(
                 getSportCategory(),
-                getRegion(),
+                getMatchDate(),
+                getLocation(),
                 getDescription(),
-                getLogoUrl(),
-                getMannerScore(),
-                getTotalWins(),
-                getTotalMatches()
+                getStatus(),
+                getClub()
         ); }
     }
 
@@ -68,31 +64,25 @@ public class ClubDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String name;
-        String university;
         String sportCategory;
-        String region;
+        LocalDateTime matchDate;
+        String location;
         String description;
-        String logoUrl;
-        int mannerScore;
-        int totalWins;
-        int totalMatches;
+        String status;
+        Club club;
 
-        public static DetailResDto toDetailResDto(Club club) {
-            return DetailResDto.builder()
-                    .id(club.getId())
-                    .deleted(club.getDeleted())
-                    .createdAt(club.getCreatedAt())
-                    .modifiedAt(club.getModifiedAt())
-                    .name(club.getName())
-                    .university(club.getUniversity())
-                    .sportCategory(club.getSportCategory())
-                    .region(club.getRegion())
-                    .description(club.getDescription())
-                    .logoUrl(club.getLogoUrl())
-                    .mannerScore(club.getMannerScore())
-                    .totalWins(club.getTotalWins())
-                    .totalMatches(club.getTotalMatches())
+        public static MatchPostDto.DetailResDto toDetailResDto(MatchPost matchPost) {
+            return MatchPostDto.DetailResDto.builder()
+                    .id(matchPost.getId())
+                    .deleted(matchPost.getDeleted())
+                    .createdAt(matchPost.getCreatedAt())
+                    .modifiedAt(matchPost.getModifiedAt())
+                    .sportCategory(matchPost.getSportCategory())
+                    .matchDate(matchPost.getMatchDate())
+                    .location(matchPost.getLocation())
+                    .description(matchPost.getDescription())
+                    .status(matchPost.getStatus())
+                    .club(matchPost.getClub())
                     .build();
         }
     }
@@ -112,31 +102,25 @@ public class ClubDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String name;
-        String university;
         String sportCategory;
-        String region;
+        LocalDateTime matchDate;
+        String location;
         String description;
-        String logoUrl;
-        int mannerScore;
-        int totalWins;
-        int totalMatches;
+        String status;
+        Club club;
 
-        public static ListResDto toListResDto(Club club) {
-            return ListResDto.builder()
-                    .id(club.getId())
-                    .deleted(club.getDeleted())
-                    .createdAt(club.getCreatedAt())
-                    .modifiedAt(club.getModifiedAt())
-                    .name(club.getName())
-                    .university(club.getUniversity())
-                    .sportCategory(club.getSportCategory())
-                    .region(club.getRegion())
-                    .description(club.getDescription())
-                    .logoUrl(club.getLogoUrl())
-                    .mannerScore(club.getMannerScore())
-                    .totalWins(club.getTotalWins())
-                    .totalMatches(club.getTotalMatches())
+        public static MatchPostDto.ListResDto toListResDto(MatchPost matchPost) {
+            return MatchPostDto.ListResDto.builder()
+                    .id(matchPost.getId())
+                    .deleted(matchPost.getDeleted())
+                    .createdAt(matchPost.getCreatedAt())
+                    .modifiedAt(matchPost.getModifiedAt())
+                    .sportCategory(matchPost.getSportCategory())
+                    .matchDate(matchPost.getMatchDate())
+                    .location(matchPost.getLocation())
+                    .description(matchPost.getDescription())
+                    .status(matchPost.getStatus())
+                    .club(matchPost.getClub())
                     .build();
         }
     }
@@ -145,15 +129,12 @@ public class ClubDto {
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class UpdateReqDto extends DefaultDto.BaseDto {
         Long id;
-        String name;
-        String university;
         String sportCategory;
-        String region;
+        LocalDateTime matchDate;
+        String location;
         String description;
-        String logoUrl;
-        int mannerScore = -1;
-        int totalWins = -1;
-        int totalMatches = -1;
+        String status;
+        Club club;
     }
 
     // Update Service Dto

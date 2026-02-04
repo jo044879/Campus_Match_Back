@@ -27,9 +27,6 @@ public class User extends AuditingFields {
     @OneToMany(mappedBy = "user")
     private List<ClubMember> clubMemberList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "uploader")
-    private List<GalleryImage> galleryImageList = new ArrayList<>();
-
     @OneToMany(mappedBy = "user")
     private List<Notification> NotificationList = new ArrayList<>();
 

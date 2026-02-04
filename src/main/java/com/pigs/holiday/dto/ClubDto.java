@@ -81,7 +81,7 @@ public class ClubDto {
 
     // List Service Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class ListSevDto {
+    public static class ListSevDto { //findAll
         Long reqUserId;
     }
 

@@ -1,8 +1,8 @@
 package com.pigs.holiday.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pigs.holiday.domain.Club;
-import com.pigs.holiday.domain.MatchRequest;
+import com.pigs.holiday.domain.Notification;
+import com.pigs.holiday.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
-public class MatchRequestDto {
+public class NotificationDto {
 
     @Getter
     @Setter
@@ -19,25 +19,28 @@ public class MatchRequestDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
-        String message;
-        String status;
-        Club receiveClub;
-        Club senderClub;
+        String type;
+        String content;
+        String relatedUrl;
+        Boolean isRead;
+        private User user;
     }
+
     @Getter
     @Setter
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateSevDto extends CreateReqDto {
-        Long reqUserID;
+        Long reqUserid;
 
-        public MatchRequest toEntity() {
-            return MatchRequest.of(
-                    getMessage(),
-                    getStatus(),
-                    getReceiveClub(),
-                    getSenderClub()
+        public Notification toEntity() {
+            return Notification.of(
+                    getType(),
+                    getContent(),
+                    getRelatedUrl(),
+                    getIsRead(),
+                    getUser()
             );
         }
     }
@@ -47,7 +50,7 @@ public class MatchRequestDto {
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateResDto extends DefaultDto.BaseDto{
+    public static class CreateResDto {
         Long id;
     }
 
@@ -81,22 +84,34 @@ public class MatchRequestDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String message;
-        String status;
-        Club receiveClub;
-        Club senderClub;
-        public static MatchRequestDto.DetailResDto toDetailResDto(MatchRequest matchRequest) {
+        String type;
+        String content;
+        String relatedUrl;
+        Boolean isRead;
+        private User user;
+
+        public static NotificationDto.DetailResDto toDetailResDto(Notification notification) {
             return DetailResDto.builder()
-                    .id(matchRequest.getId())
-                    .deleted(matchRequest.getDeleted())
-                    .createdAt(matchRequest.getCreatedAt())
-                    .modifiedAt(matchRequest.getModifiedAt())
-                    .message(matchRequest.getMessage())
-                    .status(matchRequest.getStatus())
-                    .receiveClub(matchRequest.getReceiveClub())
-                    .senderClub(matchRequest.getSenderClub())
+                    .id(notification.getId())
+                    .deleted(notification.getDeleted())
+                    .createdAt(notification.getCreatedAt())
+                    .modifiedAt(notification.getModifiedAt())
+                    .type(notification.getType())
+                    .content(notification.getContent())
+                    .relatedUrl(notification.getRelatedUrl())
+                    .isRead(notification.getIsRead())
+                    .user(notification.getUser())
                     .build();
         }
+    }
+
+    @Getter
+    @Setter
+    @SuperBuilder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ListSevDto {
+        Long reqUserId;
     }
 
     @Getter
@@ -111,21 +126,23 @@ public class MatchRequestDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String message;
-        String status;
-        Club receiveClub;
-        Club senderClub;
+        String type;
+        String content;
+        String relatedUrl;
+        Boolean isRead;
+        private User user;
 
-        public static MatchRequestDto.ListResDto toListResDto(MatchRequest matchRequest) {
+        public static ListResDto toListResDto(Notification notification) {
             return ListResDto.builder()
-                    .id(matchRequest.getId())
-                    .deleted(matchRequest.getDeleted())
-                    .createdAt(matchRequest.getCreatedAt())
-                    .modifiedAt(matchRequest.getModifiedAt())
-                    .message(matchRequest.getMessage())
-                    .status(matchRequest.getStatus())
-                    .receiveClub(matchRequest.getReceiveClub())
-                    .senderClub(matchRequest.getSenderClub())
+                    .id(notification.getId())
+                    .deleted(notification.getDeleted())
+                    .createdAt(notification.getCreatedAt())
+                    .modifiedAt(notification.getModifiedAt())
+                    .type(notification.getType())
+                    .content(notification.getContent())
+                    .relatedUrl(notification.getRelatedUrl())
+                    .isRead(notification.getIsRead())
+                    .user(notification.getUser())
                     .build();
         }
     }
@@ -135,12 +152,13 @@ public class MatchRequestDto {
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpdateRequestDto extends DefaultDto.BaseDto{
+    public static class UpdateReqDto extends DefaultDto.BaseDto {
         Long id;
-        String message;
-        String status;
-        Club receiveClub;
-        Club senderClub;
+        String type;
+        String content;
+        String relatedUrl;
+        Boolean isRead;
+        private User user;
     }
 
     @Getter
@@ -148,7 +166,7 @@ public class MatchRequestDto {
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpdateSevDto extends UpdateRequestDto {
+    public static class UpdateSevDto extends UpdateReqDto {
         Long reqUserId;
     }
 
@@ -169,8 +187,6 @@ public class MatchRequestDto {
     public static class DeleteSevDto extends DeleteReqDto {
         Long reqUserId;
     }
+
+
 }
-
-
-
-

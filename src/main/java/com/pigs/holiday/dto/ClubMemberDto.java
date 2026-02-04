@@ -2,25 +2,22 @@ package com.pigs.holiday.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pigs.holiday.domain.Club;
+import com.pigs.holiday.domain.ClubMember;
+import com.pigs.holiday.domain.User;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
-public class ClubDto {
+public class ClubMemberDto {
 
     // Create Request Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
-        String name;
-        String university;
-        String sportCategory;
-        String region;
-        String description;
-        String logoUrl;
-        int mannerScore;
-        int totalWins;
-        int totalMatches;
+        String role;
+        String status;
+        Club club;
+        User user;
     }
 
     // Create Service Dto
@@ -28,16 +25,11 @@ public class ClubDto {
     public static class CreateSevDto extends CreateReqDto {
         Long reqUserId;
 
-        public Club toEntity() { return Club.of(
-                getName(),
-                getUniversity(),
-                getSportCategory(),
-                getRegion(),
-                getDescription(),
-                getLogoUrl(),
-                getMannerScore(),
-                getTotalWins(),
-                getTotalMatches()
+        public ClubMember toEntity() { return ClubMember.of(
+                getRole(),
+                getStatus(),
+                getClub(),
+                getUser()
         ); }
     }
 
@@ -68,38 +60,28 @@ public class ClubDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String name;
-        String university;
-        String sportCategory;
-        String region;
-        String description;
-        String logoUrl;
-        int mannerScore;
-        int totalWins;
-        int totalMatches;
+        String role;
+        String status;
+        Club club;
+        User user;
 
-        public static DetailResDto toDetailResDto(Club club) {
-            return DetailResDto.builder()
-                    .id(club.getId())
-                    .deleted(club.getDeleted())
-                    .createdAt(club.getCreatedAt())
-                    .modifiedAt(club.getModifiedAt())
-                    .name(club.getName())
-                    .university(club.getUniversity())
-                    .sportCategory(club.getSportCategory())
-                    .region(club.getRegion())
-                    .description(club.getDescription())
-                    .logoUrl(club.getLogoUrl())
-                    .mannerScore(club.getMannerScore())
-                    .totalWins(club.getTotalWins())
-                    .totalMatches(club.getTotalMatches())
+        public static ClubMemberDto.DetailResDto toDetailResDto(ClubMember clubMember) {
+            return ClubMemberDto.DetailResDto.builder()
+                    .id(clubMember.getId())
+                    .deleted(clubMember.getDeleted())
+                    .createdAt(clubMember.getCreatedAt())
+                    .modifiedAt(clubMember.getModifiedAt())
+                    .role(clubMember.getRole())
+                    .status(clubMember.getStatus())
+                    .club(clubMember.getClub())
+                    .user(clubMember.getUser())
                     .build();
         }
     }
 
     // List Service Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class ListSevDto { //findAll
+    public static class ListSevDto {
         Long reqUserId;
     }
 
@@ -112,31 +94,21 @@ public class ClubDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String name;
-        String university;
-        String sportCategory;
-        String region;
-        String description;
-        String logoUrl;
-        int mannerScore;
-        int totalWins;
-        int totalMatches;
+        String role;
+        String status;
+        Club club;
+        User user;
 
-        public static ListResDto toListResDto(Club club) {
-            return ListResDto.builder()
-                    .id(club.getId())
-                    .deleted(club.getDeleted())
-                    .createdAt(club.getCreatedAt())
-                    .modifiedAt(club.getModifiedAt())
-                    .name(club.getName())
-                    .university(club.getUniversity())
-                    .sportCategory(club.getSportCategory())
-                    .region(club.getRegion())
-                    .description(club.getDescription())
-                    .logoUrl(club.getLogoUrl())
-                    .mannerScore(club.getMannerScore())
-                    .totalWins(club.getTotalWins())
-                    .totalMatches(club.getTotalMatches())
+        public static ClubMemberDto.ListResDto toListResDto(ClubMember clubMember) {
+            return ClubMemberDto.ListResDto.builder()
+                    .id(clubMember.getId())
+                    .deleted(clubMember.getDeleted())
+                    .createdAt(clubMember.getCreatedAt())
+                    .modifiedAt(clubMember.getModifiedAt())
+                    .role(clubMember.getRole())
+                    .status(clubMember.getStatus())
+                    .club(clubMember.getClub())
+                    .user(clubMember.getUser())
                     .build();
         }
     }
@@ -145,15 +117,10 @@ public class ClubDto {
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class UpdateReqDto extends DefaultDto.BaseDto {
         Long id;
-        String name;
-        String university;
-        String sportCategory;
-        String region;
-        String description;
-        String logoUrl;
-        int mannerScore = -1;
-        int totalWins = -1;
-        int totalMatches = -1;
+        String role;
+        String status;
+        Club club;
+        User user;
     }
 
     // Update Service Dto

@@ -1,5 +1,6 @@
 package com.pigs.holiday.domain;
 
+import com.pigs.holiday.dto.ClubMemberDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

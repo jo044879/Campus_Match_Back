@@ -1,56 +1,50 @@
 package com.pigs.holiday.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pigs.holiday.domain.Club;
-import com.pigs.holiday.domain.MatchRequest;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.pigs.holiday.domain.RefreshToken;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
-public class MatchRequestDto {
-
+public class RefreshTokenDto {
     @Getter
     @Setter
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
-        String message;
-        String status;
-        Club receiveClub;
-        Club senderClub;
+        Long userId;
+        String token;
     }
+
+    // Create Service Dto
     @Getter
     @Setter
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateSevDto extends CreateReqDto {
-        Long reqUserID;
+        Long reqUserId;
 
-        public MatchRequest toEntity() {
-            return MatchRequest.of(
-                    getMessage(),
-                    getStatus(),
-                    getReceiveClub(),
-                    getSenderClub()
+        public RefreshToken toEntity() {
+            return RefreshToken.of(
+                    getToken(),
+                    getUserId()
             );
         }
     }
 
     @Getter
     @Setter
-    @SuperBuilder
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateResDto extends DefaultDto.BaseDto{
+    public static class CreateResDto {
         Long id;
     }
 
+    // Detail Request Dto
     @Getter
     @Setter
     @SuperBuilder
@@ -60,6 +54,7 @@ public class MatchRequestDto {
         Long id;
     }
 
+    // Detail Service Dto
     @Getter
     @Setter
     @SuperBuilder
@@ -71,7 +66,7 @@ public class MatchRequestDto {
 
     @Getter
     @Setter
-    @SuperBuilder
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DetailResDto {
@@ -81,27 +76,35 @@ public class MatchRequestDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String message;
-        String status;
-        Club receiveClub;
-        Club senderClub;
-        public static MatchRequestDto.DetailResDto toDetailResDto(MatchRequest matchRequest) {
+        Long userId;
+        String token;
+
+        public static RefreshTokenDto.DetailResDto toDetailResDto(RefreshToken refreshToken) {
             return DetailResDto.builder()
-                    .id(matchRequest.getId())
-                    .deleted(matchRequest.getDeleted())
-                    .createdAt(matchRequest.getCreatedAt())
-                    .modifiedAt(matchRequest.getModifiedAt())
-                    .message(matchRequest.getMessage())
-                    .status(matchRequest.getStatus())
-                    .receiveClub(matchRequest.getReceiveClub())
-                    .senderClub(matchRequest.getSenderClub())
+                    .id(refreshToken.getId())
+                    .deleted(refreshToken.getDeleted())
+                    .createdAt(refreshToken.getCreatedAt())
+                    .modifiedAt(refreshToken.getModifiedAt())
+                    .userId(refreshToken.getUserId())
+                    .token(refreshToken.getToken())
                     .build();
         }
     }
 
+    // List Service Dto
     @Getter
     @Setter
     @SuperBuilder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ListSevDto {
+        Long reqUserId;
+    }
+
+    // List Response Dto
+    @Getter
+    @Setter
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ListResDto {
@@ -111,47 +114,44 @@ public class MatchRequestDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String message;
-        String status;
-        Club receiveClub;
-        Club senderClub;
+        Long userId;
+        String token;
 
-        public static MatchRequestDto.ListResDto toListResDto(MatchRequest matchRequest) {
-            return ListResDto.builder()
-                    .id(matchRequest.getId())
-                    .deleted(matchRequest.getDeleted())
-                    .createdAt(matchRequest.getCreatedAt())
-                    .modifiedAt(matchRequest.getModifiedAt())
-                    .message(matchRequest.getMessage())
-                    .status(matchRequest.getStatus())
-                    .receiveClub(matchRequest.getReceiveClub())
-                    .senderClub(matchRequest.getSenderClub())
+        public static RefreshTokenDto.DetailResDto toListResDto(RefreshToken refreshToken) {
+            return DetailResDto.builder()
+                    .id(refreshToken.getId())
+                    .deleted(refreshToken.getDeleted())
+                    .createdAt(refreshToken.getCreatedAt())
+                    .modifiedAt(refreshToken.getModifiedAt())
+                    .userId(refreshToken.getUserId())
+                    .token(refreshToken.getToken())
                     .build();
         }
     }
 
+    // Update Request Dto
     @Getter
     @Setter
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpdateRequestDto extends DefaultDto.BaseDto{
+    public static class UpdateReqDto extends DefaultDto.BaseDto {
         Long id;
-        String message;
-        String status;
-        Club receiveClub;
-        Club senderClub;
+        Long userId;
+        String token;
     }
 
+    // Update Service Dto
     @Getter
     @Setter
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpdateSevDto extends UpdateRequestDto {
+    public static class UpdateSevDto extends UpdateReqDto {
         Long reqUserId;
     }
 
+    // Delete Request Dto
     @Getter
     @Setter
     @SuperBuilder
@@ -161,6 +161,7 @@ public class MatchRequestDto {
         Long id;
     }
 
+    // Delete Service Dto
     @Getter
     @Setter
     @SuperBuilder
@@ -169,8 +170,6 @@ public class MatchRequestDto {
     public static class DeleteSevDto extends DeleteReqDto {
         Long reqUserId;
     }
+
+
 }
-
-
-
-

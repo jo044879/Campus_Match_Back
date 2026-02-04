@@ -12,13 +12,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class GalleryImage extends AuditingFields {
     String imageUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "club_id", nullable = false)
-    private Club club;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uploader_id", nullable = false)
-    private User uploader;
 
     protected GalleryImage(){}
     private GalleryImage(String imageUrl, Club club, User uploader) {

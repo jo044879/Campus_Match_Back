@@ -35,9 +35,6 @@ public class Club extends AuditingFields {
     private List<MatchRequest> senderClubIdList = new ArrayList<>();
 
     @OneToMany(mappedBy = "club")
-    private List<GalleryImage> galleryImageList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "club")
     private List<MatchPost> matchPostList = new ArrayList<>();
 
     @OneToMany(mappedBy = "homeClub")

@@ -1,7 +1,7 @@
 package com.pigs.holiday.service.admin;
 
+import com.pigs.holiday.domain.Club;
 import lombok.RequiredArgsConstructor;
-import com.pigs.holiday.domain.User;
 import com.pigs.holiday.dto.admin.AdminUserDto;
 import com.pigs.holiday.dto.admin.RoleUserDto;
 import com.pigs.holiday.mapper.admin.AdminUserMapper;
@@ -52,41 +52,41 @@ public class AdminUserService {
     public void update(AdminUserDto.UpdateSevDto updateSevDto){
         roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(updateSevDto.getReqUserId()).permission(permission).func(180).build());
 
-        User user = adminUserRepository.findById(updateSevDto.getId()).orElse(null);
-        if(user == null){
+        Club club = adminUserRepository.findById(updateSevDto.getId()).orElse(null);
+        if(club == null){
             throw new RuntimeException("no data");
         }
 
         if(!updateSevDto.getUsername().isBlank()){
-            user.setUsername(updateSevDto.getUsername());
+            club.setUsername(updateSevDto.getUsername());
         }
         if(!updateSevDto.getName().isBlank()){
-            user.setName(updateSevDto.getName());
+            club.setName(updateSevDto.getName());
         }
         if(!updateSevDto.getUniversity().isBlank()){
-            user.setUniversity(updateSevDto.getUniversity());
+            club.setUniversity(updateSevDto.getUniversity());
         }
         if(!updateSevDto.getPhone().isBlank()){
-            user.setPhone(updateSevDto.getPhone());
+            club.setPhone(updateSevDto.getPhone());
         }
         if(!updateSevDto.getEmail().isBlank()){
-            user.setEmail(updateSevDto.getEmail());
+            club.setEmail(updateSevDto.getEmail());
         }
 
-        adminUserRepository.save(user);
+        adminUserRepository.save(club);
     }
 
     // Delete
     public void delete(AdminUserDto.DeleteSevDto deleteSevDto){
         roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(deleteSevDto.getReqUserId()).permission(permission).func(200).build());
 
-        User user = adminUserRepository.findById(deleteSevDto.getId()).orElse(null);
-        if(user == null){
+        Club club = adminUserRepository.findById(deleteSevDto.getId()).orElse(null);
+        if(club == null){
             throw new RuntimeException("no data");
         }
 
-        user.setDeleted(true);
+        club.setDeleted(true);
 
-        adminUserRepository.save(user);
+        adminUserRepository.save(club);
     }
 }

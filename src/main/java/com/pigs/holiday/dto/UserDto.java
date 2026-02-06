@@ -1,7 +1,7 @@
 package com.pigs.holiday.dto;
 
 import lombok.*;
-import com.pigs.holiday.domain.User;
+import com.pigs.holiday.domain.Club;
 
 public class UserDto {
 
@@ -15,7 +15,7 @@ public class UserDto {
         public String phone;
         public String email;
 
-        public User toEntity() { return User.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail()); }
+        public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail()); }
     }
 
     // Signup Response Dto

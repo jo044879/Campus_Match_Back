@@ -7,7 +7,7 @@
 <script id="list-template" type="text/x-handlebars-template">
     <tr>
         <td>{{id}}</td>
-        <td class='cursor_pointer' onclick='location.href = "/admin/user/detail/{{id}}"'>{{username}}</td>
+        <td class='cursor_pointer' onclick='location.href = "/admin/club/detail/{{id}}"'>{{username}}</td>
         <td>{{deleted}}</td>
         <td>{{createdAt}}</td>
         <td>{{modifiedAt}}</td>
@@ -101,26 +101,26 @@
                     <div class="form-group row">
 
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" id="user_username" placeholder="Username" required>
+                            <input type="text" class="form-control form-control-club" id="user_username" placeholder="Username" required>
                         </div>
 
                         <div class="col-sm-6">
-                            <input type="password" class="form-control form-control-user" id="user_password" placeholder="Password" required>
+                            <input type="password" class="form-control form-control-club" id="user_password" placeholder="Password" required>
                         </div>
 
                     </div>
 
                     <div class="form-group">
-                        <input type="email" class="form-control form-control-user" id="user_email" placeholder="Email Address" required>
+                        <input type="email" class="form-control form-control-club" id="user_email" placeholder="Email Address" required>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control form-control-user" id="user_university" placeholder="University" required>
+                            <input type="text" class="form-control form-control-club" id="user_university" placeholder="University" required>
                         </div>
 
                         <div class="col-sm-6">
-                            <input type="text" class="form-control form-control-user" id="user_nickname" placeholder="Nickname" required>
+                            <input type="text" class="form-control form-control-club" id="user_nickname" placeholder="Nickname" required>
                         </div>
                     </div>
                 </div>

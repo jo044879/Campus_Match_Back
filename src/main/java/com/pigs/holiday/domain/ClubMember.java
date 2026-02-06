@@ -16,20 +16,20 @@ public class ClubMember extends AuditingFields {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "club_id", nullable = false)
-    private Club club;
+    private ClubTest clubTest;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Club club;
 
     protected ClubMember(){}
-    private ClubMember(String role, String status, Club club, User user) {
+    private ClubMember(String role, String status, ClubTest clubTest, Club club) {
         this.role = role;
         this.status = status;
+        this.clubTest = clubTest;
         this.club = club;
-        this.user = user;
     }
-    public static ClubMember of(String role, String status, Club club, User user) { return new ClubMember(role, status, club, user); }
+    public static ClubMember of(String role, String status, ClubTest clubTest, Club club) { return new ClubMember(role, status, clubTest, club); }
 
     public ClubMemberDto.CreateResDto toCreateResDto() { return ClubMemberDto.CreateResDto.builder().id(getId()).build(); }
 }

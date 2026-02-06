@@ -30,7 +30,7 @@
             success: (data, status, xhr)=>{
                 localStorage.clear();
                 alert(JSON.stringify(status));
-                location.href = "/user/login";
+                location.href = "/club/login";
             },
             error: (data, status, xhr)=>{
                 alert(JSON.stringify(data));

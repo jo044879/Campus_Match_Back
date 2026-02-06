@@ -53,11 +53,11 @@ public class ClubMemberService {
         if(!updateSevDto.getStatus().isBlank()){
             ClubMember.setStatus(updateSevDto.getStatus());
         }
+        if(updateSevDto.getClubTest()!=null){
+            ClubMember.setClubTest(updateSevDto.getClubTest());
+        }
         if(updateSevDto.getClub()!=null){
             ClubMember.setClub(updateSevDto.getClub());
-        }
-        if(updateSevDto.getUser()!=null){
-            ClubMember.setUser(updateSevDto.getUser());
         }
 
     }

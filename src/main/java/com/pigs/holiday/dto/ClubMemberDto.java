@@ -2,8 +2,8 @@ package com.pigs.holiday.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pigs.holiday.domain.Club;
+import com.pigs.holiday.domain.ClubTest;
 import com.pigs.holiday.domain.ClubMember;
-import com.pigs.holiday.domain.User;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -16,8 +16,8 @@ public class ClubMemberDto {
     public static class CreateReqDto extends DefaultDto.BaseDto {
         String role;
         String status;
+        ClubTest clubTest;
         Club club;
-        User user;
     }
 
     // Create Service Dto
@@ -28,8 +28,8 @@ public class ClubMemberDto {
         public ClubMember toEntity() { return ClubMember.of(
                 getRole(),
                 getStatus(),
-                getClub(),
-                getUser()
+                getClubTest(),
+                getClub()
         ); }
     }
 
@@ -62,8 +62,8 @@ public class ClubMemberDto {
         LocalDateTime modifiedAt;
         String role;
         String status;
+        ClubTest clubTest;
         Club club;
-        User user;
 
         public static ClubMemberDto.DetailResDto toDetailResDto(ClubMember clubMember) {
             return ClubMemberDto.DetailResDto.builder()
@@ -73,8 +73,8 @@ public class ClubMemberDto {
                     .modifiedAt(clubMember.getModifiedAt())
                     .role(clubMember.getRole())
                     .status(clubMember.getStatus())
+                    .clubTest(clubMember.getClubTest())
                     .club(clubMember.getClub())
-                    .user(clubMember.getUser())
                     .build();
         }
     }
@@ -96,8 +96,8 @@ public class ClubMemberDto {
         LocalDateTime modifiedAt;
         String role;
         String status;
+        ClubTest clubTest;
         Club club;
-        User user;
 
         public static ClubMemberDto.ListResDto toListResDto(ClubMember clubMember) {
             return ClubMemberDto.ListResDto.builder()
@@ -107,8 +107,8 @@ public class ClubMemberDto {
                     .modifiedAt(clubMember.getModifiedAt())
                     .role(clubMember.getRole())
                     .status(clubMember.getStatus())
+                    .clubTest(clubMember.getClubTest())
                     .club(clubMember.getClub())
-                    .user(clubMember.getUser())
                     .build();
         }
     }
@@ -119,8 +119,8 @@ public class ClubMemberDto {
         Long id;
         String role;
         String status;
+        ClubTest clubTest;
         Club club;
-        User user;
     }
 
     // Update Service Dto

@@ -21,21 +21,21 @@
         SELECT role_user.user_id as resId,
                role_user.modified_at as addedAt,
                role_user.add_user_id as addUserId,
-               user.username as resName,
-               user.deleted as resDeleted
+               club.username as resName,
+               club.deleted as resDeleted
         FROM role_user
-        JOIN user ON role_user.user_id = user.id
+        JOIN club ON role_user.user_id = club.id
         WHERE role_user.role_id = #{reqId}
         <if test = "deleted != null">AND role_user.deleted = #{deleted}</if>
     </select>
 
     <!--AddUserList-->
     <select id="addUserList" parameterType="hashMap" resultType="com.pigs.holiday.dto.admin.RoleUserDto$AddListResDto">
-        SELECT user.id as resId,
-               user.username as resName,
-               user.deleted as resDeleted
-        FROM user
-        LEFT JOIN role_user ON user.id = role_user.user_id
+        SELECT club.id as resId,
+               club.username as resName,
+               club.deleted as resDeleted
+        FROM club
+        LEFT JOIN role_user ON club.id = role_user.user_id
                            AND role_user.role_id = #{reqId}
         WHERE (role_user.user_id IS NULL
         <if test = "deleted != null">OR role_user.deleted = #{deleted}</if>)

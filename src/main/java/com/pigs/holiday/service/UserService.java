@@ -1,7 +1,7 @@
 package com.pigs.holiday.service;
 
 import lombok.RequiredArgsConstructor;
-import com.pigs.holiday.domain.User;
+import com.pigs.holiday.domain.Club;
 import com.pigs.holiday.dto.UserDto;
 import com.pigs.holiday.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,15 +17,15 @@ public class UserService {
     // Signup
     public UserDto.SignupResDto signup(UserDto.SignupReqDto signupReqDto){
 
-        User user = userRepository.findByUsername(signupReqDto.getUsername()).orElse(null);
-        if(user != null) {
+        Club club = userRepository.findByUsername(signupReqDto.getUsername()).orElse(null);
+        if(club != null) {
             throw new RuntimeException("Already exist");
         }
 
         signupReqDto.setPassword(bCryptPasswordEncoder.encode(signupReqDto.getPassword()));
-        user = userRepository.save(signupReqDto.toEntity());
+        club = userRepository.save(signupReqDto.toEntity());
 
-        return user.toSignupResDto();
+        return club.toSignupResDto();
     }
 
 }

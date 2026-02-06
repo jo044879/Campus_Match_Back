@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,6 +24,9 @@ public class MatchPost extends AuditingFields {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "club_id", nullable = false)
     private Club club;
+
+    @OneToMany(mappedBy = "Notification")
+    private List<Notification> notificationsList = new ArrayList<>();
 
     protected MatchPost(){}
     private MatchPost(String sportCategory, LocalDateTime matchDate, String location, String description, String status, Club club) {

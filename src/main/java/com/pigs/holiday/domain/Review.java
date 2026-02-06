@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+
+
+//리뷰는 erd에 존재하지 않는데 일단 삭제하지 않고 놔둠
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)

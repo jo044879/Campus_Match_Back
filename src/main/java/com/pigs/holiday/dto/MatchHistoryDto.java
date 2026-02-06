@@ -21,6 +21,7 @@ public class MatchHistoryDto {
         String location;
         String matchType;
         String result;
+        String title;
         Club homeClub;
         Club awayClub;
     }
@@ -40,6 +41,7 @@ public class MatchHistoryDto {
                     getLocation(),
                     getMatchType(),
                     getResult(),
+                    getTitle(),
                     getHomeClub(),
                     getAwayClub()
             );
@@ -93,6 +95,7 @@ public class MatchHistoryDto {
         String location;
         String matchType;
         String result;
+        String title;
         Club homeClub;
         Club awayClub;
 
@@ -106,6 +109,7 @@ public class MatchHistoryDto {
                     .location(matchHistory.getLocation())
                     .matchType(matchHistory.getMatchType())
                     .result(matchHistory.getResult())
+                    .title(matchHistory.getTitle())
                     .homeClub(matchHistory.getHomeClub())
                     .awayClub(matchHistory.getAwayClub())
                     .build();
@@ -139,6 +143,7 @@ public class MatchHistoryDto {
         String location;
         String matchType;
         String result;
+        String title;
         Club homeClub;
         Club awayClub;
 
@@ -152,6 +157,7 @@ public class MatchHistoryDto {
                     .location(matchHistory.getLocation())
                     .matchType(matchHistory.getMatchType())
                     .result(matchHistory.getResult())
+                    .title(matchHistory.getTitle())
                     .homeClub(matchHistory.getHomeClub())
                     .awayClub(matchHistory.getAwayClub())
                     .build();
@@ -170,6 +176,7 @@ public class MatchHistoryDto {
         String location;
         String matchType;
         String result;
+        String title;
         Club homeClub;
         Club awayClub;
     }

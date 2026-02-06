@@ -19,6 +19,7 @@ public class MatchHistory extends AuditingFields {
     String location;
     String matchType;
     String result;
+    String title;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_club_id", nullable = false)
@@ -38,17 +39,18 @@ public class MatchHistory extends AuditingFields {
     protected MatchHistory() {
     }
 
-    private MatchHistory(LocalDateTime matchDate, String location, String matchType, String result, Club homeClub, Club awayClub) {
+    private MatchHistory(LocalDateTime matchDate, String location, String matchType, String result, String title, Club homeClub, Club awayClub) {
         this.matchDate = matchDate;
         this.location = location;
         this.matchType = matchType;
         this.result = result;
+        this.title = title;
         this.homeClub = homeClub;
         this.awayClub = awayClub;
     }
 
-    public static MatchHistory of(LocalDateTime matchDate, String location, String matchType, String result, Club homeClub, Club awayClub) {
-        return new MatchHistory(matchDate, location, matchType, result, homeClub, awayClub);
+    public static MatchHistory of(LocalDateTime matchDate, String location, String matchType, String result, String title, Club homeClub, Club awayClub) {
+        return new MatchHistory(matchDate, location, matchType, result, title, homeClub, awayClub);
     }
 
     public MatchHistoryDto.CreateResDto toCreateResDto() {

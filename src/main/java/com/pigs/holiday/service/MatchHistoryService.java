@@ -62,11 +62,11 @@ public class MatchHistoryService {
         if(updateSevDto.getIsOfficial() != null){
             MatchHistory.setIsOfficial(updateSevDto.getIsOfficial());
         }
-        if(updateSevDto.getHomeClub() != null){
-            MatchHistory.setHomeClub(updateSevDto.getHomeClub());
+        if(updateSevDto.getHomeClubTest() != null){
+            MatchHistory.setHomeClubTest(updateSevDto.getHomeClubTest());
         }
-        if(updateSevDto.getAwayClub() != null){
-            MatchHistory.setAwayClub(updateSevDto.getAwayClub());
+        if(updateSevDto.getAwayClubTest() != null){
+            MatchHistory.setAwayClubTest(updateSevDto.getAwayClubTest());
         }
     }
 

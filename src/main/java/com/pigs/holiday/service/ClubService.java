@@ -1,8 +1,7 @@
 package com.pigs.holiday.service;
 
-import com.pigs.holiday.domain.Club;
+import com.pigs.holiday.domain.ClubTest;
 import com.pigs.holiday.dto.ClubDto;
-import com.pigs.holiday.dto.admin.RoleUserDto;
 import com.pigs.holiday.repository.ClubRepository;
 import com.pigs.holiday.service.admin.RoleUserService;
 import jakarta.persistence.EntityNotFoundException;
@@ -36,9 +35,9 @@ public class ClubService {
 
     // List
     public List<ClubDto.ListResDto> list(ClubDto.ListSevDto listSevDto){
-        List<Club> clubList = clubRepository.findAll();
+        List<ClubTest> clubTestList = clubRepository.findAll();
 
-        return clubList.stream().map(ClubDto.ListResDto::toListResDto).toList();
+        return clubTestList.stream().map(ClubDto.ListResDto::toListResDto).toList();
     }
 
     // Update
@@ -46,34 +45,34 @@ public class ClubService {
     public void update(ClubDto.UpdateSevDto updateSevDto){
         // roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(updateSevDto.getReqUserId()).permission(permission).func(180).build());
 
-        Club Club = clubRepository.findById(updateSevDto.getId()).orElseThrow(()-> new EntityNotFoundException("ClubService update: No Data"));
+        ClubTest ClubTest = clubRepository.findById(updateSevDto.getId()).orElseThrow(()-> new EntityNotFoundException("ClubService update: No Data"));
 
         if(!updateSevDto.getName().isBlank()){
-            Club.setName(updateSevDto.getName());
+            ClubTest.setName(updateSevDto.getName());
         }
         if(!updateSevDto.getUniversity().isBlank()){
-            Club.setUniversity(updateSevDto.getUniversity());
+            ClubTest.setUniversity(updateSevDto.getUniversity());
         }
         if(!updateSevDto.getSportCategory().isBlank()){
-            Club.setSportCategory(updateSevDto.getSportCategory());
+            ClubTest.setSportCategory(updateSevDto.getSportCategory());
         }
         if(!updateSevDto.getRegion().isBlank()){
-            Club.setRegion(updateSevDto.getRegion());
+            ClubTest.setRegion(updateSevDto.getRegion());
         }
         if(!updateSevDto.getDescription().isBlank()){
-            Club.setDescription(updateSevDto.getDescription());
+            ClubTest.setDescription(updateSevDto.getDescription());
         }
         if(!updateSevDto.getLogoUrl().isBlank()){
-            Club.setLogoUrl(updateSevDto.getLogoUrl());
+            ClubTest.setLogoUrl(updateSevDto.getLogoUrl());
         }
         if(updateSevDto.getMannerScore()!=-1){
-            Club.setMannerScore(updateSevDto.getMannerScore());
+            ClubTest.setMannerScore(updateSevDto.getMannerScore());
         }
         if(updateSevDto.getTotalWins()!=-1){
-            Club.setTotalWins(updateSevDto.getTotalWins());
+            ClubTest.setTotalWins(updateSevDto.getTotalWins());
         }
         if(updateSevDto.getTotalMatches()!=-1){
-            Club.setTotalMatches(updateSevDto.getTotalMatches());
+            ClubTest.setTotalMatches(updateSevDto.getTotalMatches());
         }
     }
 
@@ -82,7 +81,7 @@ public class ClubService {
     public void delete(ClubDto.DeleteSevDto deleteSevDto){
         // roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(deleteSevDto.getReqUserId()).permission(permission).func(200).build());
 
-        Club Club = clubRepository.findById(deleteSevDto.getId()).orElseThrow(()-> new EntityNotFoundException("ClubService delete: No Data"));
-        Club.setDeleted(true);
+        ClubTest ClubTest = clubRepository.findById(deleteSevDto.getId()).orElseThrow(()-> new EntityNotFoundException("ClubService delete: No Data"));
+        ClubTest.setDeleted(true);
     }
 }

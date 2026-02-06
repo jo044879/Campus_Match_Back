@@ -15,7 +15,7 @@
     </tr>
 </script>
 
-<script id="role-user-list-template" type="text/x-handlebars-template">
+<script id="role-club-list-template" type="text/x-handlebars-template">
     <tr>
         <td>{{resId}}</td>
         <td>{{resName}}</td>
@@ -26,7 +26,7 @@
     </tr>
 </script>
 
-<script id="add-role-user-list-template" type="text/x-handlebars-template">
+<script id="add-role-club-list-template" type="text/x-handlebars-template">
     <tr>
         <td><input type="checkbox" class='checkbox_role_user' id="list_{{resId}}" onclick="listener_chk_role_user(this)"/></td>
         <td>{{resId}}</td>
@@ -103,7 +103,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 nav nav-tabs" style="position: relative; height: 65px;">
                             <a class="nav-link active" style="position: absolute; bottom: 0; left: 20px;" data-toggle="tab" href="#tab-part">Permission</a>
-                            <a class="nav-link"  style="position: absolute; bottom: 0; left: 135px;" data-toggle="tab" href="#tab-user">User</a>
+                            <a class="nav-link"  style="position: absolute; bottom: 0; left: 135px;" data-toggle="tab" href="#tab-club">User</a>
                         </div>
                         <div class="tab-content card-body">
                             <div id="tab-part" class="tab-pane active">
@@ -125,7 +125,7 @@
                                 </div>
                             </div>
 
-                            <div id="tab-user" class="tab-pane">
+                            <div id="tab-club" class="tab-pane">
                                 <table class="table table-bordered" id="dataTable_user">
                                     <thead>
                                     <tr>
@@ -220,10 +220,10 @@
         var permission_list_source = $("#permission-list-template").html();
         var permission_list_template = Handlebars.compile(permission_list_source);
 
-        var role_user_list_source = $("#role-user-list-template").html();
+        var role_user_list_source = $("#role-club-list-template").html();
         var role_user_list_template = Handlebars.compile(role_user_list_source);
 
-        var add_role_user_list_source = $("#add-role-user-list-template").html();
+        var add_role_user_list_source = $("#add-role-club-list-template").html();
         var add_role_user_list_template = Handlebars.compile(add_role_user_list_source);
 
         function detail_role() {

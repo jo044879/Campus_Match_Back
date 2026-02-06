@@ -3,7 +3,7 @@ package com.pigs.holiday.dto.admin;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import com.pigs.holiday.domain.User;
+import com.pigs.holiday.domain.Club;
 import com.pigs.holiday.dto.DefaultDto;
 
 import java.time.LocalDateTime;
@@ -27,7 +27,7 @@ public class AdminUserDto {
     public static class CreateSevDto extends CreateReqDto {
         Long reqUserId;
 
-        public User toEntity() { return User.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail()); }
+        public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail()); }
     }
 
     // Create Response Dto

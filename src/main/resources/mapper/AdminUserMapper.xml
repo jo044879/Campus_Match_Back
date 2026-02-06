@@ -4,28 +4,28 @@
 
     <!--Detail-->
     <select id="detail" parameterType="hashMap" resultType="com.pigs.holiday.dto.admin.AdminUserDto$DetailResDto">
-        SELECT user.id as userId,
-               user.username,
-               user.deleted,
-               user.email,
-               user.university,
-               user.nickname,
-               user.created_at as createdAt,
-               user.modified_at as modifiedAt
-        FROM user
-        WHERE user.id = #{id}
+        SELECT club.id as userId,
+               club.username,
+               club.deleted,
+               club.email,
+               club.university,
+               club.nickname,
+               club.created_at as createdAt,
+               club.modified_at as modifiedAt
+        FROM club
+        WHERE club.id = #{id}
     </select>
 
 
     <!--List-->
     <select id="list" parameterType="hashMap" resultType="com.pigs.holiday.dto.admin.AdminUserDto$ListResDto">
-        SELECT user.id,
-               user.username,
-               user.deleted,
-               user.created_at as createdAt,
-               user.modified_at as modifiedAt
-        FROM user
-        WHERE user.id is not NULL
+        SELECT club.id,
+               club.username,
+               club.deleted,
+               club.created_at as createdAt,
+               club.modified_at as modifiedAt
+        FROM club
+        WHERE club.id is not NULL
     </select>
 
 </mapper>

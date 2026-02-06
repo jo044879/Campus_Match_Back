@@ -62,8 +62,8 @@ public class MatchPostService {
         if(!updateSevDto.getStatus().isBlank()){
             MatchPost.setStatus(updateSevDto.getStatus());
         }
-        if(updateSevDto.getClub() != null){
-            MatchPost.setClub(updateSevDto.getClub());
+        if(updateSevDto.getClubTest() != null){
+            MatchPost.setClubTest(updateSevDto.getClubTest());
         }
     }
 

@@ -4,7 +4,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.pigs.holiday.domain.User;
+import com.pigs.holiday.domain.Club;
 import com.pigs.holiday.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,10 +48,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		Long userId = authService.verifyAccessToken(accessToken);
 
 		// 유저 조회, 없을 시 return NoMatchingDataException(404)
-		User user = userRepository.findById(userId).orElse(null);
+		Club club = userRepository.findById(userId).orElse(null);
 
 		// PrincipalDetails 생성
-		PrincipalDetails principalDetails = new PrincipalDetails(user);
+		PrincipalDetails principalDetails = new PrincipalDetails(club);
 
 		// Authentication 생성
 		Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());

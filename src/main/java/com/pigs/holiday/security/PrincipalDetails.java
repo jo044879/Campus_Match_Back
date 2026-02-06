@@ -1,8 +1,8 @@
 package com.pigs.holiday.security;
 
+import com.pigs.holiday.domain.Club;
 import lombok.Getter;
 import lombok.Setter;
-import com.pigs.holiday.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,24 +13,24 @@ import java.util.Collection;
 @Setter
 public class PrincipalDetails implements UserDetails {
 	
-	private final User user;
+	private final Club club;
 	
-	public PrincipalDetails(User user) {
-		this.user = user;
+	public PrincipalDetails(Club club) {
+		this.club = club;
 	}
 	
-	public User getUser() {
-        return user;
+	public Club getUser() {
+        return club;
     }
 
 	@Override
 	public String getPassword() {
-		return user.getPassword();
+		return club.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return user.getUsername();
+		return club.getUsername();
 	}
 
 	@Override

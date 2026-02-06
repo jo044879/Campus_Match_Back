@@ -1,8 +1,8 @@
 package com.pigs.holiday.controller;
 
 import lombok.RequiredArgsConstructor;
-import com.pigs.holiday.dto.UserDto;
-import com.pigs.holiday.service.UserService;
+import com.pigs.holiday.dto.ClubDto;
+import com.pigs.holiday.service.ClubService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/club")
 @RestController
-public class UserRestController {
+public class ClubRestController {
 
-    final UserService clubService;
+    final ClubService clubService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto.SignupResDto> signup(@RequestBody UserDto.SignupReqDto signupReqDto){
+    public ResponseEntity<ClubDto.SignupResDto> signup(@RequestBody ClubDto.SignupReqDto signupReqDto){
         return ResponseEntity.ok(clubService.signup(signupReqDto));
     }
+
+    //@PreAuthorize("hasRole('USER')")
 }

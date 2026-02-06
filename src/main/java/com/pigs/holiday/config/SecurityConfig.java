@@ -2,7 +2,7 @@ package com.pigs.holiday.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import com.pigs.holiday.repository.UserRepository;
+import com.pigs.holiday.repository.ClubRepository;
 import com.pigs.holiday.security.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Configuration
 public class SecurityConfig {
 	
-	private final UserRepository userRepository;
+	private final ClubRepository clubRepository;
 	private final CorsFilterConfiguration corsFilterConfiguration;
 	private final ObjectMapper objectMapper;
 	private final AuthService authService;
@@ -85,7 +85,7 @@ public class SecurityConfig {
 					// 로그인 처리 필터
 					.addFilter(jwtAuthenticationFilter)
 					// JWT 검증 필터
-					.addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository, authService, externalProperties))
+					.addFilter(new JwtAuthorizationFilter(authenticationManager, clubRepository, authService, externalProperties))
 					// 예외 핸들링 필터
 					.addFilterBefore(new FilterExceptionHandlerFilter(), BasicAuthenticationFilter.class);
 		}

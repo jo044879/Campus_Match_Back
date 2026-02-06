@@ -5,7 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.pigs.holiday.domain.Club;
-import com.pigs.holiday.repository.UserRepository;
+import com.pigs.holiday.repository.ClubRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,15 +16,15 @@ import java.io.IOException;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	
-	private final UserRepository userRepository;
+	private final ClubRepository clubRepository;
 	private final AuthService authService;
 	private final ExternalProperties externalProperties;
 
-	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository, AuthService authService
+	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, ClubRepository clubRepository, AuthService authService
 			, ExternalProperties externalProperties
 	) {
 		super(authenticationManager);
-		this.userRepository = userRepository;
+		this.clubRepository = clubRepository;
 		this.authService = authService;
 		this.externalProperties = externalProperties;
 	}
@@ -48,7 +48,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		Long userId = authService.verifyAccessToken(accessToken);
 
 		// 유저 조회, 없을 시 return NoMatchingDataException(404)
-		Club club = userRepository.findById(userId).orElse(null);
+		Club club = clubRepository.findById(userId).orElse(null);
 
 		// PrincipalDetails 생성
 		PrincipalDetails principalDetails = new PrincipalDetails(club);

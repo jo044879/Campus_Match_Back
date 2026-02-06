@@ -16,28 +16,42 @@ import java.util.List;
 @Entity
 public class MatchPost extends AuditingFields {
     String sportCategory;
+    LocalDateTime startTime;
+    LocalDateTime endTime;
     LocalDateTime matchDate;
     String location;
-    String description;
     String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "club_id", nullable = false)
     private Club club;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "opposition_club_id", nullable = false)
+    private Club oppositionClub;
+
     @OneToMany(mappedBy = "Notification")
     private List<Notification> notificationsList = new ArrayList<>();
 
-    protected MatchPost(){}
-    private MatchPost(String sportCategory, LocalDateTime matchDate, String location, String description, String status, Club club) {
+    protected MatchPost() {
+    }
+
+    private MatchPost(String sportCategory, LocalDateTime startTime, LocalDateTime endTime, LocalDateTime matchDate, String location, String status, Club club, Club oppositionClub) {
         this.sportCategory = sportCategory;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.matchDate = matchDate;
         this.location = location;
-        this.description = description;
         this.status = status;
         this.club = club;
+        this.oppositionClub = oppositionClub;
     }
-    public static MatchPost of(String sportCategory, LocalDateTime matchDate, String location, String description, String status, Club club) { return new MatchPost(sportCategory, matchDate, location, description, status, club); }
 
-    public MatchPostDto.CreateResDto toCreateResDto() { return MatchPostDto.CreateResDto.builder().id(getId()).build(); }
+    public static MatchPost of(String sportCategory, LocalDateTime startTime, LocalDateTime endTime,LocalDateTime matchDate, String location, String status, Club club, Club oppositionClub)  {
+        return new MatchPost(sportCategory, startTime, endTime, matchDate, location, status, club, oppositionClub);
+    }
+
+    public MatchPostDto.CreateResDto toCreateResDto() {
+        return MatchPostDto.CreateResDto.builder().id(getId()).build();
+    }
 }

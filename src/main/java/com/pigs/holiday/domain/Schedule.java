@@ -27,14 +27,21 @@ public class Schedule extends AuditingFields {
     @OneToMany(mappedBy = "Notification")
     private List<Notification> notificationsList = new ArrayList<>();
 
-    protected Schedule(){}
+    protected Schedule() {
+    }
+
     private Schedule(String title, LocalDateTime startDateTime, LocalDateTime endDateTime, Club club) {
         this.title = title;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.club = club;
     }
-    public static Schedule of(String title, LocalDateTime startDateTime, LocalDateTime endDateTime, Club club) { return new Schedule(title, startDateTime, endDateTime, location, club); }
 
-    public ScheduleDto.CreateResDto toCreateResDto() { return ScheduleDto.CreateResDto.builder().id(getId()).build(); }
+    public static Schedule of(String title, LocalDateTime startDateTime, LocalDateTime endDateTime, Club club) {
+        return new Schedule(title, startDateTime, endDateTime, club);
+    }
+
+    public ScheduleDto.CreateResDto toCreateResDto() {
+        return ScheduleDto.CreateResDto.builder().id(getId()).build();
+    }
 }

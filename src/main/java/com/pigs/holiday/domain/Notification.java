@@ -36,15 +36,19 @@ public class Notification extends AuditingFields {
     protected Notification() {
     }
 
-    private Notification(String scheduledAt, String relatedUrl, Boolean isRead, User user) {
+    private Notification(String scheduledAt, String relatedUrl, Boolean isRead, User user, MatchPost matchPost, Schedule schedule, MatchRequest matchRequest) {
         this.scheduledAt = scheduledAt;
         this.relatedUrl = relatedUrl;
         this.isRead = isRead;
         this.user = user;
+        this.matchPost = matchPost;
+        this.schedule = schedule;
+        this.matchRequest = matchRequest;
+
     }
 
-    public static Notification of(String scheduledAt, String relatedUrl, Boolean isRead, User user) {
-        return new Notification(scheduledAt, relatedUrl, isRead, user);
+    public static Notification of(String scheduledAt, String relatedUrl, Boolean isRead, User user, MatchPost matchPost, Schedule schedule, MatchRequest matchRequest) {
+        return new Notification(scheduledAt, relatedUrl, isRead, user, matchPost, schedule, matchRequest);
     }
 
     public NotificationDto.CreateResDto toCreateResDto() {

@@ -16,10 +16,9 @@ import java.util.List;
 @Entity
 public class MatchHistory extends AuditingFields {
     LocalDateTime matchDate;
-    int homeScore;
-    int awayScore;
+    String location;
+    String matchType;
     String result;
-    Boolean isOfficial;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_club_id", nullable = false)
@@ -36,17 +35,23 @@ public class MatchHistory extends AuditingFields {
     private List<GalleryImage> galleryImageList = new ArrayList<>();
 
 
-    protected MatchHistory(){}
-    private MatchHistory(LocalDateTime matchDate, int homeScore, int awayScore, String result, Boolean isOfficial, Club homeClub, Club awayClub) {
+    protected MatchHistory() {
+    }
+
+    private MatchHistory(LocalDateTime matchDate, String location, String matchType, String result, Club homeClub, Club awayClub) {
         this.matchDate = matchDate;
-        this.homeScore = homeScore;
-        this.awayScore = awayScore;
+        this.location = location;
+        this.matchType = matchType;
         this.result = result;
-        this.isOfficial = isOfficial;
         this.homeClub = homeClub;
         this.awayClub = awayClub;
     }
-    public static MatchHistory of(LocalDateTime matchDate, int homeScore, int awayScore, String result, Boolean isOfficial, Club homeClub, Club awayClub) { return new MatchHistory(matchDate, homeScore, awayScore, result, isOfficial, homeClub, awayClub); }
 
-    public MatchHistoryDto.CreateResDto toCreateResDto() { return MatchHistoryDto.CreateResDto.builder().id(getId()).build(); }
+    public static MatchHistory of(LocalDateTime matchDate, String location, String matchType, String result, Club homeClub, Club awayClub) {
+        return new MatchHistory(matchDate, location, matchType, result, homeClub, awayClub);
+    }
+
+    public MatchHistoryDto.CreateResDto toCreateResDto() {
+        return MatchHistoryDto.CreateResDto.builder().id(getId()).build();
+    }
 }

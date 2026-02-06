@@ -19,8 +19,11 @@ public class MatchRequestDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
-        String message;
-        String status;
+        String location;
+        String sportCategory;
+        LocalDateTime date;
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         Club receiveClub;
         Club senderClub;
     }
@@ -34,8 +37,11 @@ public class MatchRequestDto {
 
         public MatchRequest toEntity() {
             return MatchRequest.of(
-                    getMessage(),
-                    getStatus(),
+                    getLocation(),
+                    getSportCategory(),
+                    getDate(),
+                    getStartTime(),
+                    getEndTime(),
                     getReceiveClub(),
                     getSenderClub()
             );
@@ -81,8 +87,11 @@ public class MatchRequestDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String message;
-        String status;
+        String location;
+        String sportCategory;
+        LocalDateTime date;
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         Club receiveClub;
         Club senderClub;
         public static MatchRequestDto.DetailResDto toDetailResDto(MatchRequest matchRequest) {
@@ -91,8 +100,11 @@ public class MatchRequestDto {
                     .deleted(matchRequest.getDeleted())
                     .createdAt(matchRequest.getCreatedAt())
                     .modifiedAt(matchRequest.getModifiedAt())
-                    .message(matchRequest.getMessage())
-                    .status(matchRequest.getStatus())
+                    .location(matchRequest.getLocation())
+                    .sportCategory(matchRequest.getSportCategory())
+                    .date(matchRequest.getDate())
+                    .startTime(matchRequest.getStartTime())
+                    .endTime(matchRequest.getEndTime())
                     .receiveClub(matchRequest.getReceiveClub())
                     .senderClub(matchRequest.getSenderClub())
                     .build();
@@ -111,8 +123,11 @@ public class MatchRequestDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String message;
-        String status;
+        String location;
+        String sportCategory;
+        LocalDateTime date;
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         Club receiveClub;
         Club senderClub;
 
@@ -122,8 +137,11 @@ public class MatchRequestDto {
                     .deleted(matchRequest.getDeleted())
                     .createdAt(matchRequest.getCreatedAt())
                     .modifiedAt(matchRequest.getModifiedAt())
-                    .message(matchRequest.getMessage())
-                    .status(matchRequest.getStatus())
+                    .location(matchRequest.getLocation())
+                    .sportCategory(matchRequest.getSportCategory())
+                    .date(matchRequest.getDate())
+                    .startTime(matchRequest.getStartTime())
+                    .endTime(matchRequest.getEndTime())
                     .receiveClub(matchRequest.getReceiveClub())
                     .senderClub(matchRequest.getSenderClub())
                     .build();
@@ -137,8 +155,11 @@ public class MatchRequestDto {
     @AllArgsConstructor
     public static class UpdateRequestDto extends DefaultDto.BaseDto{
         Long id;
-        String message;
-        String status;
+        String location;
+        String sportCategory;
+        LocalDateTime date;
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         Club receiveClub;
         Club senderClub;
     }

@@ -18,7 +18,6 @@ public class ScheduleDto {
         String title;
         LocalDateTime startDateTime;
         LocalDateTime endDateTime;
-        String location;
         private Club club;
     }
 
@@ -35,7 +34,6 @@ public class ScheduleDto {
                     getTitle(),
                     getStartDateTime(),
                     getEndDateTime(),
-                    getLocation(),
                     getClub()
             );
         }
@@ -83,7 +81,6 @@ public class ScheduleDto {
         String title;
         LocalDateTime startDateTime;
         LocalDateTime endDateTime;
-        String location;
         private Club club;
 
         public static ScheduleDto.DetailResDto toDetailResDto(Schedule schedule) {
@@ -95,7 +92,6 @@ public class ScheduleDto {
                     .title(schedule.getTitle())
                     .startDateTime(schedule.getStartDateTime())
                     .endDateTime(schedule.getEndDateTime())
-                    .location(schedule.getLocation())
                     .club(schedule.getClub())
                     .build();
         }
@@ -125,7 +121,6 @@ public class ScheduleDto {
         String title;
         LocalDateTime startDateTime;
         LocalDateTime endDateTime;
-        String location;
         private Club club;
 
         public static ScheduleDto.ListResDto toListResDto(Schedule schedule) {
@@ -137,7 +132,6 @@ public class ScheduleDto {
                     .title(schedule.getTitle())
                     .startDateTime(schedule.getStartDateTime())
                     .endDateTime(schedule.getEndDateTime())
-                    .location(schedule.getLocation())
                     .club(schedule.getClub())
                     .build();
         }
@@ -153,7 +147,6 @@ public class ScheduleDto {
         String title;
         LocalDateTime startDateTime;
         LocalDateTime endDateTime;
-        String location;
         private Club club;
     }
 

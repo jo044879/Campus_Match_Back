@@ -15,11 +15,13 @@ public class MatchPostDto {
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
         String sportCategory;
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         LocalDateTime matchDate;
         String location;
-        String description;
         String status;
         Club club;
+        Club oppositionClub;
     }
 
     // Create Service Dto
@@ -29,11 +31,13 @@ public class MatchPostDto {
 
         public MatchPost toEntity() { return MatchPost.of(
                 getSportCategory(),
+                getStartTime(),
+                getEndTime(),
                 getMatchDate(),
                 getLocation(),
-                getDescription(),
                 getStatus(),
-                getClub()
+                getClub(),
+                getOppositionClub()
         ); }
     }
 
@@ -65,11 +69,13 @@ public class MatchPostDto {
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
         String sportCategory;
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         LocalDateTime matchDate;
         String location;
-        String description;
         String status;
         Club club;
+        Club oppositionClub;
 
         public static MatchPostDto.DetailResDto toDetailResDto(MatchPost matchPost) {
             return MatchPostDto.DetailResDto.builder()
@@ -78,11 +84,13 @@ public class MatchPostDto {
                     .createdAt(matchPost.getCreatedAt())
                     .modifiedAt(matchPost.getModifiedAt())
                     .sportCategory(matchPost.getSportCategory())
+                    .startTime(matchPost.getStartTime())
+                    .endTime(matchPost.getEndTime())
                     .matchDate(matchPost.getMatchDate())
                     .location(matchPost.getLocation())
-                    .description(matchPost.getDescription())
                     .status(matchPost.getStatus())
                     .club(matchPost.getClub())
+                    .oppositionClub(matchPost.getOppositionClub())
                     .build();
         }
     }
@@ -103,11 +111,13 @@ public class MatchPostDto {
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
         String sportCategory;
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         LocalDateTime matchDate;
         String location;
-        String description;
         String status;
         Club club;
+        Club oppositionClub;
 
         public static MatchPostDto.ListResDto toListResDto(MatchPost matchPost) {
             return MatchPostDto.ListResDto.builder()
@@ -116,11 +126,13 @@ public class MatchPostDto {
                     .createdAt(matchPost.getCreatedAt())
                     .modifiedAt(matchPost.getModifiedAt())
                     .sportCategory(matchPost.getSportCategory())
+                    .startTime(matchPost.getStartTime())
+                    .endTime(matchPost.getEndTime())
                     .matchDate(matchPost.getMatchDate())
                     .location(matchPost.getLocation())
-                    .description(matchPost.getDescription())
                     .status(matchPost.getStatus())
                     .club(matchPost.getClub())
+                    .oppositionClub(matchPost.getOppositionClub())
                     .build();
         }
     }
@@ -130,11 +142,13 @@ public class MatchPostDto {
     public static class UpdateReqDto extends DefaultDto.BaseDto {
         Long id;
         String sportCategory;
+        LocalDateTime startTime;
+        LocalDateTime endTime;
         LocalDateTime matchDate;
         String location;
-        String description;
         String status;
         Club club;
+        Club oppositionClub;
     }
 
     // Update Service Dto

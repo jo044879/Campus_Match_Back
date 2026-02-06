@@ -12,14 +12,20 @@ public class ClubDto {
     // Create Request Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
+        String username;
+        String password;
         String name;
         String university;
-        String sportCategory;
-        String region;
+        String phone;
+        String email;
+        String clubName;
         String description;
-        String logoUrl;
+        String region;
+        String sportCategory;
+        String logoUrl;//이건 일단 남겨둠
         int mannerScore;
         int totalWins;
+        int totalLosses;
         int totalMatches;
     }
 
@@ -29,15 +35,21 @@ public class ClubDto {
         Long reqUserId;
 
         public Club toEntity() { return Club.of(
+                getUsername(),
+                getPassword(),
                 getName(),
                 getUniversity(),
+                getEmail(),
+                getPhone(),
+                getClubName(),
+                getDescription(),
                 getSportCategory(),
                 getRegion(),
-                getDescription(),
                 getLogoUrl(),
                 getMannerScore(),
                 getTotalWins(),
-                getTotalMatches()
+                getTotalMatches(),
+                getTotalLosses()
         ); }
     }
 
@@ -68,14 +80,20 @@ public class ClubDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
+        String username;
+        String password;
         String name;
         String university;
-        String sportCategory;
-        String region;
+        String phone;
+        String email;
+        String clubName;
         String description;
-        String logoUrl;
+        String region;
+        String sportCategory;
+        String logoUrl;//이건 일단 남겨둠
         int mannerScore;
         int totalWins;
+        int totalLosses;
         int totalMatches;
 
         public static DetailResDto toDetailResDto(Club club) {
@@ -84,14 +102,20 @@ public class ClubDto {
                     .deleted(club.getDeleted())
                     .createdAt(club.getCreatedAt())
                     .modifiedAt(club.getModifiedAt())
+                    .username(club.getUsername())
+                    .password(club.getPassword())
                     .name(club.getName())
                     .university(club.getUniversity())
-                    .sportCategory(club.getSportCategory())
-                    .region(club.getRegion())
+                    .phone(club.getPhone())
+                    .email(club.getEmail())
+                    .clubName(club.getClubName())
                     .description(club.getDescription())
+                    .region(club.getRegion())
+                    .sportCategory(club.getSportCategory())
                     .logoUrl(club.getLogoUrl())
                     .mannerScore(club.getMannerScore())
                     .totalWins(club.getTotalWins())
+                    .totalLosses(club.getTotalLosses())
                     .totalMatches(club.getTotalMatches())
                     .build();
         }
@@ -112,14 +136,20 @@ public class ClubDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
+        String username;
+        String password;
         String name;
         String university;
-        String sportCategory;
-        String region;
+        String phone;
+        String email;
+        String clubName;
         String description;
-        String logoUrl;
+        String region;
+        String sportCategory;
+        String logoUrl;//이건 일단 남겨둠
         int mannerScore;
         int totalWins;
+        int totalLosses;
         int totalMatches;
 
         public static ListResDto toListResDto(Club club) {
@@ -128,14 +158,20 @@ public class ClubDto {
                     .deleted(club.getDeleted())
                     .createdAt(club.getCreatedAt())
                     .modifiedAt(club.getModifiedAt())
+                    .username(club.getUsername())
+                    .password(club.getPassword())
                     .name(club.getName())
                     .university(club.getUniversity())
-                    .sportCategory(club.getSportCategory())
-                    .region(club.getRegion())
+                    .phone(club.getPhone())
+                    .email(club.getEmail())
+                    .clubName(club.getClubName())
                     .description(club.getDescription())
+                    .region(club.getRegion())
+                    .sportCategory(club.getSportCategory())
                     .logoUrl(club.getLogoUrl())
                     .mannerScore(club.getMannerScore())
                     .totalWins(club.getTotalWins())
+                    .totalLosses(club.getTotalLosses())
                     .totalMatches(club.getTotalMatches())
                     .build();
         }
@@ -145,14 +181,20 @@ public class ClubDto {
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class UpdateReqDto extends DefaultDto.BaseDto {
         Long id;
+        String username;
+        String password;
         String name;
         String university;
-        String sportCategory;
-        String region;
+        String phone;
+        String email;
+        String clubName;
         String description;
-        String logoUrl;
+        String region;
+        String sportCategory;
+        String logoUrl;//이건 일단 남겨둠
         int mannerScore = -1;
         int totalWins = -1;
+        int totalLosses = -1;
         int totalMatches = -1;
     }
 

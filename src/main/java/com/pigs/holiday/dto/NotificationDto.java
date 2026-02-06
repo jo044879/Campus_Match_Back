@@ -1,8 +1,7 @@
 package com.pigs.holiday.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pigs.holiday.domain.Notification;
-import com.pigs.holiday.domain.User;
+import com.pigs.holiday.domain.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +18,14 @@ public class NotificationDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
-        String type;
-        String content;
+        String scheduledAt;
         String relatedUrl;
         Boolean isRead;
         private User user;
+        private MatchPost matchPost;
+        private Schedule schedule;
+        private MatchRequest matchRequest;
+
     }
 
     @Getter
@@ -36,11 +38,13 @@ public class NotificationDto {
 
         public Notification toEntity() {
             return Notification.of(
-                    getType(),
-                    getContent(),
+                    getScheduledAt(),
                     getRelatedUrl(),
                     getIsRead(),
-                    getUser()
+                    getUser(),
+                    getMatchPost(),
+                    getSchedule(),
+                    getMatchRequest()
             );
         }
     }
@@ -84,11 +88,14 @@ public class NotificationDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String type;
-        String content;
+        String scheduledAt;
         String relatedUrl;
         Boolean isRead;
         private User user;
+        private MatchPost matchPost;
+        private Schedule schedule;
+        private MatchRequest matchRequest;
+
 
         public static NotificationDto.DetailResDto toDetailResDto(Notification notification) {
             return DetailResDto.builder()
@@ -96,11 +103,13 @@ public class NotificationDto {
                     .deleted(notification.getDeleted())
                     .createdAt(notification.getCreatedAt())
                     .modifiedAt(notification.getModifiedAt())
-                    .type(notification.getType())
-                    .content(notification.getContent())
+                    .scheduledAt(notification.getScheduledAt())
                     .relatedUrl(notification.getRelatedUrl())
                     .isRead(notification.getIsRead())
                     .user(notification.getUser())
+                    .matchPost(notification.getMatchPost())
+                    .schedule(notification.getSchedule())
+                    .matchRequest(notification.getMatchRequest())
                     .build();
         }
     }
@@ -126,11 +135,13 @@ public class NotificationDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String type;
-        String content;
+        String scheduledAt;
         String relatedUrl;
         Boolean isRead;
         private User user;
+        private MatchPost matchPost;
+        private Schedule schedule;
+        private MatchRequest matchRequest;
 
         public static ListResDto toListResDto(Notification notification) {
             return ListResDto.builder()
@@ -138,11 +149,13 @@ public class NotificationDto {
                     .deleted(notification.getDeleted())
                     .createdAt(notification.getCreatedAt())
                     .modifiedAt(notification.getModifiedAt())
-                    .type(notification.getType())
-                    .content(notification.getContent())
+                    .scheduledAt(notification.getScheduledAt())
                     .relatedUrl(notification.getRelatedUrl())
                     .isRead(notification.getIsRead())
                     .user(notification.getUser())
+                    .matchPost(notification.getMatchPost())
+                    .schedule(notification.getSchedule())
+                    .matchRequest(notification.getMatchRequest())
                     .build();
         }
     }
@@ -154,11 +167,13 @@ public class NotificationDto {
     @AllArgsConstructor
     public static class UpdateReqDto extends DefaultDto.BaseDto {
         Long id;
-        String type;
-        String content;
+        String scheduledAt;
         String relatedUrl;
         Boolean isRead;
         private User user;
+        private MatchPost matchPost;
+        private Schedule schedule;
+        private MatchRequest matchRequest;
     }
 
     @Getter

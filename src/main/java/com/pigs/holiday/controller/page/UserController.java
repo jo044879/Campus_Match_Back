@@ -1,4 +1,4 @@
-package com.pigs.holiday.controller.page.user;
+package com.pigs.holiday.controller.page;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,4 +11,5 @@ public class UserController {
     public String page(@PathVariable String page) { return "club/" + page; }
     @RequestMapping("/{page}/{id}")
     public String page(@PathVariable String page, @PathVariable String id) { return "club/" + page; }
+
 }

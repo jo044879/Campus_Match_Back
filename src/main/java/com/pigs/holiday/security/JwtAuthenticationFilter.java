@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import com.pigs.holiday.dto.UserDto;
+import com.pigs.holiday.dto.ClubDto;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,11 +35,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Transactional
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 		Authentication authentication = null;
-		UserDto.LoginReqDto userLoginDto = null;
+		ClubDto.LoginReqDto userLoginDto = null;
 
 		// 1번. 로그인에 필요한 아이디(username)이랑 비번(password)가 있는지 먼저 확인
 		try {
-			userLoginDto = objectMapper.readValue(request.getInputStream(), UserDto.LoginReqDto.class);
+			userLoginDto = objectMapper.readValue(request.getInputStream(), ClubDto.LoginReqDto.class);
 		} catch (IOException e) {
 			System.out.println("1. login attemptAuthentication : Not Enough Parameters?!");
 		}

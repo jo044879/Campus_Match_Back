@@ -1,5 +1,6 @@
 package com.pigs.holiday.domain;
 
+import com.pigs.holiday.dto.NotificationDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +13,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Notification extends AuditingFields {
-    String type;
-    String content;
+    String scheduledAt;
     String relatedUrl;
     Boolean isRead;
 
@@ -21,15 +21,37 @@ public class Notification extends AuditingFields {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    protected Notification(){}
-    private Notification(String type, String content, String relatedUrl, Boolean isRead, User user) {
-        this.type = type;
-        this.content = content;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Match_Post_id", nullable = false)
+    private MatchPost matchPost;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id", nullable = false)
+    private Schedule schedule;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MatchRequest_id", nullable = false)
+    private MatchRequest matchRequest;
+
+    protected Notification() {
+    }
+
+    private Notification(String scheduledAt, String relatedUrl, Boolean isRead, User user, MatchPost matchPost, Schedule schedule, MatchRequest matchRequest) {
+        this.scheduledAt = scheduledAt;
         this.relatedUrl = relatedUrl;
         this.isRead = isRead;
         this.user = user;
-    }
-    public static Notification of(String type, String content, String relatedUrl, Boolean isRead, User user) { return new Notification(type, content, relatedUrl, isRead, user); }
+        this.matchPost = matchPost;
+        this.schedule = schedule;
+        this.matchRequest = matchRequest;
 
-    public NotificationDto.CreateResDto toCreateResDto() { return NotificationDto.CreateResDto.builder().id(getId()).build(); }
+    }
+
+    public static Notification of(String scheduledAt, String relatedUrl, Boolean isRead, User user, MatchPost matchPost, Schedule schedule, MatchRequest matchRequest) {
+        return new Notification(scheduledAt, relatedUrl, isRead, user, matchPost, schedule, matchRequest);
+    }
+
+    public NotificationDto.CreateResDto toCreateResDto() {
+        return NotificationDto.CreateResDto.builder().id(getId()).build();
+    }
 }

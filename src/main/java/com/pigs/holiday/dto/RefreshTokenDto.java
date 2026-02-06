@@ -1,29 +1,21 @@
 package com.pigs.holiday.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pigs.holiday.domain.Club;
-import com.pigs.holiday.domain.MatchHistory;
+import com.pigs.holiday.domain.RefreshToken;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
-public class MatchHistoryDto {
-
-    // Create Request Dto
+public class RefreshTokenDto {
     @Getter
     @Setter
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
-        LocalDateTime matchDate;
-        String location;
-        String matchType;
-        String result;
-        String title;
-        Club homeClub;
-        Club awayClub;
+        Long userId;
+        String token;
     }
 
     // Create Service Dto
@@ -35,20 +27,14 @@ public class MatchHistoryDto {
     public static class CreateSevDto extends CreateReqDto {
         Long reqUserId;
 
-        public MatchHistory toEntity() {
-            return MatchHistory.of(
-                    getMatchDate(),
-                    getLocation(),
-                    getMatchType(),
-                    getResult(),
-                    getTitle(),
-                    getHomeClub(),
-                    getAwayClub()
+        public RefreshToken toEntity() {
+            return RefreshToken.of(
+                    getToken(),
+                    getUserId()
             );
         }
     }
 
-    // Create Response Dto
     @Getter
     @Setter
     @Builder
@@ -78,7 +64,6 @@ public class MatchHistoryDto {
         Long reqUserId;
     }
 
-    // Detail Response Dto
     @Getter
     @Setter
     @Builder
@@ -91,27 +76,17 @@ public class MatchHistoryDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        LocalDateTime matchDate;
-        String location;
-        String matchType;
-        String result;
-        String title;
-        Club homeClub;
-        Club awayClub;
+        Long userId;
+        String token;
 
-        public static DetailResDto toDetailResDto(MatchHistory matchHistory) {
+        public static RefreshTokenDto.DetailResDto toDetailResDto(RefreshToken refreshToken) {
             return DetailResDto.builder()
-                    .id(matchHistory.getId())
-                    .deleted(matchHistory.getDeleted())
-                    .createdAt(matchHistory.getCreatedAt())
-                    .modifiedAt(matchHistory.getModifiedAt())
-                    .matchDate(matchHistory.getMatchDate())
-                    .location(matchHistory.getLocation())
-                    .matchType(matchHistory.getMatchType())
-                    .result(matchHistory.getResult())
-                    .title(matchHistory.getTitle())
-                    .homeClub(matchHistory.getHomeClub())
-                    .awayClub(matchHistory.getAwayClub())
+                    .id(refreshToken.getId())
+                    .deleted(refreshToken.getDeleted())
+                    .createdAt(refreshToken.getCreatedAt())
+                    .modifiedAt(refreshToken.getModifiedAt())
+                    .userId(refreshToken.getUserId())
+                    .token(refreshToken.getToken())
                     .build();
         }
     }
@@ -139,27 +114,17 @@ public class MatchHistoryDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        LocalDateTime matchDate;
-        String location;
-        String matchType;
-        String result;
-        String title;
-        Club homeClub;
-        Club awayClub;
+        Long userId;
+        String token;
 
-        public static ListResDto toListResDto(MatchHistory matchHistory) {
-            return ListResDto.builder()
-                    .id(matchHistory.getId())
-                    .deleted(matchHistory.getDeleted())
-                    .createdAt(matchHistory.getCreatedAt())
-                    .modifiedAt(matchHistory.getModifiedAt())
-                    .matchDate(matchHistory.getMatchDate())
-                    .location(matchHistory.getLocation())
-                    .matchType(matchHistory.getMatchType())
-                    .result(matchHistory.getResult())
-                    .title(matchHistory.getTitle())
-                    .homeClub(matchHistory.getHomeClub())
-                    .awayClub(matchHistory.getAwayClub())
+        public static RefreshTokenDto.DetailResDto toListResDto(RefreshToken refreshToken) {
+            return DetailResDto.builder()
+                    .id(refreshToken.getId())
+                    .deleted(refreshToken.getDeleted())
+                    .createdAt(refreshToken.getCreatedAt())
+                    .modifiedAt(refreshToken.getModifiedAt())
+                    .userId(refreshToken.getUserId())
+                    .token(refreshToken.getToken())
                     .build();
         }
     }
@@ -172,13 +137,8 @@ public class MatchHistoryDto {
     @AllArgsConstructor
     public static class UpdateReqDto extends DefaultDto.BaseDto {
         Long id;
-        LocalDateTime matchDate;
-        String location;
-        String matchType;
-        String result;
-        String title;
-        Club homeClub;
-        Club awayClub;
+        Long userId;
+        String token;
     }
 
     // Update Service Dto
@@ -210,5 +170,6 @@ public class MatchHistoryDto {
     public static class DeleteSevDto extends DeleteReqDto {
         Long reqUserId;
     }
+
 
 }

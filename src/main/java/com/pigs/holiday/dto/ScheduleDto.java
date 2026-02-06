@@ -2,31 +2,25 @@ package com.pigs.holiday.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pigs.holiday.domain.Club;
-import com.pigs.holiday.domain.MatchHistory;
+import com.pigs.holiday.domain.Schedule;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
-public class MatchHistoryDto {
-
-    // Create Request Dto
+public class ScheduleDto {
     @Getter
     @Setter
     @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
-        LocalDateTime matchDate;
-        String location;
-        String matchType;
-        String result;
         String title;
-        Club homeClub;
-        Club awayClub;
+        LocalDateTime startDateTime;
+        LocalDateTime endDateTime;
+        private Club club;
     }
 
-    // Create Service Dto
     @Getter
     @Setter
     @SuperBuilder
@@ -35,20 +29,16 @@ public class MatchHistoryDto {
     public static class CreateSevDto extends CreateReqDto {
         Long reqUserId;
 
-        public MatchHistory toEntity() {
-            return MatchHistory.of(
-                    getMatchDate(),
-                    getLocation(),
-                    getMatchType(),
-                    getResult(),
+        public Schedule toEntity() {
+            return Schedule.of(
                     getTitle(),
-                    getHomeClub(),
-                    getAwayClub()
+                    getStartDateTime(),
+                    getEndDateTime(),
+                    getClub()
             );
         }
     }
 
-    // Create Response Dto
     @Getter
     @Setter
     @Builder
@@ -58,7 +48,6 @@ public class MatchHistoryDto {
         Long id;
     }
 
-    // Detail Request Dto
     @Getter
     @Setter
     @SuperBuilder
@@ -68,7 +57,6 @@ public class MatchHistoryDto {
         Long id;
     }
 
-    // Detail Service Dto
     @Getter
     @Setter
     @SuperBuilder
@@ -78,7 +66,6 @@ public class MatchHistoryDto {
         Long reqUserId;
     }
 
-    // Detail Response Dto
     @Getter
     @Setter
     @Builder
@@ -91,32 +78,25 @@ public class MatchHistoryDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        LocalDateTime matchDate;
-        String location;
-        String matchType;
-        String result;
         String title;
-        Club homeClub;
-        Club awayClub;
+        LocalDateTime startDateTime;
+        LocalDateTime endDateTime;
+        private Club club;
 
-        public static DetailResDto toDetailResDto(MatchHistory matchHistory) {
+        public static ScheduleDto.DetailResDto toDetailResDto(Schedule schedule) {
             return DetailResDto.builder()
-                    .id(matchHistory.getId())
-                    .deleted(matchHistory.getDeleted())
-                    .createdAt(matchHistory.getCreatedAt())
-                    .modifiedAt(matchHistory.getModifiedAt())
-                    .matchDate(matchHistory.getMatchDate())
-                    .location(matchHistory.getLocation())
-                    .matchType(matchHistory.getMatchType())
-                    .result(matchHistory.getResult())
-                    .title(matchHistory.getTitle())
-                    .homeClub(matchHistory.getHomeClub())
-                    .awayClub(matchHistory.getAwayClub())
+                    .id(schedule.getId())
+                    .deleted(schedule.getDeleted())
+                    .createdAt(schedule.getCreatedAt())
+                    .modifiedAt(schedule.getModifiedAt())
+                    .title(schedule.getTitle())
+                    .startDateTime(schedule.getStartDateTime())
+                    .endDateTime(schedule.getEndDateTime())
+                    .club(schedule.getClub())
                     .build();
         }
     }
 
-    // List Service Dto
     @Getter
     @Setter
     @SuperBuilder
@@ -126,7 +106,6 @@ public class MatchHistoryDto {
         Long reqUserId;
     }
 
-    // List Response Dto
     @Getter
     @Setter
     @Builder
@@ -139,32 +118,25 @@ public class MatchHistoryDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        LocalDateTime matchDate;
-        String location;
-        String matchType;
-        String result;
         String title;
-        Club homeClub;
-        Club awayClub;
+        LocalDateTime startDateTime;
+        LocalDateTime endDateTime;
+        private Club club;
 
-        public static ListResDto toListResDto(MatchHistory matchHistory) {
-            return ListResDto.builder()
-                    .id(matchHistory.getId())
-                    .deleted(matchHistory.getDeleted())
-                    .createdAt(matchHistory.getCreatedAt())
-                    .modifiedAt(matchHistory.getModifiedAt())
-                    .matchDate(matchHistory.getMatchDate())
-                    .location(matchHistory.getLocation())
-                    .matchType(matchHistory.getMatchType())
-                    .result(matchHistory.getResult())
-                    .title(matchHistory.getTitle())
-                    .homeClub(matchHistory.getHomeClub())
-                    .awayClub(matchHistory.getAwayClub())
+        public static ScheduleDto.ListResDto toListResDto(Schedule schedule) {
+            return ScheduleDto.ListResDto.builder()
+                    .id(schedule.getId())
+                    .deleted(schedule.getDeleted())
+                    .createdAt(schedule.getCreatedAt())
+                    .modifiedAt(schedule.getModifiedAt())
+                    .title(schedule.getTitle())
+                    .startDateTime(schedule.getStartDateTime())
+                    .endDateTime(schedule.getEndDateTime())
+                    .club(schedule.getClub())
                     .build();
         }
     }
 
-    // Update Request Dto
     @Getter
     @Setter
     @SuperBuilder
@@ -172,16 +144,12 @@ public class MatchHistoryDto {
     @AllArgsConstructor
     public static class UpdateReqDto extends DefaultDto.BaseDto {
         Long id;
-        LocalDateTime matchDate;
-        String location;
-        String matchType;
-        String result;
         String title;
-        Club homeClub;
-        Club awayClub;
+        LocalDateTime startDateTime;
+        LocalDateTime endDateTime;
+        private Club club;
     }
 
-    // Update Service Dto
     @Getter
     @Setter
     @SuperBuilder
@@ -210,5 +178,4 @@ public class MatchHistoryDto {
     public static class DeleteSevDto extends DeleteReqDto {
         Long reqUserId;
     }
-
 }

@@ -7,10 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/matchPost")
@@ -27,9 +26,17 @@ public class MatchPostRestController {
         return principalDetails.getUser().getId();
     }
 
+    // Create
     @PreAuthorize("hasRole('USER')")
     @PostMapping("")
-    public ResponseEntity<MatchPostDto.CreateResDto> signup(@RequestBody MatchPostDto.CreateReqDto createReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<MatchPostDto.CreateResDto> create(@RequestBody MatchPostDto.CreateReqDto createReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
         return ResponseEntity.ok(matchPostService.create(createReqDto, getReqUserId(principalDetails)));
+    }
+
+    // List
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("")
+    public ResponseEntity<List<MatchPostDto.ListResDto>> list(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok(matchPostService.list(getReqUserId(principalDetails)));
     }
 }

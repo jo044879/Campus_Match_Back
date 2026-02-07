@@ -39,4 +39,10 @@ public class MatchPostRestController {
     public ResponseEntity<List<MatchPostDto.ListResDto>> list(@AuthenticationPrincipal PrincipalDetails principalDetails){
         return ResponseEntity.ok(matchPostService.list(getReqUserId(principalDetails)));
     }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/{matchPostId}")
+    public ResponseEntity<MatchPostDto.DetailResDto> Detail(@PathVariable Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok(matchPostService.detail(matchPostId, getReqUserId(principalDetails)));
+    }
 }

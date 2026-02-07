@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface MatchPostRepository extends JpaRepository<MatchPost, Long> {
-    Optional<List<MatchPost>> findByDeleted(Boolean deleted);
+    Optional<List<MatchPost>> findByDeletedAndStatus(Boolean deleted, Boolean status);
 }

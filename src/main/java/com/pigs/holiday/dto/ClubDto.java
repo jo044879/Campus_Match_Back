@@ -19,7 +19,7 @@ public class ClubDto {
         String region;
         String sportCategory;
 
-        public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail(), getClubName(), getDescription(), getRegion(), getSportCategory(), 0, 0, 0, 0, 80); }
+        public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail(), getClubName(), getDescription(), getRegion(), getSportCategory(), 0, 0, 0, 0, 36.5); }
     }
 
     // Signup Response Dto

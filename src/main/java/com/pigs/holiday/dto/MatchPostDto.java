@@ -48,7 +48,7 @@ public class MatchPostDto {
         String location;
         String ClubName;
         String university;
-        int mannerScore;
+        double mannerScore;
 
         public static ListResDto toListResDto(MatchPost matchPost) {
             return builder()
@@ -73,7 +73,7 @@ public class MatchPostDto {
         String location;
         String ClubName;
         String university;
-        int mannerScore;
+        double mannerScore;
         @JsonFormat(pattern = "HH:mm")
         LocalTime startTime;
         @JsonFormat(pattern = "HH:mm")
@@ -122,15 +122,15 @@ public class MatchPostDto {
         Long matchPostId;
     }
 
-    // UpcomingDashboard Response Dto
+    // Dashboard Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class UpcomingDashboardResDto {
+    public static class DashboardResDto {
         Long matchPostId;
         LocalDate matchDate;
         String university;
         String clubName;
 
-        public static UpcomingDashboardResDto toUpcomingDashboardResDto(MatchPost matchPost) {
+        public static DashboardResDto toDashboardResDto(MatchPost matchPost) {
             return builder()
                     .matchPostId(matchPost.getId())
                     .matchDate(matchPost.getMatchDate())
@@ -139,4 +139,5 @@ public class MatchPostDto {
                     .build();
         }
     }
+
 }

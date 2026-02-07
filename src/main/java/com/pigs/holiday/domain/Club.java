@@ -51,7 +51,7 @@ public class Club extends AuditingFields {
     private List<MatchPost> awayMatchPostList = new ArrayList<>();
 
     protected Club(){}
-    private Club(String username, String password, String name, String university, String phone, String email, String clubName, String description, String region, String sportCategory) {
+    private Club(String username, String password, String name, String university, String phone, String email, String clubName, String description, String region, String sportCategory, int totalMatches, int totalWins, int totalDraws, int totalLosses, int mannerScore) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -62,14 +62,14 @@ public class Club extends AuditingFields {
         this.description = description;
         this.region = region;
         this.sportCategory = sportCategory;
-        this.totalMatches = 0;
-        this.totalWins = 0;
-        this.totalDraws = 0;
-        this.totalLosses = 0;
-        this.mannerScore = 80;
+        this.totalMatches = totalMatches;
+        this.totalWins = totalWins;
+        this.totalDraws = totalDraws;
+        this.totalLosses = totalLosses;
+        this.mannerScore = mannerScore;
     }
-    public static Club of(String username, String password, String name, String university, String phone, String email, String clubName, String description, String region, String sportCategory) {
-        return new Club(username, password,  name, university, phone, email, clubName, description, region, sportCategory);
+    public static Club of(String username, String password, String name, String university, String phone, String email, String clubName, String description, String region, String sportCategory, int totalMatches, int totalWins, int totalDraws, int totalLosses, int mannerScore) {
+        return new Club(username, password,  name, university, phone, email, clubName, description, region, sportCategory, totalMatches, totalWins, totalDraws, totalLosses, mannerScore);
     }
 
     public ClubDto.SignupResDto toSignupResDto() { return ClubDto.SignupResDto.builder().id(getId()).build(); }

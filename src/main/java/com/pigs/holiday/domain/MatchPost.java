@@ -7,7 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 
-@Getter
+    @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
 @Entity

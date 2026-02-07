@@ -34,6 +34,7 @@ public class MatchPostDto {
         }
     }
 
+    // List Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ListResDto {
         Long matchPostId;
@@ -59,6 +60,7 @@ public class MatchPostDto {
         }
     }
 
+    // Detail Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class DetailResDto {
         String region;
@@ -87,5 +89,22 @@ public class MatchPostDto {
                     .content(matchPost.getContent())
                     .build();
         }
+    }
+
+    // Update Request Dto
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class UpdateReqDto {
+        String sportCategory;
+        LocalDate matchDate;
+        String location;
+        String startTime;
+        String endTime;
+        String content;
+    }
+
+    // Update Response Dto
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class UpdateResDto {
+        Long matchPostId;
     }
 }

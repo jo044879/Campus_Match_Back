@@ -1,13 +1,15 @@
 package com.pigs.holiday.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
-    @Getter
+@Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -15,8 +17,8 @@ public class MatchPost extends AuditingFields {
     String sportCategory;
     LocalDate matchDate;
     String location;
-    String startTime;
-    String endTime;
+    LocalTime startTime;
+    LocalTime endTime;
     String content;
     Boolean status;
 
@@ -29,7 +31,7 @@ public class MatchPost extends AuditingFields {
     private Club awayClub;
 
     protected MatchPost() {}
-    private MatchPost(String sportCategory, LocalDate matchDate, String location, String startTime, String endTime, String content, Boolean status, Club homeClub, Club awayClub) {
+    private MatchPost(String sportCategory, LocalDate matchDate, String location, LocalTime startTime, LocalTime endTime, String content, Boolean status, Club homeClub, Club awayClub) {
         this.sportCategory = sportCategory;
         this.matchDate = matchDate;
         this.location = location;
@@ -40,7 +42,7 @@ public class MatchPost extends AuditingFields {
         this.homeClub = homeClub;
         this.awayClub = awayClub;
     }
-    public static MatchPost of(String sportCategory, LocalDate matchDate, String location, String startTime, String endTime, String content, Boolean status, Club homeClub, Club awayClub) {
+    public static MatchPost of(String sportCategory, LocalDate matchDate, String location, LocalTime startTime, LocalTime endTime, String content, Boolean status, Club homeClub, Club awayClub) {
         return new MatchPost(sportCategory, matchDate, location, startTime, endTime, content, status, homeClub, awayClub);
     }
 }

@@ -3,9 +3,11 @@ package com.pigs.holiday.service;
 import com.pigs.holiday.domain.Club;
 import com.pigs.holiday.domain.MatchPost;
 import com.pigs.holiday.dto.MatchPostDto;
+import com.pigs.holiday.exception.NoPermissionException;
 import com.pigs.holiday.repository.ClubRepository;
 import com.pigs.holiday.repository.MatchPostRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,8 @@ public class MatchPostService {
     final ClubRepository clubRepository;
 
     // Create
-    public MatchPostDto.CreateResDto create(MatchPostDto.CreateReqDto createReqDto, Long clubId){
-        Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost Create Error"));
+    public MatchPostDto.CreateResDto create(MatchPostDto.CreateReqDto createReqDto, Long requestClubId){
+        Club club = clubRepository.findById(requestClubId).orElseThrow(() -> new EntityNotFoundException("MatchPost Create Error"));
         MatchPost matchPost = createReqDto.toEntity();
         matchPost.setHomeClub(club);
 
@@ -28,8 +30,8 @@ public class MatchPostService {
     }
 
     // List
-    public List<MatchPostDto.ListResDto> list(Long clubId){
-        List<MatchPost> matchPostList = matchPostRepository.findByDeleted(false).orElseThrow(() -> new EntityNotFoundException("MatchPost List Error"));
+    public List<MatchPostDto.ListResDto> list(){
+        List<MatchPost> matchPostList = matchPostRepository.findByDeletedAndStatus(false, false).orElseThrow(() -> new EntityNotFoundException("MatchPost List Error"));
 
         return matchPostList.stream().map(MatchPostDto.ListResDto::toListResDto).toList();
     }
@@ -41,5 +43,20 @@ public class MatchPostService {
         detailResDto.setMyClub(clubId.equals(matchPost.getHomeClub().getId()));
 
         return detailResDto;
+    }
+
+    // Update
+    @Transactional
+    public MatchPostDto.UpdateResDto update(Long matchPostId, MatchPostDto.UpdateReqDto updateReqDto, Long requestClubId){
+        MatchPost matchPost = matchPostRepository.findById(matchPostId).orElseThrow(() -> new EntityNotFoundException("MatchPost Update Error"));
+        if(!matchPost.getHomeClub().getId().equals(requestClubId)){
+            throw new NoPermissionException("MatchPost Update Error");
+        }else if(matchPost.getStatus() || matchPost.getDeleted()){
+            throw new RuntimeException("MatchPost Update Error");
+        }
+
+        if(!updateReqDto.getSportCategory().isBlank()){
+            matchPost.setSportCategory(updateReqDto.getSportCategory());
+        }
     }
 }

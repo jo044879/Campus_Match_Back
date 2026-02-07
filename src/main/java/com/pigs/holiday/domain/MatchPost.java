@@ -13,12 +13,12 @@ import java.time.LocalDate;
 @Entity
 public class MatchPost extends AuditingFields {
     String sportCategory;
-    String startTime;
-    String endTime;
     LocalDate matchDate;
     String location;
-    Boolean status;
+    String startTime;
+    String endTime;
     String content;
+    Boolean status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_club_id", nullable = false)
@@ -29,18 +29,18 @@ public class MatchPost extends AuditingFields {
     private Club awayClub;
 
     protected MatchPost() {}
-    private MatchPost(String sportCategory, String startTime, String endTime, LocalDate matchDate, String location,  Boolean status, String content,  Club homeClub, Club awayClub) {
+    private MatchPost(String sportCategory, LocalDate matchDate, String location, String startTime, String endTime, String content, Boolean status, Club homeClub, Club awayClub) {
         this.sportCategory = sportCategory;
-        this.startTime = startTime;
-        this.endTime = endTime;
         this.matchDate = matchDate;
         this.location = location;
-        this.status = status;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.content = content;
+        this.status = status;
         this.homeClub = homeClub;
         this.awayClub = awayClub;
     }
-    public static MatchPost of(String sportCategory, String startTime, String endTime, LocalDate matchDate, String location,  Boolean status, String content,  Club homeClub, Club awayClub) {
-        return new MatchPost(sportCategory, startTime, endTime, matchDate, location, status, content, homeClub, awayClub);
+    public static MatchPost of(String sportCategory, LocalDate matchDate, String location, String startTime, String endTime, String content, Boolean status, Club homeClub, Club awayClub) {
+        return new MatchPost(sportCategory, matchDate, location, startTime, endTime, content, status, homeClub, awayClub);
     }
 }

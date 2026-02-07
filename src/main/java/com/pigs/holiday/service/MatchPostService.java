@@ -20,7 +20,7 @@ public class MatchPostService {
 
     // Create
     public MatchPostDto.CreateResDto create(MatchPostDto.CreateReqDto createReqDto, Long clubId){
-        Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost Create Error: clubId"));
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost Create Error"));
         MatchPost matchPost = createReqDto.toEntity();
         matchPost.setHomeClub(club);
 
@@ -29,8 +29,17 @@ public class MatchPostService {
 
     // List
     public List<MatchPostDto.ListResDto> list(Long clubId){
-        List<MatchPost> matchPostList = matchPostRepository.findByDeleted(false).orElseThrow(() -> new EntityNotFoundException("MatchPost List Error: null"));
+        List<MatchPost> matchPostList = matchPostRepository.findByDeleted(false).orElseThrow(() -> new EntityNotFoundException("MatchPost List Error"));
 
         return matchPostList.stream().map(MatchPostDto.ListResDto::toListResDto).toList();
+    }
+
+    // Detail
+    public MatchPostDto.DetailResDto detail(Long matchPostId, Long clubId){
+        MatchPost matchPost = matchPostRepository.findById(matchPostId).orElseThrow(() -> new EntityNotFoundException("MatchPost Detail Error"));
+        MatchPostDto.DetailResDto detailResDto = MatchPostDto.DetailResDto.toDetailResDto(matchPost);
+        detailResDto.setMyClub(clubId.equals(matchPost.getHomeClub().getId()));
+
+        return detailResDto;
     }
 }

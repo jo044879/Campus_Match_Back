@@ -8,14 +8,18 @@ public class ClubDto {
     // Signup Request Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class SignupReqDto {
-        public String username;
-        public String password;
-        public String name;
-        public String university;
-        public String phone;
-        public String email;
+        String username;
+        String password;
+        String name;
+        String university;
+        String phone;
+        String email;
+        String clubName;
+        String description;
+        String region;
+        String sportCategory;
 
-        public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail()); }
+        public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail(), getClubName(), getDescription(), getRegion(), getSportCategory()); }
     }
 
     // Signup Response Dto

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/club")
 @Controller
-public class UserController {
+public class ClubController {
     @RequestMapping("/{page}")
     public String page(@PathVariable String page) { return "club/" + page; }
     @RequestMapping("/{page}/{id}")

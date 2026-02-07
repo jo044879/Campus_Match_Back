@@ -121,4 +121,22 @@ public class MatchPostDto {
     public static class DeleteResDto {
         Long matchPostId;
     }
+
+    // UpcomingDashboard Response Dto
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class UpcomingDashboardResDto {
+        Long matchPostId;
+        LocalDate matchDate;
+        String university;
+        String clubName;
+
+        public static UpcomingDashboardResDto toUpcomingDashboardResDto(MatchPost matchPost) {
+            return builder()
+                    .matchPostId(matchPost.getId())
+                    .matchDate(matchPost.getMatchDate())
+                    .university(matchPost.getAwayClub().getUniversity())
+                    .clubName(matchPost.getAwayClub().getClubName())
+                    .build();
+        }
+    }
 }

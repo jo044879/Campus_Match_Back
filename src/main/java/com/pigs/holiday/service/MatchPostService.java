@@ -37,10 +37,10 @@ public class MatchPostService {
     }
 
     // Detail
-    public MatchPostDto.DetailResDto detail(Long matchPostId, Long clubId){
+    public MatchPostDto.DetailResDto detail(Long matchPostId, Long requestClubId){
         MatchPost matchPost = matchPostRepository.findById(matchPostId).orElseThrow(() -> new EntityNotFoundException("MatchPost Detail Error"));
         MatchPostDto.DetailResDto detailResDto = MatchPostDto.DetailResDto.toDetailResDto(matchPost);
-        detailResDto.setMyClub(clubId.equals(matchPost.getHomeClub().getId()));
+        detailResDto.setMyClub(requestClubId.equals(matchPost.getHomeClub().getId()));
 
         return detailResDto;
     }
@@ -58,5 +58,34 @@ public class MatchPostService {
         if(!updateReqDto.getSportCategory().isBlank()){
             matchPost.setSportCategory(updateReqDto.getSportCategory());
         }
+        if(updateReqDto.getMatchDate() != null){
+            matchPost.setMatchDate(updateReqDto.getMatchDate());
+        }
+        if(!updateReqDto.getLocation().isBlank()){
+            matchPost.setLocation(updateReqDto.getLocation());
+        }
+        if(updateReqDto.getStartTime() != null){
+            matchPost.setStartTime(updateReqDto.getStartTime());
+        }
+        if(updateReqDto.getEndTime() != null){
+            matchPost.setEndTime(updateReqDto.getEndTime());
+        }
+        if(!updateReqDto.getContent().isBlank()){
+            matchPost.setContent(updateReqDto.getContent());
+        }
+
+        return MatchPostDto.UpdateResDto.builder().matchPostId(matchPost.getId()).build();
+    }
+
+    // Delete
+    public MatchPostDto.DeleteResDto delete(Long matchPostId, Long requestClubId){
+        MatchPost matchPost = matchPostRepository.findById(matchPostId).orElseThrow(() -> new EntityNotFoundException("MatchPost Update Error"));
+        if(!matchPost.getHomeClub().getId().equals(requestClubId)) {
+            throw new NoPermissionException("MatchPost Update Error");
+        }
+
+        matchPostRepository.deleteById(matchPostId);
+
+        return MatchPostDto.DeleteResDto.builder().matchPostId(matchPost.getId()).build();
     }
 }

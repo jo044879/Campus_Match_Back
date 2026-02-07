@@ -1,9 +1,11 @@
 package com.pigs.holiday.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pigs.holiday.domain.MatchPost;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class MatchPostDto {
 
@@ -13,8 +15,10 @@ public class MatchPostDto {
         String sportCategory;
         LocalDate matchDate;
         String location;
-        String startTime;
-        String endTime;
+        @JsonFormat(pattern = "HH:mm")
+        LocalTime startTime;
+        @JsonFormat(pattern = "HH:mm")
+        LocalTime endTime;
         String content;
 
         public MatchPost toEntity() {
@@ -70,8 +74,10 @@ public class MatchPostDto {
         String ClubName;
         String university;
         int mannerScore;
-        String startTime;
-        String endTime;
+        @JsonFormat(pattern = "HH:mm")
+        LocalTime startTime;
+        @JsonFormat(pattern = "HH:mm")
+        LocalTime endTime;
         String content;
         Boolean myClub;
 
@@ -97,14 +103,22 @@ public class MatchPostDto {
         String sportCategory;
         LocalDate matchDate;
         String location;
-        String startTime;
-        String endTime;
+        @JsonFormat(pattern = "HH:mm")
+        LocalTime startTime;
+        @JsonFormat(pattern = "HH:mm")
+        LocalTime endTime;
         String content;
     }
 
     // Update Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class UpdateResDto {
+        Long matchPostId;
+    }
+
+    // Delete Response Dto
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class DeleteResDto {
         Long matchPostId;
     }
 }

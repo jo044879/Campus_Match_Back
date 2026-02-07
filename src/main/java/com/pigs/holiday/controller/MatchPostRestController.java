@@ -43,14 +43,21 @@ public class MatchPostRestController {
     // Detail
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{matchPostId}")
-    public ResponseEntity<MatchPostDto.DetailResDto> Detail(@PathVariable Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<MatchPostDto.DetailResDto> detail(@PathVariable Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
         return ResponseEntity.ok(matchPostService.detail(matchPostId, getReqUserId(principalDetails)));
     }
 
     // Update
     @PreAuthorize("hasRole('USER')")
     @PutMapping("/{matchPostId}")
-    public ResponseEntity<MatchPostDto.UpdateResDto> Update(@PathVariable Long matchPostId, @RequestBody MatchPostDto.UpdateReqDto updateReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<MatchPostDto.UpdateResDto> update(@PathVariable Long matchPostId, @RequestBody MatchPostDto.UpdateReqDto updateReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
         return ResponseEntity.ok(matchPostService.update(matchPostId, updateReqDto, getReqUserId(principalDetails)));
+    }
+
+    // Delete
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/{matchPostId}")
+    public ResponseEntity<MatchPostDto.DeleteResDto> delete(@PathVariable Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok(matchPostService.delete(matchPostId, getReqUserId(principalDetails)));
     }
 }

@@ -9,6 +9,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class MatchPostService {
@@ -25,4 +27,10 @@ public class MatchPostService {
         return MatchPostDto.CreateResDto.toCreateResDto(matchPostRepository.save(matchPost));
     }
 
+    // List
+    public List<MatchPostDto.ListResDto> list(Long clubId){
+        List<MatchPost> matchPostList = matchPostRepository.findByDeleted(false).orElseThrow(() -> new EntityNotFoundException("MatchPost List Error: null"));
+
+        return matchPostList.stream().map(MatchPostDto.ListResDto::toListResDto).toList();
+    }
 }

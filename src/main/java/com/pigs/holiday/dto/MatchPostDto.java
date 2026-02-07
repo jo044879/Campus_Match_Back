@@ -33,4 +33,29 @@ public class MatchPostDto {
                     .build();
         }
     }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class ListResDto {
+        Long matchPostId;
+        String region;
+        String sportCategory;
+        LocalDate matchDate;
+        String location;
+        String ClubName;
+        String university;
+        int mannerScore;
+
+        public static ListResDto toListResDto(MatchPost matchPost) {
+            return builder()
+                    .matchPostId(matchPost.getId())
+                    .region(matchPost.getHomeClub().getRegion())
+                    .sportCategory(matchPost.getSportCategory())
+                    .matchDate(matchPost.getMatchDate())
+                    .location(matchPost.getLocation())
+                    .ClubName(matchPost.getHomeClub().getClubName())
+                    .university(matchPost.getHomeClub().getUniversity())
+                    .mannerScore(matchPost.getHomeClub().getMannerScore())
+                    .build();
+        }
+    }
 }

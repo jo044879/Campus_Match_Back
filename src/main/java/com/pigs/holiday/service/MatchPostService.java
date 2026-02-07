@@ -91,12 +91,22 @@ public class MatchPostService {
     }
 
     // UpcomingDashboard
-    public List<MatchPostDto.UpcomingDashboardResDto> upcomingDashboard(Long clubId){
+    public List<MatchPostDto.DashboardResDto> upcomingDashboard(Long clubId){
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDashboard Error"));
 
         LocalDate today = LocalDate.now();
         List<MatchPost> matchPostList = matchPostRepository.findByHomeClubAndStatusAndMatchDateGreaterThan(club, true, today).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDashboard Error"));
 
-        return matchPostList.stream().map(MatchPostDto.UpcomingDashboardResDto::toUpcomingDashboardResDto).toList();
+        return matchPostList.stream().map(MatchPostDto.DashboardResDto::toDashboardResDto).toList();
+    }
+
+    // OngoingDashboard
+    public List<MatchPostDto.DashboardResDto> ongoingDashboard(Long clubId){
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDashboard Error"));
+
+        LocalDate today = LocalDate.now();
+        List<MatchPost> matchPostList = matchPostRepository.findByHomeClubAndStatusAndMatchDate(club, true, today).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDashboard Error"));
+
+        return matchPostList.stream().map(MatchPostDto.DashboardResDto::toDashboardResDto).toList();
     }
 }

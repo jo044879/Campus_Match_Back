@@ -64,7 +64,14 @@ public class MatchPostRestController {
     // UpcomingDashboard
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/upcoming/dashboard/{clubId}")
-    public ResponseEntity<List<MatchPostDto.UpcomingDashboardResDto>> upcomingDashboard(@PathVariable Long clubId){
+    public ResponseEntity<List<MatchPostDto.DashboardResDto>> upcomingDashboard(@PathVariable Long clubId){
         return ResponseEntity.ok(matchPostService.upcomingDashboard(clubId));
+    }
+
+    // UpcomingDashboard
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/ongoing/dashboard/{clubId}")
+    public ResponseEntity<List<MatchPostDto.DashboardResDto>> ongoingDashboard(@PathVariable Long clubId){
+        return ResponseEntity.ok(matchPostService.ongoingDashboard(clubId));
     }
 }

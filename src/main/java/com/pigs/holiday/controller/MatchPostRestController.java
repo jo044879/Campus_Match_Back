@@ -60,4 +60,11 @@ public class MatchPostRestController {
     public ResponseEntity<MatchPostDto.DeleteResDto> delete(@PathVariable Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
         return ResponseEntity.ok(matchPostService.delete(matchPostId, getReqUserId(principalDetails)));
     }
+
+    // UpcomingDashboard
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/upcoming/dashboard/{clubId}")
+    public ResponseEntity<List<MatchPostDto.UpcomingDashboardResDto>> upcomingDashboard(@PathVariable Long clubId){
+        return ResponseEntity.ok(matchPostService.upcomingDashboard(clubId));
+    }
 }

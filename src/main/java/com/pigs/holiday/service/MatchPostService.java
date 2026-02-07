@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -87,5 +88,15 @@ public class MatchPostService {
         matchPostRepository.deleteById(matchPostId);
 
         return MatchPostDto.DeleteResDto.builder().matchPostId(matchPost.getId()).build();
+    }
+
+    // UpcomingDashboard
+    public List<MatchPostDto.UpcomingDashboardResDto> upcomingDashboard(Long clubId){
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDashboard Error"));
+
+        LocalDate today = LocalDate.now();
+        List<MatchPost> matchPostList = matchPostRepository.findByHomeClubAndStatusAndMatchDateGreaterThan(club, true, today).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDashboard Error"));
+
+        return matchPostList.stream().map(MatchPostDto.UpcomingDashboardResDto::toUpcomingDashboardResDto).toList();
     }
 }

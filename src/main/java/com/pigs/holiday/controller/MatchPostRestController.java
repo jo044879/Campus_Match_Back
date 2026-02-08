@@ -36,13 +36,72 @@ public class MatchPostRestController {
     // List
     @PreAuthorize("hasRole('USER')")
     @GetMapping("")
-    public ResponseEntity<List<MatchPostDto.ListResDto>> list(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        return ResponseEntity.ok(matchPostService.list(getReqUserId(principalDetails)));
+    public ResponseEntity<List<MatchPostDto.ListResDto>> list(){
+        return ResponseEntity.ok(matchPostService.list());
     }
 
+    // Detail
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{matchPostId}")
-    public ResponseEntity<MatchPostDto.DetailResDto> Detail(@PathVariable Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<MatchPostDto.DetailResDto> detail(@PathVariable Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
         return ResponseEntity.ok(matchPostService.detail(matchPostId, getReqUserId(principalDetails)));
     }
+
+    // Update
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("/{matchPostId}")
+    public ResponseEntity<MatchPostDto.UpdateResDto> update(@PathVariable Long matchPostId, @RequestBody MatchPostDto.UpdateReqDto updateReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok(matchPostService.update(matchPostId, updateReqDto, getReqUserId(principalDetails)));
+    }
+
+    // Delete
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/{matchPostId}")
+    public ResponseEntity<MatchPostDto.DeleteResDto> delete(@PathVariable Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok(matchPostService.delete(matchPostId, getReqUserId(principalDetails)));
+    }
+
+    // Upcoming Dashboard
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/upcoming/dashboard/{clubId}")
+    public ResponseEntity<List<MatchPostDto.DashboardListResDto>> upcomingDashboardList(@PathVariable Long clubId){
+        return ResponseEntity.ok(matchPostService.upcomingDashboardList(clubId));
+    }
+
+    // Ongoing Dashboard
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/ongoing/dashboard/{clubId}")
+    public ResponseEntity<List<MatchPostDto.DashboardListResDto>> ongoingDashboardList(@PathVariable Long clubId){
+        return ResponseEntity.ok(matchPostService.ongoingDashboardList(clubId));
+    }
+
+    // Upcoming List
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/upcoming/{clubId}")
+    public ResponseEntity<List<MatchPostDto.ListResDto>> upcomingList(@PathVariable Long clubId){
+        return ResponseEntity.ok(matchPostService.upcomingList(clubId));
+    }
+
+    // Upcoming Detail
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/upcoming/detail/{clubId}")
+    public ResponseEntity<MatchPostDto.IngDetailResDto> upcomingDetail(@PathVariable Long clubId, @RequestParam("matchPostId") Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok(matchPostService.upcomingDetail(clubId, matchPostId, getReqUserId(principalDetails)));
+    }
+
+    // Ongoing List
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/ongoing/{clubId}")
+    public ResponseEntity<List<MatchPostDto.ListResDto>> ongoingList(@PathVariable Long clubId){
+        return ResponseEntity.ok(matchPostService.ongoingList(clubId));
+    }
+
+    // Ongoing Detail
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/ongoing/detail/{clubId}")
+    public ResponseEntity<MatchPostDto.IngDetailResDto> ongoingDetail(@PathVariable Long clubId, @RequestParam("matchPostId") Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok(matchPostService.ongoingDetail(clubId, matchPostId, getReqUserId(principalDetails)));
+    }
+
+
 }

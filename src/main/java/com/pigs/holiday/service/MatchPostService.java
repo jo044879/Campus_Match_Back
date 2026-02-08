@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -32,7 +34,7 @@ public class MatchPostService {
 
     // List
     public List<MatchPostDto.ListResDto> list(){
-        List<MatchPost> matchPostList = matchPostRepository.findByDeletedAndStatus(false, false).orElseThrow(() -> new EntityNotFoundException("MatchPost List Error"));
+        List<MatchPost> matchPostList = matchPostRepository.findByDeletedAndStatus(false, false);
 
         return matchPostList.stream().map(MatchPostDto.ListResDto::toListResDto).toList();
     }
@@ -41,7 +43,7 @@ public class MatchPostService {
     public MatchPostDto.DetailResDto detail(Long matchPostId, Long requestClubId){
         MatchPost matchPost = matchPostRepository.findById(matchPostId).orElseThrow(() -> new EntityNotFoundException("MatchPost Detail Error"));
         MatchPostDto.DetailResDto detailResDto = MatchPostDto.DetailResDto.toDetailResDto(matchPost);
-        detailResDto.setMyClub(requestClubId.equals(matchPost.getHomeClub().getId()));
+        detailResDto.setMyPost(requestClubId.equals(matchPost.getHomeClub().getId()));
 
         return detailResDto;
     }
@@ -91,22 +93,108 @@ public class MatchPostService {
     }
 
     // UpcomingDashboard
-    public List<MatchPostDto.DashboardResDto> upcomingDashboard(Long clubId){
+    public List<MatchPostDto.DashboardListResDto> upcomingDashboardList(Long clubId){
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDashboard Error"));
 
         LocalDate today = LocalDate.now();
-        List<MatchPost> matchPostList = matchPostRepository.findByHomeClubAndStatusAndMatchDateGreaterThan(club, true, today).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDashboard Error"));
+        List<MatchPost> matchPostHomeList = matchPostRepository.findByHomeClubAndStatusAndMatchDateGreaterThan(club, true, today);
+        List<MatchPost> matchPostAwayList = matchPostRepository.findByAwayClubAndStatusAndMatchDateGreaterThan(club, true, today);
 
-        return matchPostList.stream().map(MatchPostDto.DashboardResDto::toDashboardResDto).toList();
+        List<MatchPostDto.DashboardListResDto> dashboardListResDtoList = new ArrayList<>();
+
+        dashboardListResDtoList.addAll(matchPostHomeList.stream().map(MatchPostDto.DashboardListResDto::toDashboardHomeListResDto).toList());
+        dashboardListResDtoList.addAll(matchPostAwayList.stream().map(MatchPostDto.DashboardListResDto::toDashboardAwayListResDto).toList());
+
+        dashboardListResDtoList.sort(Comparator.comparing(MatchPostDto.DashboardListResDto::getMatchDate));
+
+        return dashboardListResDtoList;
     }
 
     // OngoingDashboard
-    public List<MatchPostDto.DashboardResDto> ongoingDashboard(Long clubId){
+    public List<MatchPostDto.DashboardListResDto> ongoingDashboardList(Long clubId){
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDashboard Error"));
 
         LocalDate today = LocalDate.now();
-        List<MatchPost> matchPostList = matchPostRepository.findByHomeClubAndStatusAndMatchDate(club, true, today).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDashboard Error"));
+        List<MatchPost> matchPostHomeList = matchPostRepository.findByHomeClubAndStatusAndMatchDate(club, true, today);
+        List<MatchPost> matchPostAwayList = matchPostRepository.findByAwayClubAndStatusAndMatchDate(club, true, today);
 
-        return matchPostList.stream().map(MatchPostDto.DashboardResDto::toDashboardResDto).toList();
+        List<MatchPostDto.DashboardListResDto> dashboardListResDtoList = new ArrayList<>();
+
+        dashboardListResDtoList.addAll(matchPostHomeList.stream().map(MatchPostDto.DashboardListResDto::toDashboardHomeListResDto).toList());
+        dashboardListResDtoList.addAll(matchPostAwayList.stream().map(MatchPostDto.DashboardListResDto::toDashboardAwayListResDto).toList());
+
+        return dashboardListResDtoList;
     }
+
+    // UpcomingList
+    public List<MatchPostDto.ListResDto> upcomingList(Long clubId){
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingList Error"));
+
+        LocalDate today = LocalDate.now();
+        List<MatchPost> matchPostHomeList = matchPostRepository.findByHomeClubAndStatusAndMatchDateGreaterThan(club, true, today);
+        List<MatchPost> matchPostAwayList = matchPostRepository.findByAwayClubAndStatusAndMatchDateGreaterThan(club, true, today);
+
+        List<MatchPostDto.ListResDto> listResDtoList = new ArrayList<>();
+
+        listResDtoList.addAll(matchPostHomeList.stream().map(MatchPostDto.ListResDto::toHomeListResDto).toList());
+        listResDtoList.addAll(matchPostAwayList.stream().map(MatchPostDto.ListResDto::toAwayListResDto).toList());
+
+        listResDtoList.sort(Comparator.comparing(MatchPostDto.ListResDto::getMatchDate));
+
+        return listResDtoList;
+    }
+
+    // UpcomingDetail
+    public MatchPostDto.IngDetailResDto upcomingDetail(Long clubId, Long matchPostId, Long requestClubId){
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDetail Error"));
+        MatchPost matchPost = matchPostRepository.findById(matchPostId).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDetail Error"));
+
+        if(club.equals(matchPost.getHomeClub())){
+            MatchPostDto.IngDetailResDto ingDetailResDto = MatchPostDto.IngDetailResDto.toIngDetailHomeResDto(matchPost);
+            ingDetailResDto.setMyPost(clubId.equals(requestClubId));
+            return ingDetailResDto;
+        }else if(club.equals(matchPost.getAwayClub())){
+            MatchPostDto.IngDetailResDto ingDetailResDto = MatchPostDto.IngDetailResDto.toIngDetailAwayResDto(matchPost);
+            ingDetailResDto.setMyPost(clubId.equals(requestClubId));
+            return ingDetailResDto;
+        }else{
+            throw new NoPermissionException("MatchPost UpcomingDetail Error");
+        }
+    }
+
+    // OngoingList
+    public List<MatchPostDto.ListResDto> ongoingList(Long clubId){
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost OngoingList Error"));
+
+        LocalDate today = LocalDate.now();
+        List<MatchPost> matchPostHomeList = matchPostRepository.findByHomeClubAndStatusAndMatchDate(club, true, today);
+        List<MatchPost> matchPostAwayList = matchPostRepository.findByAwayClubAndStatusAndMatchDate(club, true, today);
+
+        List<MatchPostDto.ListResDto> listResDtoList = new ArrayList<>();
+
+        listResDtoList.addAll(matchPostHomeList.stream().map(MatchPostDto.ListResDto::toHomeListResDto).toList());
+        listResDtoList.addAll(matchPostAwayList.stream().map(MatchPostDto.ListResDto::toAwayListResDto).toList());
+
+        return listResDtoList;
+    }
+
+    // OngoingDetail
+    public MatchPostDto.IngDetailResDto ongoingDetail(Long clubId, Long matchPostId, Long requestClubId){
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost OngoingDetail Error"));
+        MatchPost matchPost = matchPostRepository.findById(matchPostId).orElseThrow(() -> new EntityNotFoundException("MatchPost OngoingDetail Error"));
+
+        if(club.equals(matchPost.getHomeClub())){
+            MatchPostDto.IngDetailResDto ingDetailResDto = MatchPostDto.IngDetailResDto.toIngDetailHomeResDto(matchPost);
+            ingDetailResDto.setMyPost(clubId.equals(requestClubId));
+            return ingDetailResDto;
+        }else if(club.equals(matchPost.getAwayClub())){
+            MatchPostDto.IngDetailResDto ingDetailResDto = MatchPostDto.IngDetailResDto.toIngDetailAwayResDto(matchPost);
+            ingDetailResDto.setMyPost(clubId.equals(requestClubId));
+            return ingDetailResDto;
+        }else{
+            throw new NoPermissionException("MatchPost OngoingDetail Error");
+        }
+    }
+
+
 }

@@ -11,7 +11,10 @@ import java.util.Optional;
 
 @Repository
 public interface MatchPostRepository extends JpaRepository<MatchPost, Long> {
-    Optional<List<MatchPost>> findByDeletedAndStatus(Boolean deleted, Boolean status);
-    Optional<List<MatchPost>> findByHomeClubAndStatusAndMatchDateGreaterThan(Club homeClub, Boolean status, LocalDate targetDate);
-    Optional<List<MatchPost>> findByHomeClubAndStatusAndMatchDate(Club homeClub, Boolean status, LocalDate matchDate);
+    List<MatchPost> findByDeletedAndStatus(Boolean deleted, Boolean status);
+    List<MatchPost> findByHomeClubAndStatusAndMatchDateGreaterThan(Club homeClub, Boolean status, LocalDate targetDate);
+    List<MatchPost> findByAwayClubAndStatusAndMatchDateGreaterThan(Club awayClub, Boolean status, LocalDate targetDate);
+    List<MatchPost> findByHomeClubAndStatusAndMatchDate(Club homeClub, Boolean status, LocalDate matchDate);
+    List<MatchPost> findByAwayClubAndStatusAndMatchDate(Club awayClub, Boolean status, LocalDate matchDate);
+
 }

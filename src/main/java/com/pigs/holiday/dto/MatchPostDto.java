@@ -62,6 +62,32 @@ public class MatchPostDto {
                     .mannerScore(matchPost.getHomeClub().getMannerScore())
                     .build();
         }
+
+        public static ListResDto toHomeListResDto(MatchPost matchPost) {
+            return builder()
+                    .matchPostId(matchPost.getId())
+                    .region(matchPost.getHomeClub().getRegion())
+                    .sportCategory(matchPost.getSportCategory())
+                    .matchDate(matchPost.getMatchDate())
+                    .location(matchPost.getLocation())
+                    .ClubName(matchPost.getAwayClub().getClubName())
+                    .university(matchPost.getAwayClub().getUniversity())
+                    .mannerScore(matchPost.getAwayClub().getMannerScore())
+                    .build();
+        }
+
+        public static ListResDto toAwayListResDto(MatchPost matchPost) {
+            return builder()
+                    .matchPostId(matchPost.getId())
+                    .region(matchPost.getHomeClub().getRegion())
+                    .sportCategory(matchPost.getSportCategory())
+                    .matchDate(matchPost.getMatchDate())
+                    .location(matchPost.getLocation())
+                    .ClubName(matchPost.getHomeClub().getClubName())
+                    .university(matchPost.getHomeClub().getUniversity())
+                    .mannerScore(matchPost.getHomeClub().getMannerScore())
+                    .build();
+        }
     }
 
     // Detail Response Dto
@@ -79,7 +105,7 @@ public class MatchPostDto {
         @JsonFormat(pattern = "HH:mm")
         LocalTime endTime;
         String content;
-        Boolean myClub;
+        Boolean myPost;
 
         public static DetailResDto toDetailResDto(MatchPost matchPost) {
             return builder()
@@ -124,13 +150,13 @@ public class MatchPostDto {
 
     // Dashboard Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class DashboardResDto {
+    public static class DashboardListResDto {
         Long matchPostId;
         LocalDate matchDate;
         String university;
         String clubName;
 
-        public static DashboardResDto toDashboardResDto(MatchPost matchPost) {
+        public static DashboardListResDto toDashboardHomeListResDto(MatchPost matchPost) {
             return builder()
                     .matchPostId(matchPost.getId())
                     .matchDate(matchPost.getMatchDate())
@@ -138,6 +164,48 @@ public class MatchPostDto {
                     .clubName(matchPost.getAwayClub().getClubName())
                     .build();
         }
+
+        public static DashboardListResDto toDashboardAwayListResDto(MatchPost matchPost) {
+            return builder()
+                    .matchPostId(matchPost.getId())
+                    .matchDate(matchPost.getMatchDate())
+                    .university(matchPost.getHomeClub().getUniversity())
+                    .clubName(matchPost.getHomeClub().getClubName())
+                    .build();
+        }
     }
 
+    // IngDetail Response Dto
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class IngDetailResDto {
+        LocalDate matchDate;
+        LocalTime startTime;
+        LocalTime endTime;
+        String location;
+        String phone;
+        String content;
+        Boolean myPost;
+
+        public static IngDetailResDto toIngDetailHomeResDto(MatchPost matchPost) {
+            return builder()
+                    .matchDate(matchPost.getMatchDate())
+                    .startTime(matchPost.getStartTime())
+                    .endTime(matchPost.getEndTime())
+                    .location(matchPost.getLocation())
+                    .phone(matchPost.getAwayClub().getPhone())
+                    .content(matchPost.getContent())
+                    .build();
+        }
+
+        public static IngDetailResDto toIngDetailAwayResDto(MatchPost matchPost) {
+            return builder()
+                    .matchDate(matchPost.getMatchDate())
+                    .startTime(matchPost.getStartTime())
+                    .endTime(matchPost.getEndTime())
+                    .location(matchPost.getLocation())
+                    .phone(matchPost.getHomeClub().getPhone())
+                    .content(matchPost.getContent())
+                    .build();
+        }
+    }
 }

@@ -1,7 +1,11 @@
 package com.pigs.holiday.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import com.pigs.holiday.domain.Club;
+import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 public class ClubDto {
 
@@ -19,7 +23,7 @@ public class ClubDto {
         String region;
         String sportCategory;
 
-        public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail(), getClubName(), getDescription(), getRegion(), getSportCategory(), 0, 0, 0, 0, 80); }
+        public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail(), getClubName(), getDescription(), getRegion(), getSportCategory(), 0, 0, 0, 0, 36, false); }
     }
 
     // Signup Response Dto
@@ -34,4 +38,187 @@ public class ClubDto {
         public String username;
         public String password;
     }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public  static class CreateReqDto extends DefaultDto.BaseDto{
+        Long id;
+        String username;
+        String password;
+        String name;
+        String university;
+        String phone;
+        String email;
+        String clubName;
+        String description;
+        String region;
+        String sportCategory;
+        int totalMatches;
+        int totalWins;
+        int totalDraws;
+        int totalLosses;
+        int mannerScore;
+
+        public Club toEntity() {
+            return Club.of(
+                    getUsername(),
+                    getPassword(),
+                    getName(),
+                    getUniversity(),
+                    getPhone(),
+                    getEmail(),
+                    getClubName(),
+                    getDescription(),
+                    getRegion(),
+                    getSportCategory(),
+                    getTotalMatches(),
+                    0,
+                    0,
+                    0,
+                    36,
+                    false
+            );
+        }
+    }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CreateResDto {
+        Long clubId;
+
+        public static CreateResDto toCreateResDto(Club club) {
+            return builder().clubId(club.getId()).build();
+        }
+    }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class DashboardDetailReqDto extends DefaultDto.BaseDto{
+        Long id;
+    }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class DashboardDetailResDto extends DashboardDetailReqDto{
+        Long id;
+        String clubName;
+        String description;
+        int totalMatches;
+        int totalWins;
+        int totalDraws;
+        int totalLosses;
+        int mannerScore;
+        Boolean myClub;
+        public static DashboardDetailResDto toDetailResDto(Club club) {
+            return DashboardDetailResDto.builder()
+                    .clubName(club.getClubName())
+                    .description(club.getDescription())
+                    .totalMatches(club.getTotalMatches())
+                    .totalWins(club.getTotalWins())
+                    .totalDraws(club.getTotalDraws())
+                    .totalLosses(club.getTotalLosses())
+                    .mannerScore(club.getMannerScore())
+                    .myClub(club.getMyClub())
+                    .build();
+        }
+    }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class ListResDto {
+        String clubName;
+        String description;
+        int totalMatches;
+        int totalWins;
+        int totalDraws;
+        int totalLosses;
+        int mannerScore;
+
+        public static ListResDto toListResDto(Club club) {
+            return ListResDto.builder()
+                    .clubName(club.getClubName())
+                    .description(club.getDescription())
+                    .totalMatches(club.getTotalMatches())
+                    .totalWins(club.getTotalWins())
+                    .totalDraws(club.getTotalDraws())
+                    .totalLosses(club.getTotalLosses())
+                    .mannerScore(club.getMannerScore())
+                    .build();
+        }
+    }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class DashboardUpdateReqDto extends DefaultDto.BaseDto{
+        Long id;
+        String description;
+    }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class DashboardUpdateResDto extends DashboardUpdateReqDto{
+        Long clubId;
+    }
+
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class SettingDetailResDto {
+        String username;
+        String password;
+        String name;
+        String university;
+        String phone;
+        String email;
+        String clubName;
+
+        public static SettingDetailResDto toSettingDetailResDto(Club club) {
+            return SettingDetailResDto.builder()
+                    .clubName(club.getClubName())
+                    .username(club.getUsername())
+                    .password(club.getPassword())
+                    .name(club.getName())
+                    .university(club.getUniversity())
+                    .phone(club.getPhone())
+                    .email(club.getEmail())
+                    .clubName(club.getClubName())
+                    .build();
+        }
+    }
+
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class SettingUpdateReqDto extends DefaultDto.BaseDto{
+        String username;
+        String password;
+        String name;
+        String university;
+        String phone;
+        String email;
+        String clubName;
+    }
+
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class SettingUpdateResDto extends SettingUpdateReqDto{
+        Long clubId;
+    }
+
+
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class SettingDeleteResDto {
+        Long clubId;
+    }
+
+    //동아리 온도 수정 미완
+    /*
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class
+    */
+    //검색 페이지 미완
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

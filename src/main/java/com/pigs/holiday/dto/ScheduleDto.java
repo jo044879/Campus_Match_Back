@@ -2,6 +2,7 @@ package com.pigs.holiday.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pigs.holiday.domain.Club;
+import com.pigs.holiday.domain.MatchPost;
 import com.pigs.holiday.domain.Schedule;
 import lombok.*;
 
@@ -15,12 +16,47 @@ public class ScheduleDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class CreateReqDto {
+        String title;
+        LocalDate startDate;
+        LocalDate endDate;
+        LocalTime startTime;
+        LocalTime endTime;
+        private Club club;
+
+
+        public Schedule toEntity() {
+            return Schedule.of(getTitle(), getStartDate(), getEndDate(), getClub(), getStartTime(), getEndTime());
+        }
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CreateResDto {
+        Long scheduleId;
+
+        public static ScheduleDto.CreateResDto toCreateResDto(Schedule schedule) {
+            return builder()
+                    .scheduleId(schedule.getId())
+                    .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class ListResDto {
         Long id;
         String title;
         LocalDate startDate;
         LocalDate endDate;
         private Club club;
+        Boolean myClub;
 
         public static ListResDto toListresDto(Schedule schedule) {
             return builder()
@@ -48,6 +84,8 @@ public class ScheduleDto {
         @JsonFormat(pattern = "HH:mm")
         LocalTime endTime;
         private Club club;
+        Boolean myClub;
+
 
         public static DetailResDto toDetailResDto(Schedule schedule) {
             return builder()
@@ -58,7 +96,6 @@ public class ScheduleDto {
                     .startTime(schedule.getStartTime())
                     .endTime(schedule.getEndTime())
                     .club(schedule.getClub())
-
                     .build();
         }
     }

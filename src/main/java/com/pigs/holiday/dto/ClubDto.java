@@ -23,7 +23,7 @@ public class ClubDto {
         String region;
         String sportCategory;
 
-        public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail(), getClubName(), getDescription(), getRegion(), getSportCategory(), 0, 0, 0, 0, 36, false); }
+        public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail(), getClubName(), getDescription(), getRegion(), getSportCategory(), 0, 0, 0, 0, 36); }
     }
 
     // Signup Response Dto
@@ -74,8 +74,7 @@ public class ClubDto {
                     0,
                     0,
                     0,
-                    36,
-                    false
+                    36
             );
         }
     }
@@ -114,7 +113,6 @@ public class ClubDto {
                     .totalDraws(club.getTotalDraws())
                     .totalLosses(club.getTotalLosses())
                     .mannerScore(club.getMannerScore())
-                    .myClub(club.getMyClub())
                     .build();
         }
     }

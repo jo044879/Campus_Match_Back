@@ -70,7 +70,6 @@ public class ClubService {
 
     @Transactional
     public ClubDto.SettingUpdateResDto settingUpdate(ClubDto.SettingUpdateReqDto settingUpdateReqDto, Long clubId) {
-        // 1. 엔티티 조회
         Club club = clubRepository.findById(clubId)
                 .orElseThrow(() -> new EntityNotFoundException("Setting update Error: Club ID " + clubId + " not found"));
 

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Getter
@@ -13,8 +12,8 @@ import java.time.LocalTime;
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 public class MatchRequest extends AuditingFields {
-    LocalTime StartTime;
-    LocalTime EndTime;
+    LocalTime startTime;
+    LocalTime endTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "match_post_id", nullable = false)
@@ -26,8 +25,8 @@ public class MatchRequest extends AuditingFields {
 
     protected MatchRequest() {}
     private MatchRequest(LocalTime StartTime, LocalTime EndTime, MatchPost matchPost, Club senderClub) {
-        this.StartTime = StartTime;
-        this.EndTime = EndTime;
+        this.startTime = StartTime;
+        this.endTime = EndTime;
         this.matchPost = matchPost;
         this.senderClub = senderClub;
     }

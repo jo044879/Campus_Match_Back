@@ -209,11 +209,13 @@ public class MatchPostDto {
         }
     }
 
+    // UpcomingDelete Request Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class UpcomingDeleteReqDto {
         String content;
     }
 
+    // FinishDetail Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class FinishDetailResDto {
         Long clubId;

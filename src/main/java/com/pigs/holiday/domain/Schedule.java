@@ -37,4 +37,6 @@ public class Schedule extends AuditingFields {
     public static Schedule of(String title, LocalDate startDate, LocalDate endDate, Club club, LocalTime startTime, LocalTime endTime) {
         return new Schedule(title, startDate, endDate, club, startTime, endTime);
     }
+
+
 }

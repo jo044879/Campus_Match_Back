@@ -6,6 +6,7 @@ import com.pigs.holiday.dto.ScheduleDto;
 import com.pigs.holiday.repository.ClubRepository;
 import com.pigs.holiday.repository.ScheduleRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -42,10 +43,32 @@ public class ScheduleService {
         detailResDto.setMyClub(clubId.equals(schedule.getClub().getId()));
         return detailResDto;
     }
-/*
-    public ScheduleDto.UpdateResDto update(Long id, Long clubId) {
 
+    @Transactional
+    public ScheduleDto.UpdateResDto update(Long scheduleId, Long clubId, ScheduleDto.UpdateReqDto reqDto) { // reqDto 필수!
+
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new EntityNotFoundException("Schedule Update Error"));
+
+        if (!schedule.getClub().getId().equals(clubId)) {
+            throw new IllegalArgumentException("수정 권한이 없습니다.");
+        }
+
+        Schedule.of(
+                reqDto.getTitle(),
+                reqDto.getStartDate(),
+                reqDto.getEndDate(),
+                reqDto.getClub(),
+                reqDto.getStartTime(),
+                reqDto.getEndTime()
+        );
+        return new ScheduleDto.UpdateResDto(scheduleId);
     }
 
-*/
+    @Transactional
+    public ScheduleDto.DeleteResDto delete(Long scheduleId) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new EntityNotFoundException("delete Error"));
+        scheduleRepository.delete(schedule);
+        return ScheduleDto.DeleteResDto.builder().reqId(scheduleId).build();
+    }
 }

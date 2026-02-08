@@ -110,6 +110,7 @@ public class ScheduleDto {
         String title;
         LocalDate startDate;
         LocalDate endDate;
+        Club club;
         @JsonFormat(pattern = "HH:mm")
         LocalTime startTime;
         @JsonFormat(pattern = "HH:mm")

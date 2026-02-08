@@ -2,6 +2,7 @@ package com.pigs.holiday.repository;
 
 import com.pigs.holiday.domain.Club;
 import com.pigs.holiday.domain.MatchPost;
+import com.pigs.holiday.dto.MatchPostDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,7 @@ public interface MatchPostRepository extends JpaRepository<MatchPost, Long> {
     List<MatchPost> findByAwayClubAndStatusAndMatchDateGreaterThan(Club awayClub, Boolean status, LocalDate targetDate);
     List<MatchPost> findByHomeClubAndStatusAndMatchDate(Club homeClub, Boolean status, LocalDate matchDate);
     List<MatchPost> findByAwayClubAndStatusAndMatchDate(Club awayClub, Boolean status, LocalDate matchDate);
-
+    List<MatchPost> findByHomeClubAndStatusAndDeleted(Club homeClub, Boolean status, Boolean deleted);
+    List<MatchPost> findByAwayClubAndStatusAndDeleted(Club awayClub, Boolean status, Boolean deleted);
+    List<MatchPost> findByStatusAndDeletedAndMatchDateLessThan(Boolean status, Boolean deleted, LocalDate targetDate);
 }

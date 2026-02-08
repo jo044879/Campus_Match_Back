@@ -186,7 +186,7 @@ public class MatchPostDto {
         String content;
         Boolean myPost;
 
-        public static IngDetailResDto toIngDetailHomeResDto(MatchPost matchPost) {
+        public static IngDetailResDto toIngHomeDetailResDto(MatchPost matchPost) {
             return builder()
                     .matchDate(matchPost.getMatchDate())
                     .startTime(matchPost.getStartTime())
@@ -197,7 +197,7 @@ public class MatchPostDto {
                     .build();
         }
 
-        public static IngDetailResDto toIngDetailAwayResDto(MatchPost matchPost) {
+        public static IngDetailResDto toIngAwayDetailResDto(MatchPost matchPost) {
             return builder()
                     .matchDate(matchPost.getMatchDate())
                     .startTime(matchPost.getStartTime())
@@ -205,6 +205,37 @@ public class MatchPostDto {
                     .location(matchPost.getLocation())
                     .phone(matchPost.getHomeClub().getPhone())
                     .content(matchPost.getContent())
+                    .build();
+        }
+    }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class UpcomingDeleteReqDto {
+        String content;
+    }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class FinishDetailResDto {
+        Long clubId;
+        Long oppositionClubId;
+        LocalDate matchDate;
+        String location;
+
+        public static FinishDetailResDto toFinishHomeDetailResDto(MatchPost matchPost) {
+            return builder()
+                    .clubId(matchPost.getHomeClub().getId())
+                    .oppositionClubId(matchPost.getAwayClub().getId())
+                    .matchDate(matchPost.getMatchDate())
+                    .location(matchPost.getLocation())
+                    .build();
+        }
+
+        public static FinishDetailResDto toFinishAwayDetailResDto(MatchPost matchPost) {
+            return builder()
+                    .clubId(matchPost.getAwayClub().getId())
+                    .oppositionClubId(matchPost.getHomeClub().getId())
+                    .matchDate(matchPost.getMatchDate())
+                    .location(matchPost.getLocation())
                     .build();
         }
     }

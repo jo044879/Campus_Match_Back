@@ -23,7 +23,6 @@ public class ClubDto {
         String region;
         String sportCategory;
 
-        public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail(), getClubName(), getDescription(), getRegion(), getSportCategory(), 0, 0, 0, 0, 36); }
         public Club toEntity() { return Club.of(getUsername(), getPassword(), getName(), getUniversity(), getPhone(), getEmail(), getClubName(), getDescription(), getRegion(), getSportCategory(), 0, 0, 0, 0, 36.5); }
     }
 
@@ -42,7 +41,6 @@ public class ClubDto {
 
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public  static class CreateReqDto extends DefaultDto.BaseDto{
-        Long id;
         String username;
         String password;
         String name;
@@ -89,13 +87,9 @@ public class ClubDto {
         }
     }
 
-    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class DashboardDetailReqDto extends DefaultDto.BaseDto{
-        Long id;
-    }
 
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class DashboardDetailResDto extends DashboardDetailReqDto{
+    public static class DashboardDetailResDto {
         Long id;
         String clubName;
         String description;
@@ -113,7 +107,6 @@ public class ClubDto {
                     .totalWins(club.getTotalWins())
                     .totalDraws(club.getTotalDraws())
                     .totalLosses(club.getTotalLosses())
-                    .mannerScore(club.getMannerScore())
                     .build();
         }
     }
@@ -136,32 +129,29 @@ public class ClubDto {
                     .totalWins(club.getTotalWins())
                     .totalDraws(club.getTotalDraws())
                     .totalLosses(club.getTotalLosses())
-                    .mannerScore(club.getMannerScore())
                     .build();
         }
     }
 
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class DashboardUpdateReqDto extends DefaultDto.BaseDto{
-        Long id;
         String description;
     }
 
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class DashboardUpdateResDto extends DashboardUpdateReqDto{
+    public static class DashboardUpdateResDto {
         Long clubId;
     }
 
 
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class SettingDetailResDto {
+        String clubName;
         String username;
         String password;
         String name;
         String university;
-        String phone;
         String email;
-        String clubName;
 
         public static SettingDetailResDto toSettingDetailResDto(Club club) {
             return SettingDetailResDto.builder()
@@ -170,26 +160,24 @@ public class ClubDto {
                     .password(club.getPassword())
                     .name(club.getName())
                     .university(club.getUniversity())
-                    .phone(club.getPhone())
                     .email(club.getEmail())
-                    .clubName(club.getClubName())
                     .build();
         }
     }
 
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class SettingUpdateReqDto extends DefaultDto.BaseDto{
+        String name;
         String username;
         String password;
-        String name;
         String university;
-        String phone;
-        String email;
         String clubName;
+        String email;
+
     }
 
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class SettingUpdateResDto extends SettingUpdateReqDto{
+    public static class SettingUpdateResDto{
         Long clubId;
     }
 

@@ -21,7 +21,7 @@ public class ScheduleService {
 
     public ScheduleDto.CreateResDto create(ScheduleDto.CreateReqDto createReqDto, Long clubId){
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("schedule Create Error"));
-        Schedule schedule = createReqDto.toEntity();
+        Schedule schedule = createReqDto.toEntity(club);
         schedule.setClub(club);
         return ScheduleDto.CreateResDto.toCreateResDto(scheduleRepository.save(schedule));
     }
@@ -45,7 +45,7 @@ public class ScheduleService {
     }
 
     @Transactional
-    public ScheduleDto.UpdateResDto update(Long scheduleId, Long clubId, ScheduleDto.UpdateReqDto reqDto) { // reqDto 필수!
+    public ScheduleDto.UpdateResDto update(ScheduleDto.UpdateReqDto reqDto, Long scheduleId, Long clubId) { // reqDto 필수!
 
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new EntityNotFoundException("Schedule Update Error"));

@@ -1,5 +1,8 @@
 package com.pigs.holiday.service;
 
+import com.pigs.holiday.domain.MatchPost;
+import com.pigs.holiday.dto.MatchPostDto;
+import com.pigs.holiday.exception.NoPermissionException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +43,7 @@ public class ClubService {
     }
 
     @Transactional
-    public ClubDto.DashboardDetailResDto dashboardDetail(ClubDto.DashboardDetailReqDto dashboardDetail, Long clubId) {
+    public ClubDto.DashboardDetailResDto dashboardDetail(Long clubId) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("clubDetail Error"));
         ClubDto.DashboardDetailResDto detailResDto = ClubDto.DashboardDetailResDto.toDetailResDto(club);
         detailResDto.setMyClub(clubId.equals(club.getId()));
@@ -48,7 +51,7 @@ public class ClubService {
     }
 
     @Transactional
-    public List<ClubDto.ListResDto> list(Long clubId) {
+    public List<ClubDto.ListResDto> list() {
         List<Club> clubList = clubRepository.findByDeleted(false).orElseThrow(() -> new EntityNotFoundException("clubDetail Error"));
         return clubList.stream().map(ClubDto.ListResDto :: toListResDto).toList();
     }
@@ -77,19 +80,11 @@ public class ClubService {
         club.setPassword(settingUpdateReqDto.getPassword());
         club.setName(settingUpdateReqDto.getName());
         club.setUniversity(settingUpdateReqDto.getUniversity());
-        club.setPhone(settingUpdateReqDto.getPhone());
         club.setEmail(settingUpdateReqDto.getEmail());
         club.setClubName(settingUpdateReqDto.getClubName());
 
         return ClubDto.SettingUpdateResDto.builder()
                 .clubId(club.getId())
-                .username(club.getUsername())
-                .password(club.getPassword())
-                .name(club.getName())
-                .university(club.getUniversity())
-                .phone(club.getPhone())
-                .email(club.getEmail())
-                .clubName(club.getClubName())
                 .build();
     }
 
@@ -97,14 +92,11 @@ public class ClubService {
     @Transactional
     public ClubDto.SettingDeleteResDto delete(Long clubId) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("delete Error"));
-        clubRepository.delete(club);
+        club.setDeleted(true);
         return ClubDto.SettingDeleteResDto.builder()
                 .clubId(clubId)
                 .build();
     }
-
-
-
 
 
 }

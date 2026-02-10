@@ -49,8 +49,9 @@ public class MatchPostDto {
         String ClubName;
         String university;
         double mannerScore;
+        Boolean myPost;
 
-        public static ListResDto toListResDto(MatchPost matchPost) {
+        public static ListResDto toListResDto(MatchPost matchPost, Boolean myPost) {
             return builder()
                     .matchPostId(matchPost.getId())
                     .region(matchPost.getHomeClub().getRegion())
@@ -60,10 +61,11 @@ public class MatchPostDto {
                     .ClubName(matchPost.getHomeClub().getClubName())
                     .university(matchPost.getHomeClub().getUniversity())
                     .mannerScore(matchPost.getHomeClub().getMannerScore())
+                    .myPost(myPost)
                     .build();
         }
 
-        public static ListResDto toHomeListResDto(MatchPost matchPost) {
+        public static ListResDto toHomeListResDto(MatchPost matchPost, Boolean myPost) {
             return builder()
                     .matchPostId(matchPost.getId())
                     .region(matchPost.getHomeClub().getRegion())
@@ -73,10 +75,11 @@ public class MatchPostDto {
                     .ClubName(matchPost.getAwayClub().getClubName())
                     .university(matchPost.getAwayClub().getUniversity())
                     .mannerScore(matchPost.getAwayClub().getMannerScore())
+                    .myPost(myPost)
                     .build();
         }
 
-        public static ListResDto toAwayListResDto(MatchPost matchPost) {
+        public static ListResDto toAwayListResDto(MatchPost matchPost, Boolean myPost) {
             return builder()
                     .matchPostId(matchPost.getId())
                     .region(matchPost.getHomeClub().getRegion())
@@ -86,6 +89,7 @@ public class MatchPostDto {
                     .ClubName(matchPost.getHomeClub().getClubName())
                     .university(matchPost.getHomeClub().getUniversity())
                     .mannerScore(matchPost.getHomeClub().getMannerScore())
+                    .myPost(myPost)
                     .build();
         }
     }
@@ -184,7 +188,6 @@ public class MatchPostDto {
         String location;
         String phone;
         String content;
-        Boolean myPost;
 
         public static IngDetailResDto toIngHomeDetailResDto(MatchPost matchPost) {
             return builder()

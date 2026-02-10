@@ -1,6 +1,5 @@
 package com.pigs.holiday.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pigs.holiday.domain.MatchRequest;
 import lombok.*;
 

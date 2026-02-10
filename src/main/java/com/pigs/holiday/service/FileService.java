@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -45,19 +47,19 @@ public class FileService {
         return s3Url;
     }
 
-//
-//    public List<String> uploadFiles(List<MultipartFile> files, String dirName) throws IOException {
-//        List<String> s3Urls = new ArrayList<>();
-//
-//        if (files != null && !files.isEmpty()) {
-//            for (MultipartFile file : files) {
-//                if (!file.isEmpty()) {
-//                    s3Urls.add(uploadFile(file, dirName));
-//                }
-//            }
-//        }
-//        return s3Urls;
-//    }
+
+    public List<String> uploadFiles(List<MultipartFile> files, String dirName) throws IOException {
+        List<String> s3Urls = new ArrayList<>();
+
+        if (files != null && !files.isEmpty()) {
+            for (MultipartFile file : files) {
+                if (!file.isEmpty()) {
+                    s3Urls.add(uploadFile(file, dirName));
+                }
+            }
+        }
+        return s3Urls;
+    }
 
 
 }

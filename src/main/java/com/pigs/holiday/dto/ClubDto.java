@@ -1,11 +1,8 @@
 package com.pigs.holiday.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import com.pigs.holiday.domain.Club;
 import lombok.experimental.SuperBuilder;
-
-import java.time.LocalDateTime;
 
 public class ClubDto {
 

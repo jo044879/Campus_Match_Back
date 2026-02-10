@@ -1,6 +1,5 @@
 package com.pigs.holiday.controller;
 
-import com.pigs.holiday.domain.Club;
 import com.pigs.holiday.security.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import com.pigs.holiday.dto.ClubDto;

@@ -75,5 +75,9 @@ public class Club extends AuditingFields {
         return new Club(username, password,  name, university, phone, email, clubName, description, region, sportCategory, totalMatches, totalWins, totalDraws, totalLosses, mannerScore);
     }
 
+
+
+
+
     public ClubDto.SignupResDto toSignupResDto() { return ClubDto.SignupResDto.builder().id(getId()).build(); }
 }

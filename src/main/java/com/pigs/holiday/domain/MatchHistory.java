@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class MatchHistory extends AuditingFields {
     LocalDate matchDate;
     String location;
-    boolean matchType;
+    Boolean matchType;
     String result;
 
     @ManyToOne(fetch = FetchType.LAZY)

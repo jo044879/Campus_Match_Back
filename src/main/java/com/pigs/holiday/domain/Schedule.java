@@ -26,15 +26,18 @@ public class Schedule extends AuditingFields {
     private Club club;
 
     protected Schedule(){}
-    private Schedule(String title, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, Club club) {
+    private Schedule(String title, LocalDate startDate, LocalDate endDate, Club club, LocalTime startTime, LocalTime endTime) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.club = club;
+
     }
-    public static Schedule of(String title, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, Club club) {
-        return new Schedule(title, startDate, endDate, startTime, endTime, club);
+    public static Schedule of(String title, LocalDate startDate, LocalDate endDate, Club club, LocalTime startTime, LocalTime endTime) {
+        return new Schedule(title, startDate, endDate, club, startTime, endTime);
     }
+
+
 }

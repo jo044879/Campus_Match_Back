@@ -10,7 +10,11 @@ import java.time.LocalTime;
 public class MatchPostDto {
 
     // Create Request Dto
-    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class CreateReqDto {
         String sportCategory;
         LocalDate matchDate;
@@ -27,7 +31,11 @@ public class MatchPostDto {
     }
 
     // Create Response Dto
-    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class CreateResDto {
         Long matchPostId;
 

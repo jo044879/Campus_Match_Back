@@ -32,8 +32,6 @@ public class Club extends AuditingFields {
     int totalLosses;
     double mannerScore;
 
-    Boolean mannerScoreCheck;
-
     @OneToMany(mappedBy = "homeClub")
     private List<MatchHistory> homeMatchHistoryList = new ArrayList<>();
 
@@ -69,11 +67,14 @@ public class Club extends AuditingFields {
         this.totalDraws = totalDraws;
         this.totalLosses = totalLosses;
         this.mannerScore = mannerScore;
-
     }
     public static Club of(String username, String password, String name, String university, String phone, String email, String clubName, String description, String region, String sportCategory, int totalMatches, int totalWins, int totalDraws, int totalLosses, double mannerScore) {
         return new Club(username, password,  name, university, phone, email, clubName, description, region, sportCategory, totalMatches, totalWins, totalDraws, totalLosses, mannerScore);
     }
+
+
+
+
 
     public ClubDto.SignupResDto toSignupResDto() { return ClubDto.SignupResDto.builder().id(getId()).build(); }
 }

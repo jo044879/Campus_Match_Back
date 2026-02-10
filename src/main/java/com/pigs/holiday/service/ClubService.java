@@ -74,14 +74,28 @@ public class ClubService {
     @Transactional
     public ClubDto.SettingUpdateResDto settingUpdate(ClubDto.SettingUpdateReqDto settingUpdateReqDto, Long clubId) {
         Club club = clubRepository.findById(clubId)
-                .orElseThrow(() -> new EntityNotFoundException("Setting update Error: Club ID " + clubId + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Setting update Error: " + clubId + " not found"));
 
-        club.setUsername(settingUpdateReqDto.getUsername());
-        club.setPassword(settingUpdateReqDto.getPassword());
-        club.setName(settingUpdateReqDto.getName());
-        club.setUniversity(settingUpdateReqDto.getUniversity());
-        club.setEmail(settingUpdateReqDto.getEmail());
-        club.setClubName(settingUpdateReqDto.getClubName());
+        //if(!updateReqDto.getSportCategory().isBlank()){
+
+        if(!settingUpdateReqDto.getUsername().isBlank()) {
+            club.setUsername(settingUpdateReqDto.getUsername());
+        }
+        if(!settingUpdateReqDto.getPassword().isBlank()) {
+            club.setPassword(settingUpdateReqDto.getPassword());
+        }
+        if(!settingUpdateReqDto.getName().isBlank()) {
+            club.setName(settingUpdateReqDto.getName());
+        }
+        if(!settingUpdateReqDto.getUniversity().isBlank()) {
+            club.setUniversity(settingUpdateReqDto.getUniversity());
+        }
+        if(!settingUpdateReqDto.getEmail().isBlank()) {
+            club.setEmail(settingUpdateReqDto.getEmail());
+        }
+        if(!settingUpdateReqDto.getClubName().isBlank()) {
+            club.setClubName(settingUpdateReqDto.getClubName());
+        }
 
         return ClubDto.SettingUpdateResDto.builder()
                 .clubId(club.getId())
@@ -92,6 +106,7 @@ public class ClubService {
     @Transactional
     public ClubDto.SettingDeleteResDto delete(Long clubId) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("delete Error"));
+
         club.setDeleted(true);
         return ClubDto.SettingDeleteResDto.builder()
                 .clubId(clubId)

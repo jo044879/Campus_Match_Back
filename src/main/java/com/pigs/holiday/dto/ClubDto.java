@@ -40,7 +40,7 @@ public class ClubDto {
     }
 
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-    public  static class CreateReqDto extends DefaultDto.BaseDto{
+    public  static class CreateReqDto{
         String username;
         String password;
         String name;
@@ -134,7 +134,7 @@ public class ClubDto {
     }
 
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class DashboardUpdateReqDto extends DefaultDto.BaseDto{
+    public static class DashboardUpdateReqDto {
         String description;
     }
 
@@ -166,7 +166,7 @@ public class ClubDto {
     }
 
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class SettingUpdateReqDto extends DefaultDto.BaseDto{
+    public static class SettingUpdateReqDto {
         String name;
         String username;
         String password;

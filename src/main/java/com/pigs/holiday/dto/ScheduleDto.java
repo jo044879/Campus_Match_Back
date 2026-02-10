@@ -114,7 +114,7 @@ public class ScheduleDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpdateReqDto extends DefaultDto.BaseDto{
+    public static class UpdateReqDto{
         Long id;
         String title;
         LocalDate startDate;
@@ -131,7 +131,7 @@ public class ScheduleDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpdateResDto extends UpdateReqDto {
+    public static class UpdateResDto {
         Long reqId;
     }
 

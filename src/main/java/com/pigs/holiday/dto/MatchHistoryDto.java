@@ -57,7 +57,7 @@ public class MatchHistoryDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ListReqDto extends DefaultDto.BaseDto {
+    public static class ListReqDto{
         Long clubId;
     }
 
@@ -94,7 +94,7 @@ public class MatchHistoryDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpdateReqDto extends DefaultDto.BaseDto {
+    public static class UpdateReqDto {
         LocalDate matchDate;
         String location;
         boolean matchType;

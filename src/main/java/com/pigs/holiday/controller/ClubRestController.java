@@ -20,6 +20,4 @@ public class ClubRestController {
     public ResponseEntity<ClubDto.SignupResDto> signup(@RequestBody ClubDto.SignupReqDto signupReqDto){
         return ResponseEntity.ok(clubService.signup(signupReqDto));
     }
-
-    //@PreAuthorize("hasRole('USER')")
 }

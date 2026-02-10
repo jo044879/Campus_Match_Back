@@ -33,10 +33,10 @@ public class MatchPostService {
     }
 
     // List
-    public List<MatchPostDto.ListResDto> list(){
+    public List<MatchPostDto.ListResDto> list(Long requestClubId){
         List<MatchPost> matchPostList = matchPostRepository.findByDeletedAndStatus(false, false);
 
-        return matchPostList.stream().map(MatchPostDto.ListResDto::toListResDto).toList();
+        return matchPostList.stream().map(matchPost -> MatchPostDto.ListResDto.toListResDto(matchPost, matchPost.getHomeClub().getId().equals(requestClubId))).toList();
     }
 
     // Detail
@@ -127,7 +127,7 @@ public class MatchPostService {
     }
 
     // UpcomingList
-    public List<MatchPostDto.ListResDto> upcomingList(Long clubId){
+    public List<MatchPostDto.ListResDto> upcomingList(Long clubId, Long requestClubId){
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingList Error"));
 
         LocalDate today = LocalDate.now();
@@ -136,8 +136,8 @@ public class MatchPostService {
 
         List<MatchPostDto.ListResDto> listResDtoList = new ArrayList<>();
 
-        listResDtoList.addAll(matchPostHomeList.stream().map(MatchPostDto.ListResDto::toHomeListResDto).toList());
-        listResDtoList.addAll(matchPostAwayList.stream().map(MatchPostDto.ListResDto::toAwayListResDto).toList());
+        listResDtoList.addAll(matchPostHomeList.stream().map(matchPost -> MatchPostDto.ListResDto.toHomeListResDto(matchPost,clubId.equals(requestClubId))).toList());
+        listResDtoList.addAll(matchPostAwayList.stream().map(matchPost -> MatchPostDto.ListResDto.toAwayListResDto(matchPost, clubId.equals(requestClubId))).toList());
 
         listResDtoList.sort(Comparator.comparing(MatchPostDto.ListResDto::getMatchDate));
 
@@ -145,18 +145,14 @@ public class MatchPostService {
     }
 
     // UpcomingDetail
-    public MatchPostDto.IngDetailResDto upcomingDetail(Long clubId, Long matchPostId, Long requestClubId){
+    public MatchPostDto.IngDetailResDto upcomingDetail(Long clubId, Long matchPostId){
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDetail Error"));
         MatchPost matchPost = matchPostRepository.findById(matchPostId).orElseThrow(() -> new EntityNotFoundException("MatchPost UpcomingDetail Error"));
 
         if(club.equals(matchPost.getHomeClub())){
-            MatchPostDto.IngDetailResDto ingDetailResDto = MatchPostDto.IngDetailResDto.toIngHomeDetailResDto(matchPost);
-            ingDetailResDto.setMyPost(clubId.equals(requestClubId));
-            return ingDetailResDto;
+            return MatchPostDto.IngDetailResDto.toIngHomeDetailResDto(matchPost);
         }else if(club.equals(matchPost.getAwayClub())){
-            MatchPostDto.IngDetailResDto ingDetailResDto = MatchPostDto.IngDetailResDto.toIngAwayDetailResDto(matchPost);
-            ingDetailResDto.setMyPost(clubId.equals(requestClubId));
-            return ingDetailResDto;
+            return MatchPostDto.IngDetailResDto.toIngAwayDetailResDto(matchPost);
         }else{
             throw new NoPermissionException("MatchPost UpcomingDetail Error");
         }
@@ -179,7 +175,7 @@ public class MatchPostService {
     }
 
     // OngoingList
-    public List<MatchPostDto.ListResDto> ongoingList(Long clubId){
+    public List<MatchPostDto.ListResDto> ongoingList(Long clubId, Long requestClubId){
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost OngoingList Error"));
 
         LocalDate today = LocalDate.now();
@@ -188,25 +184,21 @@ public class MatchPostService {
 
         List<MatchPostDto.ListResDto> listResDtoList = new ArrayList<>();
 
-        listResDtoList.addAll(matchPostHomeList.stream().map(MatchPostDto.ListResDto::toHomeListResDto).toList());
-        listResDtoList.addAll(matchPostAwayList.stream().map(MatchPostDto.ListResDto::toAwayListResDto).toList());
+        listResDtoList.addAll(matchPostHomeList.stream().map(matchPost ->MatchPostDto.ListResDto.toHomeListResDto(matchPost, clubId.equals(requestClubId))).toList());
+        listResDtoList.addAll(matchPostAwayList.stream().map(matchPost -> MatchPostDto.ListResDto.toAwayListResDto(matchPost, clubId.equals(requestClubId))).toList());
 
         return listResDtoList;
     }
 
     // OngoingDetail
-    public MatchPostDto.IngDetailResDto ongoingDetail(Long clubId, Long matchPostId, Long requestClubId){
+    public MatchPostDto.IngDetailResDto ongoingDetail(Long clubId, Long matchPostId){
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("MatchPost OngoingDetail Error"));
         MatchPost matchPost = matchPostRepository.findById(matchPostId).orElseThrow(() -> new EntityNotFoundException("MatchPost OngoingDetail Error"));
 
         if(club.equals(matchPost.getHomeClub())){
-            MatchPostDto.IngDetailResDto ingDetailResDto = MatchPostDto.IngDetailResDto.toIngHomeDetailResDto(matchPost);
-            ingDetailResDto.setMyPost(clubId.equals(requestClubId));
-            return ingDetailResDto;
+            return MatchPostDto.IngDetailResDto.toIngHomeDetailResDto(matchPost);
         }else if(club.equals(matchPost.getAwayClub())){
-            MatchPostDto.IngDetailResDto ingDetailResDto = MatchPostDto.IngDetailResDto.toIngAwayDetailResDto(matchPost);
-            ingDetailResDto.setMyPost(clubId.equals(requestClubId));
-            return ingDetailResDto;
+            return MatchPostDto.IngDetailResDto.toIngAwayDetailResDto(matchPost);
         }else{
             throw new NoPermissionException("MatchPost OngoingDetail Error");
         }
@@ -221,6 +213,8 @@ public class MatchPostService {
         }
 
         matchPost.setDeleted(true);
+
+        // notification
 
         return MatchPostDto.DeleteResDto.builder().matchPostId(matchPost.getId()).build();
     }
@@ -240,8 +234,8 @@ public class MatchPostService {
         List<MatchPost> AwaylistResDtoList = matchPostRepository.findByAwayClubAndStatusAndDeleted(club, true, true);
 
         List<MatchPostDto.ListResDto> listResDtoList = new ArrayList<>();
-        listResDtoList.addAll(HomelistResDtoList.stream().map(MatchPostDto.ListResDto::toHomeListResDto).toList());
-        listResDtoList.addAll(AwaylistResDtoList.stream().map(MatchPostDto.ListResDto::toAwayListResDto).toList());
+        listResDtoList.addAll(HomelistResDtoList.stream().map(matchPost -> MatchPostDto.ListResDto.toHomeListResDto(matchPost, true)).toList());
+        listResDtoList.addAll(AwaylistResDtoList.stream().map(matchPost -> MatchPostDto.ListResDto.toAwayListResDto(matchPost, true)).toList());
 
         return listResDtoList;
     }

@@ -51,7 +51,7 @@ public class ClubRestController {
     }
 
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("/dashboard/{clubId}")
+    @GetMapping("/setting/{clubId}")
     public ResponseEntity<ClubDto.SettingDetailResDto> settingDetail(@PathVariable Long clubId) {
         return ResponseEntity.ok(clubService.settingDetail(clubId));
     }

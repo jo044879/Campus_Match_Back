@@ -33,7 +33,7 @@ public class MatchHistoryService {
     }
 
     public List<MatchHistoryDto.ListResDto> list(Long clubId) {
-        List<MatchHistory> matchesHistory = matchHistoryRepository.findByClubIdOrderByMatchDateDesc(clubId);
+        List<MatchHistory> matchesHistory = matchHistoryRepository.findByClubId(clubId);
         return matchesHistory.stream().map(MatchHistoryDto.ListResDto::toListResDto).toList();
     }
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface MatchPostRepository extends JpaRepository<MatchPost, Long> {
@@ -16,5 +15,7 @@ public interface MatchPostRepository extends JpaRepository<MatchPost, Long> {
     List<MatchPost> findByAwayClubAndStatusAndMatchDateGreaterThan(Club awayClub, Boolean status, LocalDate targetDate);
     List<MatchPost> findByHomeClubAndStatusAndMatchDate(Club homeClub, Boolean status, LocalDate matchDate);
     List<MatchPost> findByAwayClubAndStatusAndMatchDate(Club awayClub, Boolean status, LocalDate matchDate);
-
+    List<MatchPost> findByHomeClubAndStatusAndDeleted(Club homeClub, Boolean status, Boolean deleted);
+    List<MatchPost> findByAwayClubAndStatusAndDeleted(Club awayClub, Boolean status, Boolean deleted);
+    List<MatchPost> findByStatusAndDeletedAndMatchDateLessThan(Boolean status, Boolean deleted, LocalDate targetDate);
 }

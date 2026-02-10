@@ -8,6 +8,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,6 +31,9 @@ public class MatchPost extends AuditingFields {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "away_club_id", nullable = false)
     private Club awayClub;
+
+    @OneToMany(mappedBy = "matchPost")
+    private List<MatchRequest> matchRequestList = new ArrayList<>();
 
     protected MatchPost() {}
     private MatchPost(String sportCategory, LocalDate matchDate, String location, LocalTime startTime, LocalTime endTime, String content, Boolean status, Club homeClub, Club awayClub) {

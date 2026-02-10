@@ -50,6 +50,9 @@ public class Club extends AuditingFields {
     @OneToMany(mappedBy = "awayClub")
     private List<MatchPost> awayMatchPostList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "senderClub")
+    private List<MatchRequest> matchRequestList = new ArrayList<>();
+
     protected Club(){}
     private Club(String username, String password, String name, String university, String phone, String email, String clubName, String description, String region, String sportCategory, int totalMatches, int totalWins, int totalDraws, int totalLosses, double mannerScore) {
         this.username = username;

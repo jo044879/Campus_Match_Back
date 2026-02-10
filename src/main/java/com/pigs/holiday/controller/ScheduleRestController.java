@@ -1,6 +1,5 @@
 package com.pigs.holiday.controller;
 
-
 import com.pigs.holiday.dto.ScheduleDto;
 import com.pigs.holiday.security.PrincipalDetails;
 import com.pigs.holiday.service.ClubService;

@@ -15,7 +15,8 @@ import java.util.List;
 @Entity
 public class Gallery extends AuditingFields {
     LocalDate matchDate;
-    String name;
+    String title;
+    Boolean isOfficial;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "club_id", nullable = false)
@@ -25,12 +26,13 @@ public class Gallery extends AuditingFields {
     private List<GalleryImage> galleryImageList = new ArrayList<>();
 
     protected Gallery(){}
-    private Gallery(LocalDate matchDate, String name, Club club) {
+    private Gallery(LocalDate matchDate, String title,Boolean isOfficial, Club club) {
         this.matchDate = matchDate;
-        this.name = name;
+        this.title = title;
+        this.isOfficial = isOfficial;
         this.club = club;
     }
-    public static Gallery of(LocalDate matchDate, String name, Club club) {
-        return new Gallery(matchDate, name, club);
+    public static Gallery of(LocalDate matchDate, String title,Boolean isOfficial, Club club) {
+        return new Gallery(matchDate, title, isOfficial, club);
     }
 }

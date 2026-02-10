@@ -1,18 +1,15 @@
 package com.pigs.holiday.dto;
-
 import com.pigs.holiday.domain.Club;
 import com.pigs.holiday.domain.MatchHistory;
-import com.pigs.holiday.domain.MatchPost;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 
 public class MatchHistoryDto {
 
     @Getter
-    @Setter // Setter는 가급적 닫는 게 좋지만 일단 둡니다
+    @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateReqDto {

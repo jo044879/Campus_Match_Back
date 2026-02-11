@@ -18,7 +18,6 @@ import java.util.List;
 public class ScheduleRestController {
 
     final ScheduleService scheduleService;
-    private final ClubService clubService;
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/{clubId}")

@@ -32,8 +32,6 @@ public class SecurityConfig {
     private final AuthService authService;
     private final ExternalProperties externalProperties;
 
-    // ❌ 기존의 CorsFilterConfiguration 주입 코드는 삭제했습니다.
-
     // Jackson ObjectMapper bean
     @Bean
     static ObjectMapper objectMapper() {
@@ -77,7 +75,7 @@ public class SecurityConfig {
     }
 
     /**
-     * ✅ CORS 설정 (여기가 핵심입니다)
+     * CORS 설정
      */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -85,7 +83,7 @@ public class SecurityConfig {
 
         // 1. 허용할 출처 (프론트엔드 배포 주소 + 로컬 테스트용)
         config.setAllowedOrigins(Arrays.asList(
-                "https://campus-match-front.vercel.app", // 👈 배포된 프론트 주소 (뒤에 '/' 없음 주의)
+                "https://campus-match-front.vercel.app", // 배포된 프론트 주소
                 "http://localhost:3000"                    // (선택) 로컬 개발용
         ));
 
@@ -117,8 +115,6 @@ public class SecurityConfig {
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, objectMapper, authService, externalProperties);
             jwtAuthenticationFilter.setFilterProcessesUrl("/api/login");
-
-            // ❌ 여기서 addFilter(corsFilter) 하던 코드는 삭제했습니다. (위의 .cors()가 자동으로 처리함)
 
             http
                     // 로그인 필터

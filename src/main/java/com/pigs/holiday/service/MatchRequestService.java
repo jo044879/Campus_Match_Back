@@ -3,7 +3,6 @@ package com.pigs.holiday.service;
 import com.pigs.holiday.domain.Club;
 import com.pigs.holiday.domain.MatchPost;
 import com.pigs.holiday.domain.MatchRequest;
-import com.pigs.holiday.dto.MatchPostDto;
 import com.pigs.holiday.dto.MatchRequestDto;
 import com.pigs.holiday.exception.NoPermissionException;
 import com.pigs.holiday.repository.ClubRepository;

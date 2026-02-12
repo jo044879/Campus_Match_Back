@@ -23,8 +23,6 @@ public class ClubRestController {
         return ResponseEntity.ok(clubService.signup(signupReqDto));
     }
 
-    //@PreAuthorize("hasRole('USER')")
-
     @PreAuthorize("hasRole('USER')")
     @PostMapping("")
     public ResponseEntity<ClubDto.CreateResDto> create(@RequestBody ClubDto.CreateReqDto createReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {

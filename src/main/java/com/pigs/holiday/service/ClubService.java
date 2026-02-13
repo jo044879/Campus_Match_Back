@@ -110,4 +110,20 @@ public class ClubService {
     }
 
 
+    //매너온도 세팅하는 거 로직 짜야함
+
+    @Transactional
+    public ClubDto.MannerScoreRes manner(ClubDto.MannerScoreReq mannerScoreReq,Long clubId) {
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("manner Error"));
+
+        if(mannerScoreReq.getManner() == true) {
+            club.setMannerScore(club.getMannerScore() + 1);
+        }
+        else {
+            club.setMannerScore(club.getMannerScore() - 1);
+        }
+        return ClubDto.MannerScoreRes.builder().clubId(clubId).build();
+    }
+
+
 }

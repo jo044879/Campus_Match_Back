@@ -191,11 +191,19 @@ public class ClubDto {
     }
 
     //동아리 온도 수정 미완
-    /*
+
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class
-    */
+    public static class MannerScoreReq {
+        Boolean manner;
+    }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MannerScoreRes {
+        Long clubId;
+    }
     //검색 페이지 미완
+
+
 
 
 

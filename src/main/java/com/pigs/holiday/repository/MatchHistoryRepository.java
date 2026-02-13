@@ -9,5 +9,4 @@ import java.util.List;
 public interface MatchHistoryRepository extends JpaRepository<MatchHistory, Long> {
     @Query("SELECT m FROM MatchHistory m WHERE (m.homeClub.id = :clubId OR m.awayClub.id = :clubId) AND m.deleted = false ORDER BY m.matchDate DESC")
     List<MatchHistory> findByClubId(@Param("clubId") Long clubId);
-
 }

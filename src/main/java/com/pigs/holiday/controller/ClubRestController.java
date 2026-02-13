@@ -60,5 +60,10 @@ public class ClubRestController {
         return ResponseEntity.ok(clubService.delete(clubId));
     }
 
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("/mannerScore/{clubId}")
+    public ResponseEntity<ClubDto.MannerScoreRes> manner(@RequestBody ClubDto.MannerScoreReq mannerScoreReq, @PathVariable Long clubId) {
+        return ResponseEntity.ok(clubService.manner(mannerScoreReq,clubId));
+    }
 
 }

@@ -16,11 +16,24 @@ import java.util.List;
 @RestController
 public class ClubRestController {
 
+    public Long getReqUserId(PrincipalDetails principalDetails) {
+        if(principalDetails == null || principalDetails.getUser() == null || principalDetails.getUser().getId() == null) {
+            return null;
+        }
+
+        return principalDetails.getUser().getId();
+    }
+
     final ClubService clubService;
 
     @PostMapping("/signup")
     public ResponseEntity<ClubDto.SignupResDto> signup(@RequestBody ClubDto.SignupReqDto signupReqDto){
         return ResponseEntity.ok(clubService.signup(signupReqDto));
+    }
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/clubId")
+    public ResponseEntity<Long> sendId(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok(getReqUserId(principalDetails));
     }
 
     @PreAuthorize("hasRole('USER')")

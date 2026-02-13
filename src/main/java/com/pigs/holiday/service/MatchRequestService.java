@@ -25,9 +25,9 @@ public class MatchRequestService {
     final MatchPostRepository matchPostRepository;
 
     // Create
-    public MatchRequestDto.CreateResDto create(Long matchPostId ,MatchRequestDto.CreateReqDto createReqDto, Long requestClubId){
+    public MatchRequestDto.CreateResDto create(Long matchPostId, MatchRequestDto.CreateReqDto createReqDto, Long requestClubId){
         Club club = clubRepository.findById(requestClubId).orElseThrow(() -> new EntityNotFoundException("MatchRequest Create Error"));
-        MatchPost matchPost = matchPostRepository.findById(requestClubId).orElseThrow(() -> new EntityNotFoundException("MatchRequest Create Error"));
+        MatchPost matchPost = matchPostRepository.findById(matchPostId).orElseThrow(() -> new EntityNotFoundException("MatchRequest Create Error"));
         MatchRequest matchRequest = createReqDto.toEntity();
         matchRequest.setSenderClub(club);
         matchRequest.setMatchPost(matchPost);

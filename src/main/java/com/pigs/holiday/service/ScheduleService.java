@@ -1,15 +1,18 @@
 package com.pigs.holiday.service;
 
 import com.pigs.holiday.domain.Club;
+import com.pigs.holiday.domain.Notification;
 import com.pigs.holiday.domain.Schedule;
 import com.pigs.holiday.dto.ScheduleDto;
 import com.pigs.holiday.repository.ClubRepository;
+import com.pigs.holiday.repository.NotificationRepository;
 import com.pigs.holiday.repository.ScheduleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,11 +21,17 @@ public class ScheduleService {
 
     final ScheduleRepository scheduleRepository;
     final ClubRepository clubRepository;
+    final NotificationRepository notificationRepository;
 
     public ScheduleDto.CreateResDto create(ScheduleDto.CreateReqDto createReqDto, Long clubId){
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("schedule Create Error"));
         Schedule schedule = createReqDto.toEntity(club);
         schedule.setClub(club);
+
+        LocalDate today = LocalDate.now();
+        Notification notification = Notification.of("schedule", today, schedule.getTitle(), false, club, null);
+        notificationRepository.save(notification);
+
         return ScheduleDto.CreateResDto.toCreateResDto(scheduleRepository.save(schedule));
     }
 

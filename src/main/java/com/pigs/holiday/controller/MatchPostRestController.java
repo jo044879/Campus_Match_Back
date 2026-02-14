@@ -130,4 +130,18 @@ public class MatchPostRestController {
     public ResponseEntity<MatchPostDto.FinishDetailResDto> finishDetail(@PathVariable Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
         return ResponseEntity.ok(matchPostService.finishDetail(matchPostId, getReqUserId(principalDetails)));
     }
+
+    // ScheduleList
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/schedule/{clubId}")
+    public ResponseEntity<List<MatchPostDto.ScheduleListResDto>> scheduleList(@PathVariable Long clubId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok(matchPostService.scheduleList(clubId, getReqUserId(principalDetails)));
+    }
+
+    // ScheduleDetail
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/schedule/detail/{clubId}")
+    public ResponseEntity<List<MatchPostDto.ScheduleListResDto>> scheduleList(@PathVariable Long clubId, @RequestParam("matchPostId") Long matchPostId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok(matchPostService.scheduleList(clubId, matchPostId));
+    }
 }

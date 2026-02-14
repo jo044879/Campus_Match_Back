@@ -31,7 +31,7 @@ public class ClubRestController {
         return ResponseEntity.ok(clubService.signup(signupReqDto));
     }
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/clubId")
+    @GetMapping("/clubId")
     public ResponseEntity<Long> sendId(@AuthenticationPrincipal PrincipalDetails principalDetails){
         return ResponseEntity.ok(getReqUserId(principalDetails));
     }
@@ -60,13 +60,13 @@ public class ClubRestController {
         return ResponseEntity.ok(clubService.dashboardUpdate(dashboardUpdateReqDto, clubId));
     }
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping("/setting/{clubId}")
     public ResponseEntity<ClubDto.SettingDetailResDto> settingDetail(@PathVariable Long clubId) {
         return ResponseEntity.ok(clubService.settingDetail(clubId));
     }
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @PutMapping("/setting/{clubId}")
     public ResponseEntity<ClubDto.SettingUpdateResDto> settingUpdate (@RequestBody ClubDto.SettingUpdateReqDto settingUpdateReqDto, @PathVariable Long clubId) {
         return ResponseEntity.ok(clubService.settingUpdate(settingUpdateReqDto, clubId));

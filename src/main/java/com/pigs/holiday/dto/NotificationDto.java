@@ -10,7 +10,7 @@ import java.util.List;
 
 public class NotificationDto {
 
-    // Check Request Dto
+    // Check Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class CheckResDto {
         Boolean isNew;
@@ -20,47 +20,110 @@ public class NotificationDto {
         }
     }
 
-    // Create Request Dto
+    // List Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ListResDto {
         int defaultNoti;
         int sendNoti;
         int receiveNoti;
         int finishNoti;
+        Long clubId;
 
         List<DetailResDto> detailResDtoList;
     }
 
-    // Create Request Dto
+    // Detail Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class DetailResDto {
+        Long notificationId;
         String notiType;
         String content;
-        Long clubId;
+        String awayClubName;
+        String awayClubUniversity;
+        Long awayClubId;
 
         public static DetailResDto toRematchDetailResDto(Notification notification) {
             return builder()
+                    .notificationId(notification.getId())
                     .notiType(notification.getNotiType())
-                    .clubId(notification.getClub().getId())
+                    .awayClubName(notification.getAwayClub().getName())
+                    .awayClubUniversity(notification.getAwayClub().getUniversity())
+                    .awayClubId(notification.getAwayClub().getId())
                     .build();
         }
 
         public static DetailResDto toRemindDetailResDto(Notification notification) {
             return builder()
+                    .notificationId(notification.getId())
+                    .notiType(notification.getNotiType())
+                    .awayClubName(notification.getAwayClub().getName())
+                    .awayClubUniversity(notification.getAwayClub().getUniversity())
                     .build();
         }
 
         public static DetailResDto toScheduleDetailResDto(Notification notification) {
             return builder()
+                    .notificationId(notification.getId())
                     .notiType(notification.getNotiType())
+                    .content(notification.getContent())
                     .build();
         }
 
         public static DetailResDto toMatchCancelDetailResDto(Notification notification) {
             return builder()
+                    .notificationId(notification.getId())
                     .notiType(notification.getNotiType())
+                    .awayClubName(notification.getAwayClub().getName())
+                    .awayClubUniversity(notification.getAwayClub().getUniversity())
                     .content(notification.getContent())
                     .build();
+        }
+
+        public static DetailResDto toSendYesDetailResDto(Notification notification) {
+            return builder()
+                    .notificationId(notification.getId())
+                    .notiType(notification.getNotiType())
+                    .awayClubName(notification.getAwayClub().getName())
+                    .awayClubUniversity(notification.getAwayClub().getUniversity())
+                    .build();
+        }
+
+        public static DetailResDto toSendNoDetailResDto(Notification notification) {
+            return builder()
+                    .notificationId(notification.getId())
+                    .notiType(notification.getNotiType())
+                    .awayClubName(notification.getAwayClub().getName())
+                    .awayClubUniversity(notification.getAwayClub().getUniversity())
+                    .content(notification.getContent())
+                    .build();
+        }
+
+        public static DetailResDto toReceiveDetailResDto(Notification notification) {
+            return builder()
+                    .notificationId(notification.getId())
+                    .notiType(notification.getNotiType())
+                    .awayClubName(notification.getAwayClub().getName())
+                    .awayClubUniversity(notification.getAwayClub().getUniversity())
+                    .build();
+        }
+
+        public static DetailResDto toFinishDetailResDto(Notification notification) {
+            return builder()
+                    .notificationId(notification.getId())
+                    .notiType(notification.getNotiType())
+                    .awayClubName(notification.getAwayClub().getName())
+                    .awayClubUniversity(notification.getAwayClub().getUniversity())
+                    .build();
+        }
+    }
+
+    // Delete Response Dto
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class DeleteResDto {
+        Long notificationId;
+
+        public static DeleteResDto toDeleteResDto(Notification notification) {
+            return DeleteResDto.builder().notificationId(notification.getId()).build();
         }
     }
 }

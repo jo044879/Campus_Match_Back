@@ -3,16 +3,19 @@ package com.pigs.holiday.service;
 import com.pigs.holiday.domain.Club;
 import com.pigs.holiday.domain.MatchPost;
 import com.pigs.holiday.domain.MatchRequest;
+import com.pigs.holiday.domain.Notification;
 import com.pigs.holiday.dto.MatchRequestDto;
 import com.pigs.holiday.exception.NoPermissionException;
 import com.pigs.holiday.repository.ClubRepository;
 import com.pigs.holiday.repository.MatchPostRepository;
 import com.pigs.holiday.repository.MatchRequestRepository;
+import com.pigs.holiday.repository.NotificationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +26,7 @@ public class MatchRequestService {
     final MatchRequestRepository matchRequestRepository;
     final ClubRepository clubRepository;
     final MatchPostRepository matchPostRepository;
+    final NotificationRepository notificationRepository;
 
     // Create
     public MatchRequestDto.CreateResDto create(Long matchPostId, MatchRequestDto.CreateReqDto createReqDto, Long requestClubId){
@@ -31,6 +35,10 @@ public class MatchRequestService {
         MatchRequest matchRequest = createReqDto.toEntity();
         matchRequest.setSenderClub(club);
         matchRequest.setMatchPost(matchPost);
+
+        LocalDate today = LocalDate.now();
+        Notification notification = Notification.of("receive", today, "", false, matchPost.getHomeClub(), club);
+        notificationRepository.save(notification);
 
         return MatchRequestDto.CreateResDto.toCreateResDto(matchRequestRepository.save(matchRequest));
     }
@@ -87,7 +95,9 @@ public class MatchRequestService {
 
         matchRequest.setDeleted(true);
 
-        // notification
+        LocalDate today = LocalDate.now();
+        Notification notification = Notification.of("sendNo", today, "", false, matchRequest.getMatchPost().getAwayClub(), matchRequest.getMatchPost().getHomeClub());
+        notificationRepository.save(notification);
 
         return MatchRequestDto.DeleteResDto.builder().matchRequestId(matchRequest.getId()).build();
     }
@@ -108,7 +118,9 @@ public class MatchRequestService {
 
         matchRequestRepository.deleteByMatchPost(matchPost);
 
-        // notification
+        LocalDate today = LocalDate.now();
+        Notification notification = Notification.of("sendYes", today, "", false, matchPost.getAwayClub(), matchPost.getHomeClub());
+        notificationRepository.save(notification);
 
         return MatchRequestDto.UpdateResDto.builder().matchRequestId(matchRequest.getId()).build();
     }

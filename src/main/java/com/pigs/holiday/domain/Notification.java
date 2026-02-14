@@ -23,15 +23,20 @@ public class Notification extends AuditingFields {
     @JoinColumn(name = "club_id", nullable = false)
     private Club club;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "away_club_id", nullable = false)
+    private Club awayClub;
+
     protected Notification(){}
-    private Notification(String notiType, LocalDate notiDate, String content, Boolean isRead, Club club) {
+    private Notification(String notiType, LocalDate notiDate, String content, Boolean isRead, Club club, Club awayClub) {
         this.notiType = notiType;
         this.notiDate = notiDate;
         this.content = content;
         this.isRead = isRead;
         this.club = club;
+        this.awayClub = awayClub;
     }
-    public static Notification of(String notiType, LocalDate notiDate, String content, Boolean isRead, Club club) {
-        return new Notification(notiType, notiDate, content, isRead, club);
+    public static Notification of(String notiType, LocalDate notiDate, String content, Boolean isRead, Club club, Club awayClub) {
+        return new Notification(notiType, notiDate, content, isRead, club, awayClub);
     }
 }

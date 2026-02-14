@@ -54,7 +54,8 @@ public class MatchPostDto {
         String sportCategory;
         LocalDate matchDate;
         String location;
-        String ClubName;
+        Long clubId;
+        String clubName;
         String university;
         double mannerScore;
         Boolean myPost;
@@ -66,7 +67,8 @@ public class MatchPostDto {
                     .sportCategory(matchPost.getSportCategory())
                     .matchDate(matchPost.getMatchDate())
                     .location(matchPost.getLocation())
-                    .ClubName(matchPost.getHomeClub().getClubName())
+                    .clubId(matchPost.getHomeClub().getId())
+                    .clubName(matchPost.getHomeClub().getClubName())
                     .university(matchPost.getHomeClub().getUniversity())
                     .mannerScore(matchPost.getHomeClub().getMannerScore())
                     .myPost(myPost)
@@ -80,7 +82,8 @@ public class MatchPostDto {
                     .sportCategory(matchPost.getSportCategory())
                     .matchDate(matchPost.getMatchDate())
                     .location(matchPost.getLocation())
-                    .ClubName(matchPost.getAwayClub().getClubName())
+                    .clubId(matchPost.getAwayClub().getId())
+                    .clubName(matchPost.getAwayClub().getClubName())
                     .university(matchPost.getAwayClub().getUniversity())
                     .mannerScore(matchPost.getAwayClub().getMannerScore())
                     .myPost(myPost)
@@ -94,7 +97,8 @@ public class MatchPostDto {
                     .sportCategory(matchPost.getSportCategory())
                     .matchDate(matchPost.getMatchDate())
                     .location(matchPost.getLocation())
-                    .ClubName(matchPost.getHomeClub().getClubName())
+                    .clubId(matchPost.getHomeClub().getId())
+                    .clubName(matchPost.getHomeClub().getClubName())
                     .university(matchPost.getHomeClub().getUniversity())
                     .mannerScore(matchPost.getHomeClub().getMannerScore())
                     .myPost(myPost)
@@ -249,6 +253,84 @@ public class MatchPostDto {
                     .oppositionClubId(matchPost.getHomeClub().getId())
                     .matchDate(matchPost.getMatchDate())
                     .location(matchPost.getLocation())
+                    .build();
+        }
+    }
+
+    // scheduleList Response Dto
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class ScheduleListResDto {
+        Long matchPostId;
+        LocalDate matchDate;
+        Long clubId;
+        String university;
+        String clubName;
+        Boolean status;
+
+        public static ScheduleListResDto toScheduleHomeListDto(MatchPost matchPost) {
+            return builder()
+                    .matchPostId(matchPost.getId())
+                    .matchDate(matchPost.getMatchDate())
+                    .clubId(matchPost.getAwayClub().getId())
+                    .university(matchPost.getAwayClub().getUniversity())
+                    .clubName(matchPost.getAwayClub().getClubName())
+                    .status(matchPost.getStatus())
+                    .build();
+        }
+
+        public static ScheduleListResDto toScheduleAwayListDto(MatchPost matchPost) {
+            return builder()
+                    .matchPostId(matchPost.getId())
+                    .matchDate(matchPost.getMatchDate())
+                    .clubId(matchPost.getHomeClub().getId())
+                    .university(matchPost.getHomeClub().getUniversity())
+                    .clubName(matchPost.getHomeClub().getClubName())
+                    .status(matchPost.getStatus())
+                    .build();
+        }
+    }
+
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class ScheduleDetailResDto {
+        String sportCategory;
+        LocalDate matchDate;
+        LocalTime startTime;
+        LocalTime endTime;
+        String location;
+        String university;
+        String clubName;
+        String phone;
+        String content;
+        Boolean status;
+
+        public static ScheduleDetailResDto toScheduleHomeDetailDto(MatchPost matchPost) {
+            return builder()
+                    .sportCategory(matchPost.getSportCategory())
+                    .matchDate(matchPost.getMatchDate())
+                    .startTime(matchPost.getStartTime())
+                    .endTime(matchPost.getEndTime())
+                    .location(matchPost.getLocation())
+                    .university(matchPost.getAwayClub().getUniversity())
+                    .clubName(matchPost.getAwayClub().getClubName())
+                    .phone(matchPost.getAwayClub().getPhone())
+                    .content(matchPost.getContent())
+                    .status(matchPost.getStatus())
+                    .build();
+        }
+
+        public static ScheduleDetailResDto toScheduleAwayDetailDto(MatchPost matchPost) {
+            return builder()
+                    .sportCategory(matchPost.getSportCategory())
+                    .matchDate(matchPost.getMatchDate())
+                    .startTime(matchPost.getStartTime())
+                    .endTime(matchPost.getEndTime())
+                    .location(matchPost.getLocation())
+                    .university(matchPost.getHomeClub().getUniversity())
+                    .clubName(matchPost.getHomeClub().getClubName())
+                    .phone(matchPost.getHomeClub().getPhone())
+                    .content(matchPost.getContent())
+                    .status(matchPost.getStatus())
                     .build();
         }
     }

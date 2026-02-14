@@ -67,6 +67,7 @@ public class MatchRequestDto {
         String sportCategory;
         LocalDate matchDate;
         String location;
+        Long clubId;
         String clubName;
         String university;
         Boolean myRequest;
@@ -78,6 +79,7 @@ public class MatchRequestDto {
                     .sportCategory(matchRequest.getMatchPost().getSportCategory())
                     .matchDate(matchRequest.getMatchPost().getMatchDate())
                     .location(matchRequest.getMatchPost().getLocation())
+                    .clubId(matchRequest.getSenderClub().getId())
                     .clubName(matchRequest.getSenderClub().getClubName())
                     .university(matchRequest.getSenderClub().getUniversity())
                     .myRequest(myRequest)
@@ -91,6 +93,7 @@ public class MatchRequestDto {
                     .sportCategory(matchRequest.getMatchPost().getSportCategory())
                     .matchDate(matchRequest.getMatchPost().getMatchDate())
                     .location(matchRequest.getMatchPost().getLocation())
+                    .clubId(matchRequest.getMatchPost().getHomeClub().getId())
                     .clubName(matchRequest.getMatchPost().getHomeClub().getClubName())
                     .university(matchRequest.getMatchPost().getHomeClub().getUniversity())
                     .myRequest(myRequest)

@@ -16,6 +16,14 @@ import java.util.List;
 @RestController
 public class ClubRestController {
 
+    public Long getReqUserId(PrincipalDetails principalDetails) {
+        if(principalDetails == null || principalDetails.getUser() == null || principalDetails.getUser().getId() == null) {
+            return null;
+        }
+
+        return principalDetails.getUser().getId();
+    }
+
     final ClubService clubService;
 
     @PostMapping("/signup")
@@ -23,6 +31,17 @@ public class ClubRestController {
         return ResponseEntity.ok(clubService.signup(signupReqDto));
     }
 
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/clubId")
+    public ResponseEntity<Long> sendId(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok(getReqUserId(principalDetails));
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("")
+    public ResponseEntity<ClubDto.CreateResDto> create(@RequestBody ClubDto.CreateReqDto createReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return ResponseEntity.ok(clubService.create(createReqDto));
+    }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/dashboard/{clubId}")
@@ -42,13 +61,13 @@ public class ClubRestController {
         return ResponseEntity.ok(clubService.dashboardUpdate(dashboardUpdateReqDto, clubId));
     }
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @GetMapping("/setting/{clubId}")
     public ResponseEntity<ClubDto.SettingDetailResDto> settingDetail(@PathVariable Long clubId) {
         return ResponseEntity.ok(clubService.settingDetail(clubId));
     }
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @PutMapping("/setting/{clubId}")
     public ResponseEntity<ClubDto.SettingUpdateResDto> settingUpdate(@RequestBody ClubDto.SettingUpdateReqDto settingUpdateReqDto, @PathVariable Long clubId) {
         return ResponseEntity.ok(clubService.settingUpdate(settingUpdateReqDto, clubId));

@@ -12,4 +12,5 @@ public interface GalleryRepository extends JpaRepository<Gallery, Long> {
     List<Gallery> findByClub(Club club);
 
     List<Gallery> findByClubAndIsOfficial(Club club, Boolean isOfficial);
+
 }

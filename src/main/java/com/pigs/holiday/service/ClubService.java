@@ -36,11 +36,6 @@ public class ClubService {
         return club.toSignupResDto();
     }
 
-    @Transactional
-    public ClubDto.CreateResDto create(ClubDto.CreateReqDto createReqDto) {
-        Club club = createReqDto.toEntity();
-        return ClubDto.CreateResDto.toCreateResDto(clubRepository.save(club));
-    }
 
     @Transactional
     public ClubDto.DashboardDetailResDto dashboardDetail(Long clubId) {
@@ -76,8 +71,6 @@ public class ClubService {
         Club club = clubRepository.findById(clubId)
                 .orElseThrow(() -> new EntityNotFoundException("Setting update Error: " + clubId + " not found"));
 
-        //if(!updateReqDto.getSportCategory().isBlank()){
-
         if(!settingUpdateReqDto.getUsername().isBlank()) {
             club.setUsername(settingUpdateReqDto.getUsername());
         }
@@ -89,6 +82,9 @@ public class ClubService {
         }
         if(!settingUpdateReqDto.getUniversity().isBlank()) {
             club.setUniversity(settingUpdateReqDto.getUniversity());
+        }
+        if(!settingUpdateReqDto.getPhone().isBlank()) {
+            club.setPhone(settingUpdateReqDto.getPhone());
         }
         if(!settingUpdateReqDto.getEmail().isBlank()) {
             club.setEmail(settingUpdateReqDto.getEmail());
@@ -111,6 +107,22 @@ public class ClubService {
         return ClubDto.SettingDeleteResDto.builder()
                 .clubId(clubId)
                 .build();
+    }
+
+
+    //매너온도 세팅하는 거 로직 짜야함
+
+    @Transactional
+    public ClubDto.MannerScoreRes manner(ClubDto.MannerScoreReq mannerScoreReq,Long clubId) {
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new EntityNotFoundException("manner Error"));
+
+        if(mannerScoreReq.getManner() == true) {
+            club.setMannerScore(club.getMannerScore() + 1);
+        }
+        else {
+            club.setMannerScore(club.getMannerScore() - 1);
+        }
+        return ClubDto.MannerScoreRes.builder().clubId(clubId).build();
     }
 
 

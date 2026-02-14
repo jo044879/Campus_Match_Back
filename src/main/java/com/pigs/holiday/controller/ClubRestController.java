@@ -27,9 +27,10 @@ public class ClubRestController {
     final ClubService clubService;
 
     @PostMapping("/signup")
-    public ResponseEntity<ClubDto.SignupResDto> signup(@RequestBody ClubDto.SignupReqDto signupReqDto){
+    public ResponseEntity<ClubDto.SignupResDto> signup(@RequestBody ClubDto.SignupReqDto signupReqDto) {
         return ResponseEntity.ok(clubService.signup(signupReqDto));
     }
+
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/clubId")
     public ResponseEntity<Long> sendId(@AuthenticationPrincipal PrincipalDetails principalDetails){
@@ -44,7 +45,7 @@ public class ClubRestController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/dashboard/{clubId}")
-    public  ResponseEntity<ClubDto.DashboardDetailResDto> dashboardDetail(@PathVariable Long clubId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<ClubDto.DashboardDetailResDto> dashboardDetail(@PathVariable Long clubId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         return ResponseEntity.ok(clubService.dashboardDetail(clubId));
     }
 
@@ -68,15 +69,20 @@ public class ClubRestController {
 
 //    @PreAuthorize("hasRole('USER')")
     @PutMapping("/setting/{clubId}")
-    public ResponseEntity<ClubDto.SettingUpdateResDto> settingUpdate (@RequestBody ClubDto.SettingUpdateReqDto settingUpdateReqDto, @PathVariable Long clubId) {
+    public ResponseEntity<ClubDto.SettingUpdateResDto> settingUpdate(@RequestBody ClubDto.SettingUpdateReqDto settingUpdateReqDto, @PathVariable Long clubId) {
         return ResponseEntity.ok(clubService.settingUpdate(settingUpdateReqDto, clubId));
     }
 
     @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/setting/{clubId}")
-    public ResponseEntity<ClubDto.SettingDeleteResDto> delete (@PathVariable Long clubId) {
+    public ResponseEntity<ClubDto.SettingDeleteResDto> delete(@PathVariable Long clubId) {
         return ResponseEntity.ok(clubService.delete(clubId));
     }
 
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("/mannerScore/{clubId}")
+    public ResponseEntity<ClubDto.MannerScoreRes> manner(@RequestBody ClubDto.MannerScoreReq mannerScoreReq, @PathVariable Long clubId) {
+        return ResponseEntity.ok(clubService.manner(mannerScoreReq,clubId));
+    }
 
 }

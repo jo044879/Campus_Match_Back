@@ -1,8 +1,10 @@
 package com.pigs.holiday.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import com.pigs.holiday.domain.Club;
 import lombok.experimental.SuperBuilder;
+
 
 public class ClubDto {
 
@@ -148,6 +150,7 @@ public class ClubDto {
         String password;
         String name;
         String university;
+        String phone;
         String email;
 
         public static SettingDetailResDto toSettingDetailResDto(Club club) {
@@ -157,6 +160,7 @@ public class ClubDto {
                     .password(club.getPassword())
                     .name(club.getName())
                     .university(club.getUniversity())
+                    .phone(club.getPhone())
                     .email(club.getEmail())
                     .build();
         }
@@ -169,6 +173,7 @@ public class ClubDto {
         String password;
         String university;
         String clubName;
+        String phone;
         String email;
 
     }
@@ -186,11 +191,19 @@ public class ClubDto {
     }
 
     //동아리 온도 수정 미완
-    /*
+
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class
-    */
+    public static class MannerScoreReq {
+        Boolean manner;
+    }
+
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class MannerScoreRes {
+        Long clubId;
+    }
     //검색 페이지 미완
+
+
 
 
 

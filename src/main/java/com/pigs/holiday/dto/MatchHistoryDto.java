@@ -67,21 +67,20 @@ public class MatchHistoryDto {
 
         Long matchHistoryId;
         LocalDate matchDate;
+        String university;
+        String clubName;
         String location;
-        boolean matchType;
         String result;
-        private Club homeClub;
-        private Club awayClub;
+
 
         public static MatchHistoryDto.ListResDto toListResDto(MatchHistory matchHistory) {
             return builder()
                     .matchHistoryId(matchHistory.getId())
                     .matchDate(matchHistory.getMatchDate())
+                    .university(matchHistory.getHomeClub().getUniversity())
+                    .clubName(matchHistory.getHomeClub().getClubName())
                     .location(matchHistory.getLocation())
-                    .matchType(matchHistory.getMatchType())
                     .result(matchHistory.getResult())
-                    .homeClub(matchHistory.getHomeClub())
-                    .awayClub(matchHistory.getAwayClub())
                     .build();
         }
     }
@@ -92,12 +91,11 @@ public class MatchHistoryDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class UpdateReqDto {
+        Long matchHistoryId;
+        Long oppositionClubId;
         LocalDate matchDate;
-        String location;
-        boolean matchType;
+        Boolean matchType;
         String result;
-        private Club homeClub;
-        private Club awayClub;
     }
 
     @Getter

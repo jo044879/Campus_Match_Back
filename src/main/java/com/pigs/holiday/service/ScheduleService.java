@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class ScheduleService {
 
     final ScheduleRepository scheduleRepository;
@@ -35,15 +37,13 @@ public class ScheduleService {
         return ScheduleDto.CreateResDto.toCreateResDto(scheduleRepository.save(schedule));
     }
 
-    public List<ScheduleDto.ListResDto> list(Long clubId){
+    //여기 고쳐야함 씨부럴
+    public List<ScheduleDto.ListResDto> list(Long clubId) {
         List<Schedule> schedulesList = scheduleRepository.findByClubIdAndDeleted(clubId, false);
+
         return schedulesList.stream()
-                .map(schedule -> {
-                    ScheduleDto.ListResDto dto = ScheduleDto.ListResDto.toListresDto(schedule);
-                    dto.setMyClub(true);
-                    return dto;
-                })
-                .toList();
+                .map(ScheduleDto.ListResDto::from)
+                .collect(Collectors.toList());
     }
 
     public ScheduleDto.DetailResDto detail(Long ScheduleId, Long clubId){
@@ -63,15 +63,23 @@ public class ScheduleService {
             throw new IllegalArgumentException("수정 권한이 없습니다.");
         }
 
-        Schedule.of(
-                reqDto.getTitle(),
-                reqDto.getStartDate(),
-                reqDto.getEndDate(),
-                reqDto.getClub(),
-                reqDto.getStartTime(),
-                reqDto.getEndTime()
-        );
-        return new ScheduleDto.UpdateResDto(scheduleId);
+        if (reqDto.getTitle() != null && !reqDto.getTitle().isBlank()) {
+            schedule.setTitle(reqDto.getTitle());
+        }
+        if (reqDto.getStartDate() != null) {
+            schedule.setStartDate(reqDto.getStartDate());
+        }
+        if(reqDto.getEndDate() != null) {
+            schedule.setEndDate(reqDto.getEndDate());
+        }
+        if (reqDto.getStartTime() != null) {
+            schedule.setStartTime(reqDto.getStartTime());
+        }
+        if(reqDto.getEndTime() != null) {
+            schedule.setEndTime(reqDto.getEndTime());
+        }
+
+        return ScheduleDto.UpdateResDto.builder().reqId(scheduleId).build();
     }
 
     @Transactional

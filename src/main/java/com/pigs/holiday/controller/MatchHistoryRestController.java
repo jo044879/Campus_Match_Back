@@ -38,8 +38,8 @@ public class MatchHistoryRestController {
 
     @PreAuthorize("hasRole('USER')")
     @DeleteMapping("")
-    public ResponseEntity<Void> delete(@RequestBody MatchHistoryDto.DeleteReqDto deleteReqDto){
-        matchHistoryService.delete(deleteReqDto.getMatchHistoryId());
+    public ResponseEntity<Void> delete(@RequestBody MatchHistoryDto.DeleteReqDto deleteReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails ){
+        matchHistoryService.delete(deleteReqDto.getMatchHistoryId(), principalDetails.getClub().getId());
         return ResponseEntity.ok().build();
     }
 

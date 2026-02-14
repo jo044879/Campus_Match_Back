@@ -1,6 +1,7 @@
 package com.pigs.holiday.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pigs.holiday.domain.Club;
 import com.pigs.holiday.domain.Schedule;
 import lombok.*;
@@ -58,22 +59,22 @@ public class ScheduleDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ListResDto {
+        @JsonProperty("scheduleId")
         Long id;
         String title;
-        @JsonFormat(pattern = "HH:mm")
+        @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate startDate;
-        @JsonFormat(pattern = "HH:mm")
+        @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate endDate;
-        private Club club;
         Boolean myClub;
 
-        public static ListResDto toListresDto(Schedule schedule) {
-            return builder()
+        public static ListResDto from(Schedule schedule) {
+            return ListResDto.builder()
                     .id(schedule.getId())
                     .title(schedule.getTitle())
                     .startDate(schedule.getStartDate())
                     .endDate(schedule.getEndDate())
-                    .club(schedule.getClub())
+                    .myClub(true)
                     .build();
         }
     }
@@ -117,9 +118,10 @@ public class ScheduleDto {
     public static class UpdateReqDto{
         Long id;
         String title;
+        @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate startDate;
+        @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate endDate;
-        Club club;
         @JsonFormat(pattern = "HH:mm")
         LocalTime startTime;
         @JsonFormat(pattern = "HH:mm")
